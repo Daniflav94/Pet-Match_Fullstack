@@ -1,0 +1,38 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #8cb9bd;
+  position: relative;
+  font-family: "Poppins", sans-serif;
+  padding-top: 6rem;
+}
+
+.h1 {
+  color: #fefbf6;
+  font-size: 6rem;
+  font-weight: 700;
+  color: #ecb159;
+}
+
+.title {
+  color: #fefbf6;
+  font-size: 3rem;
+  font-weight: 600;
+}
+
+.button{
+  border: 1px solid #f0e4c4;
+  color: #f0e4c4;
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+}
+
+.image {
+  width: 38%;
+  position: absolute;
+  bottom: 0;
+}

@@ -42,7 +42,6 @@ const verifyUserExist = async (email: string, type?: string) => {
 
 export const register = async (req: Request, res: Response) => {
   const data = req.body;
-  console.log(data)
 
   const user = await verifyUserExist(data.email, data.type);
 
