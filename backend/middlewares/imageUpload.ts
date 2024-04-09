@@ -3,9 +3,10 @@ import path from "path";
 
 const imageStorage = multer.diskStorage({
     destination: function(req, file, cb) {
+        console.log(req.baseUrl)
         let folder = ""
 
-        if(req.baseUrl.includes("admin")) {
+        if(req.baseUrl.includes("auth")) {
             folder = "organizations"
         }else if(req.baseUrl.includes("pets")) {
             folder = "pets"

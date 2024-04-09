@@ -42,11 +42,12 @@ const verifyUserExist = async (email: string, type?: string) => {
 
 export const register = async (req: Request, res: Response) => {
   const data = req.body;
+  const photo = req.file?.filename;
 
   const user = await verifyUserExist(data.email, data.type);
 
   if (user) {
-    res.status(400).json({ errors: ["Por favor, utilize outro e-mail"] });
+    res.status(400).json({ errors: ["Email já cadastrado."] });
     return;
   }
 
@@ -74,12 +75,6 @@ export const register = async (req: Request, res: Response) => {
       },
     });
   } else if (data.type === "admin") {
-    let photo = null;
-
-    if(req.file) {
-      photo = req.file.filename
-    }
-
     create = await prisma.admin.create({
       data: {
         name: data.name,
@@ -89,7 +84,7 @@ export const register = async (req: Request, res: Response) => {
         photo: photo as string,
         email: data.email,
         password: passwordHash,
-        cep: data.string,
+        cep: data.cep,
         state: data.state,
         city: data.city,
         street: data.street,

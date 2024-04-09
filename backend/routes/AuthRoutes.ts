@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.post("/login", loginValidation(), validate, login);
 router.post("/register/user", userCreateValidation(), validate, register);
-router.post("/register/admin", adminCreateValidation(), validate, imageUpload.single("photo"), register);
+router.post("/register/admin", imageUpload.single("photo"), adminCreateValidation(), validate, register);
 router.get("/profile", authGuard, getCurrentUser)
 
 module.exports = router;

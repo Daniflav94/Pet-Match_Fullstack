@@ -63,7 +63,6 @@ export const adminCreateValidation = () => {
     body("openingHours")
       .isString()
       .withMessage("O horário de funcionamento é obrigatório"),
-    body("photo").isString().withMessage("A foto é obrigatória"),
   ];
 };
 
