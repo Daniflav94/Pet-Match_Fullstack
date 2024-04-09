@@ -1,0 +1,99 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String         @id @default(uuid())
+  name         String
+  email        String         @unique
+  password     String
+  cpf          String         @unique
+  birthdate    DateTime       @db.Date
+  gender       String
+  phone        String
+  cep          String
+  state        String
+  city         String
+  street       String
+  neighborhood String
+  type         String
+  createdAt    DateTime       @default(now())
+  FormAdoption FormAdoption[]
+}
+
+model Admin {
+  id           String   @id @default(uuid())
+  name         String
+  email        String   @unique
+  password     String
+  cnpj         String   @unique
+  phone        String?
+  cellPhone    String
+  photo        String
+  cep          String
+  state        String
+  city         String
+  street       String
+  neighborhood String
+  number       String
+  openingHours String
+  type         String
+  createdAt    DateTime @default(now())
+  Pet          Pet[]
+}
+
+model Pet {
+  id             String   @id @default(uuid())
+  type           String
+  name           String
+  age            String
+  gender         String
+  size           String
+  photo          String
+  isAdopt        Boolean
+  personality    String[]
+  createdAt      DateTime @default(now())
+  organizationId String
+
+  organization Admin          @relation(fields: [organizationId], references: [id])
+  FormAdoption FormAdoption[]
+}
+
+model FormAdoption {
+  id           String   @id @default(uuid())
+  name         String
+  birthdate    DateTime
+  email        String
+  state        String
+  city         String
+  liveIn       String
+  children     Boolean
+  isFirstPet   Boolean
+  pets         Boolean
+  describePets String?
+  createdAt    DateTime @default(now())
+  petId        String
+  userId       String
+
+  pet           Pet             @relation(fields: [petId], references: [id])
+  user          User            @relation(fields: [userId], references: [id])
+  Notifications Notifications[]
+}
+
+model Notifications {
+  id             String   @id @default(uuid())
+  idReceiver     String
+  type           String
+  formAdoptionId String
+  isViewed       Boolean  @default(false)
+  wasApproved    Boolean?
+  message        String?
+  createdAt      DateTime @default(now())
+
+  formAdoption FormAdoption @relation(fields: [formAdoptionId], references: [id])
+}
