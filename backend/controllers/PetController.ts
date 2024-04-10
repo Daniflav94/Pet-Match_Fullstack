@@ -7,6 +7,15 @@ interface Req extends Request {
   user?: User | Admin | null;
 }
 
+interface IFilter {
+  type?: string;
+  size?: string;
+  age?: string;
+  gender?: string;
+  state?: string;
+  city?: string;
+}
+
 export const registerPet = async (req: Req, res: Response) => {
   const data = req.body;
   const photo = req.file?.filename;
@@ -96,6 +105,42 @@ export const getPetsAdmin = async (req: Req, res: Response) => {
   });
 };
 
+export const filterPets = async (req: Request, res: Response) => {
+  const filter: IFilter = req.body;
+
+  const pets = await prisma.pet.findMany({
+    where: { isAdopt: false, deletedAt: null },
+    include: {
+      organization: true,
+    },
+  });
+
+  let arrayPets = [];
+
+  const keys = Object.keys(filter) as Array<keyof typeof filter>;
+
+  if (pets) {
+    for (let pet of pets) {
+      let isFilteredPet: boolean[] = [];
+      keys.forEach((key) => {
+        if (key === "state" || key === "city") {
+          isFilteredPet.push(pet.organization[key] === filter[key]);
+        } else {
+          isFilteredPet.push(pet[key] === filter[key]);
+        }
+      });
+
+      if (!isFilteredPet.includes(false)) {
+        arrayPets.push(pet);
+      }
+    }
+  }
+
+  res.status(201).json({
+    data: arrayPets
+  })
+};
+
 export const deletePet = async (req: Request, res: Response) => {
   const { id } = req.params;
 
@@ -155,17 +200,19 @@ export const getMyPetsFavorites = async (req: Req, res: Response) => {
 };
 
 export const deletePetFavorite = async (req: Req, res: Response) => {
-    const { id } = req.params;
-    const userId = req.user?.id;
-  
-    const petFavorite = await prisma.favorites.findUnique({ where: { id, userId } });
-  
-    if (!petFavorite) {
-      res.status(400).json({ errors: ["Pet favoritado não encontrado."] });
-      return;
-    }
-  
-    await prisma.favorites.delete({ where: { id }});
-  
-    res.status(201).json("Pet desfavoritado.");
-  };
+  const { id } = req.params;
+  const userId = req.user?.id;
+
+  const petFavorite = await prisma.favorites.findUnique({
+    where: { id, userId },
+  });
+
+  if (!petFavorite) {
+    res.status(400).json({ errors: ["Pet favoritado não encontrado."] });
+    return;
+  }
+
+  await prisma.favorites.delete({ where: { id } });
+
+  res.status(201).json("Pet desfavoritado.");
+};

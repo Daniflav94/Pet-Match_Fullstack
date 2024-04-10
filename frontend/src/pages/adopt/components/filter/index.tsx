@@ -9,6 +9,7 @@ import { CustomButton } from "../../../../components/customButton";
 import { useForm } from "react-hook-form";
 import { listAllPets } from "../../../../services/pet.service";
 import { IPet } from "../../../../interfaces/IPet";
+import { IOrganization } from "../../../../interfaces/IOrganization";
 
 export interface State {
   id: number;
@@ -59,7 +60,7 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
 
       pets?.forEach((pet: IPet) => {
         const state = states.find(
-          (state: any) => state.value === pet.organization.state
+          (state: any) => state.value === (pet.organization as IOrganization).state
         );
 
         if (state) {
@@ -84,7 +85,7 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
 
     pets?.forEach((pet: IPet) => {
       const city = cities.find(
-        (city: SelectLocation) => city.value === pet.organization.city
+        (city: SelectLocation) => city.value === (pet.organization as IOrganization).city
       );
       if (city) {
         citiesFiltered.push(city);

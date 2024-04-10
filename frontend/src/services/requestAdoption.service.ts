@@ -22,7 +22,7 @@ export const createRequest = async (form: IFormAdoption) => {
     const notification: INotification = {
       type: "request_adoption",
       formAdoption: form,
-      uidReceiver: form.pet.organization.uid as string,
+      uidReceiver: form.pet.organization.id as string,
       createdAt: new Date().toLocaleDateString("pt-BR"),
       isViewed: false
     };
