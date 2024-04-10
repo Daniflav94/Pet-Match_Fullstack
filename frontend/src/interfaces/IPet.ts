@@ -10,6 +10,6 @@ export interface IPet {
     photo: string;
     isAdopt: boolean;
     personality: string[];
-    organization: IOrganization;
+    organization?: IOrganization;
     createdAt?: Date;
 }

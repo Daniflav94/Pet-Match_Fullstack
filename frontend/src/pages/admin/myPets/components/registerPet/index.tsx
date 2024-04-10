@@ -76,8 +76,7 @@ export function RegisterPet({ user, listAll }: Props) {
       size: data.size,
       photo: image,
       isAdopt: false,
-      personality: personality,
-      organization: user as IOrganization,
+      personality: personality
     };
 
     if (!data.age || !data.gender || !data.size || image === "") {

@@ -55,7 +55,7 @@ model Pet {
   gender         String
   size           String
   photo          String
-  isAdopt        Boolean
+  isAdopt        Boolean  @default(false)
   personality    String[]
   createdAt      DateTime @default(now())
   organizationId String
