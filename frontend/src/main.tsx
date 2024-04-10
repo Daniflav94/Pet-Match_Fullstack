@@ -14,11 +14,13 @@ import { MyPets } from "./pages/admin/myPets/index.tsx";
 import { Profile } from "./pages/profile/index.tsx";
 import { Favorites } from "./pages/favorites/index.tsx";
 import { NotificationsContextProvider } from "./contexts/notificationContext.tsx";
+import { ErrorPage } from "./components/errorPage/index.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
@@ -54,12 +56,12 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <NotificationsContextProvider>
-      <Theme>
-        <NextUIProvider>
-          <RouterProvider router={router} />
-        </NextUIProvider>
-      </Theme>
-    </NotificationsContextProvider>
+      <NotificationsContextProvider>
+        <Theme>
+          <NextUIProvider>
+            <RouterProvider router={router} />
+          </NextUIProvider>
+        </Theme>
+      </NotificationsContextProvider>
   </React.StrictMode>
 );

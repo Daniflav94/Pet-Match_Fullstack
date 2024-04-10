@@ -104,8 +104,7 @@ export const register = async (req: Request, res: Response) => {
   }
 
   res.status(201).json({
-    id: create.id,
-    token: generateToken(create.id),
+    data: create
   });
 };
 
@@ -125,7 +124,6 @@ export const login = async(req: Request, res: Response) => {
   }
 
   res.status(201).json({
-    user,
     token: generateToken(user.id),
   });
 };
@@ -133,6 +131,8 @@ export const login = async(req: Request, res: Response) => {
 export const getCurrentUser = async (req: Req, res: Response) => {
   const user = req.user;
 
-  res.status(200).json(user);
+  res.status(200).json({
+    data: user
+  });
 
 }

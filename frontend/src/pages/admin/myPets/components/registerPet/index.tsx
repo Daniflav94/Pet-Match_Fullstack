@@ -4,7 +4,6 @@ import dogIcon from "../../../../../assets/icons/dog.svg";
 import catIcon from "../../../../../assets/icons/cat.svg";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { IPet } from "../../../../../interfaces/IPet";
-import { IOrganization } from "../../../../../interfaces/IOrganization";
 import { Input, Radio, RadioGroup, Spinner } from "@nextui-org/react";
 import { Select, SelectItem } from "@nextui-org/react";
 import addPhoto from "../../../../../assets/images/adicionar-foto.png";
@@ -14,11 +13,11 @@ import { Toaster, toast } from "sonner";
 import { upload } from "../../../../../services/uploadStorage.service";
 
 type Props = {
-  user: IOrganization | undefined;
+  token: string;
   listAll: (id: string) => void;
 };
 
-export function RegisterPet({ user, listAll }: Props) {
+export function RegisterPet({ token, listAll }: Props) {
   const { handleSubmit, watch, setValue, register, reset, control } =
     useForm<IPet>();
 
@@ -59,11 +58,11 @@ export function RegisterPet({ user, listAll }: Props) {
 
   const handleImageChange = async (event: any) => {
     setLoadingImage(true);
-    const file = await upload(event.target.files[0]);
-    if (file) {
-      setLoadingImage(false);
-      setImage(file);
-    }
+    // const file = await upload(event.target.files[0]);
+    // if (file) {
+    //   setLoadingImage(false);
+    //   setImage(file);
+    // }
   };
 
   const onSubmit: SubmitHandler<IPet> = async (data) => {
@@ -85,12 +84,12 @@ export function RegisterPet({ user, listAll }: Props) {
       return;
     }
 
-    const res = await createPet(dataForm);
+    const res = await createPet(dataForm, token);
 
     if (res) {
       toast.success("Pet cadastrado com sucesso!");
 
-      listAll(user?.id as string);
+      listAll(token);
     } else {
       toast.error("Ocorreu um erro ao cadastrar. Tente novamente mais tarde.");
     }

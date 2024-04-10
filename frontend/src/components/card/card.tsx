@@ -13,15 +13,14 @@ import { Heart, ThumbsDown, ThumbsUp, Trash2 } from "lucide-react";
 import { addPetListFavorites, editPet, removePetListFavorites } from "../../services/pet.service";
 import Lottie from "react-lottie";
 import animationSuccess from "../../assets/animations/animationSuccess.json";
-import { IUser } from "../../interfaces/IUser";
-import { IOrganization } from "../../interfaces/IOrganization";
 import { IFormAdoption } from "../../interfaces/IFormAdoption";
+import { uploads } from "../../utils/config";
 
 interface Props {
   pet: IPet;
   typeUser?: string;
   deletePet?: (id: string) => void;
-  userLogged?: IUser | IOrganization;
+  token?: string;
   favorites?: PetFavorite[];
   listRequestAdoption?: IFormAdoption[];
 }
@@ -35,7 +34,7 @@ export function Card({
   pet,
   typeUser,
   deletePet,
-  userLogged,
+  token,
   favorites,
   listRequestAdoption,
 }: Props) {
@@ -65,17 +64,17 @@ export function Card({
     }
     setTimeout(async () => {
       setIsAdopt(adopt);
-      await editPet(pet.id as string, edit);
+      await editPet(pet.id as string, edit, token as string);
     }, 700);
   }
 
   async function setPetFavorite(pet: IPet) {
     setIsFavorite(!isFavorite);
-    if (userLogged && !isFavorite) {
-      await addPetListFavorites(pet, userLogged.id as string);
+    if (token && !isFavorite) {
+      await addPetListFavorites(pet.id as string, token);
 
-    }else if(userLogged && isFavorite){
-      await removePetListFavorites(pet.id as string, userLogged.id as string)
+    }else if(token && isFavorite){
+      await removePetListFavorites(pet.id as string, token)
     }
   }
 
@@ -146,7 +145,7 @@ export function Card({
           </motion.button>
         )}
 
-        <S.Image src={pet.photo} alt="" />
+        <S.Image src={`${uploads}/pets/${pet.photo}`} alt="" />
         <S.Title>{pet.name}</S.Title>
         <S.ContentCard>
           <S.ContainerItem>
@@ -210,7 +209,7 @@ export function Card({
 
         {isFormSent && <S.ButtonDisabled>Adoção solicitada</S.ButtonDisabled>}
       </S.ContainerCard>
-      <ModalAdopt pet={pet} setIsFormSent={setIsFormSent} />
+      <ModalAdopt pet={pet} setIsFormSent={setIsFormSent} token={token as string} />
     </Dialog.Root>
   );
 }

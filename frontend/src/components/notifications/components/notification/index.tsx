@@ -4,6 +4,8 @@ import { ModalContentNotification } from "../modalContentNotification";
 import * as S from "./styles";
 import * as Dialog from "@radix-ui/react-dialog";
 import { IUser } from "../../../../interfaces/IUser";
+import { IOrganization } from "../../../../interfaces/IOrganization";
+import { uploads } from "../../../../utils/config";
 
 type Props = {
   notification: INotification;
@@ -59,7 +61,7 @@ export function Notification({
           <>
           <S.ContentNotification>
             <S.Img
-              src={notification.formAdoption?.pet?.photo}
+              src={`${uploads}/pets/${notification.formAdoption?.pet?.photo}`}
               alt=""
             />
             <S.ContainerText>
@@ -71,7 +73,7 @@ export function Notification({
               )}
               <S.Date>{notification.createdAt.toLocaleDateString("pt-BR")}</S.Date>
               <S.Description>
-                {notification.formAdoption?.pet.organization.name} respondeu seu pedido de adoção para {notification.formAdoption?.pet.name}
+                {(notification.formAdoption?.pet.organization as IOrganization).name} respondeu seu pedido de adoção para {notification.formAdoption?.pet.name}
               </S.Description>
              
               <Dialog.Trigger>

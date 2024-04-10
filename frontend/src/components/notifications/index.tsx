@@ -9,15 +9,13 @@ import {
   getNotifications,
   updateNotification,
 } from "../../services/notifications.service";
-import { IOrganization } from "../../interfaces/IOrganization";
-import { IUser } from "../../interfaces/IUser";
 
 type Props = {
   setIsVisible: (visible: boolean) => void;
-  userLogged: IUser | IOrganization;
+  token: string;
 };
 
-export function Notifications({ setIsVisible, userLogged }: Props) {
+export function Notifications({ setIsVisible, token }: Props) {
   const { notifications, setNotifications } = useContext(NotificationsContext);
 
   const newNotification = notifications.some((n) => n.isViewed === false);
@@ -28,11 +26,11 @@ export function Notifications({ setIsVisible, userLogged }: Props) {
       isViewed: true,
     };
 
-    await updateNotification(id, notification);
+    await updateNotification(id, notification, token);
   }
 
   async function listNotifications() {
-    const res = await getNotifications(userLogged.id as string);
+    const res = await getNotifications(token);
 
     if (res.data) {
       setNotifications(res.data);

@@ -1,57 +1,37 @@
-import {
-  addDoc,
-  collection,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore";
 import { IFormAdoption } from "../interfaces/IFormAdoption";
-import { db } from "../firebase/config";
-import { INotification } from "../interfaces/INotification";
-import { createNotification } from "./notifications.service";
+import { api } from "../utils/config";
 
-function getErrorMessage(error: unknown) {
-  if (error instanceof Error) return error.message;
-  return String(error);
-}
-
-export const createRequest = async (form: IFormAdoption) => {
+export const createRequest = async (form: IFormAdoption, token: string) => {
   try {
-    const save = await addDoc(collection(db, "formsAdoption"), form);
+    const res = await fetch(`${api}/adoption/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(form),
+      
+    });
 
-    const notification: INotification = {
-      type: "request_adoption",
-      formAdoption: form,
-      uidReceiver: form.pet.organization.id as string,
-      createdAt: new Date().toLocaleDateString("pt-BR"),
-      isViewed: false
-    };
-
-    await createNotification(notification);
-
-    return { data: save };
+    return res.json();
   } catch (error) {
-    console.log(getErrorMessage(error));
-    return { error: getErrorMessage(error) };
+    console.log(error);
   }
 };
 
-export const getRequestsUser = async (uidUser: string) => {
+export const getRequestsUser = async (token: string) => {
   try {
-    let res: any[] = [];
-    const q = query(
-      collection(db, "formsAdoption"),
-      where("uidUser", "==", uidUser)
-    );
-    const querySnapshot = await getDocs(q);
-
-    querySnapshot.forEach((item) => {
-      res.push(item.data());
+    const res = await fetch(`${api}/adoption/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      
     });
 
-    return { data: res };
+    return res.json();
   } catch (error) {
-    console.log(getErrorMessage(error));
-    return { error: getErrorMessage(error) };
+    console.log(error);
   }
 };

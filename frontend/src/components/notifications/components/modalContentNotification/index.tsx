@@ -5,12 +5,12 @@ import { useEffect, useState } from "react";
 import { INotification } from "../../../../interfaces/INotification";
 import { SuccessMessageAdopt } from "../successMessage";
 import {
-  createNotification,
   updateNotification,
 } from "../../../../services/notifications.service";
 import { DeniedAdoption } from "../deniedAdoption";
 import { AdminContentNotification } from "./components/adminContent";
 import { UserContentNotification } from "./components/userContent";
+import { IUser } from "../../../../interfaces/IUser";
 
 type Props = {
   data: INotification;
@@ -35,7 +35,7 @@ export function ModalContentNotification({ data, listNotifications }: Props) {
     const current_month = now.getMonth() + 1;
     const current_day = now.getDate();
 
-    const birthdate = data.formAdoption?.user.birthdate as Date;
+    const birthdate = (data.formAdoption?.user as IUser).birthdate as Date;
     const birthdate_year = birthdate?.getFullYear();
     const birthdate_month = birthdate?.getMonth();
     const birthdate_day = birthdate?.getDay();

@@ -14,7 +14,6 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Toaster, toast } from "sonner";
 import { ApiCNPJ } from "../../../../services/apiCNPJ";
-import { IRegister } from "../../../../interfaces/IRegister";
 import { register as registerUser } from "../../../../services/auth.service";
 import { IOrganization } from "../../../../interfaces/IOrganization";
 import { CustomButton } from "../../../../components/customButton";
@@ -22,7 +21,6 @@ import addPhoto from "../../../../assets/images/imagem.png";
 import { upload } from "../../../../services/uploadStorage.service";
 
 interface SignUpAdmin extends IOrganization {
-  password: string;
   confirmPassword: string;
 }
 
@@ -63,7 +61,7 @@ export function RegisterAdmin({ setSignUpVisible }: Props) {
         number: yup.string().required("Campo obrigatório"),
         state: yup.string().required("Campo obrigatório"),
         city: yup.string().required("Campo obrigatório"),
-        cel: yup
+        cellPhone: yup
           .string()
           .required("Campo obrigatório")
           .length(15, "Verifique o número digitado"),
@@ -108,7 +106,7 @@ export function RegisterAdmin({ setSignUpVisible }: Props) {
   const [loading, setLoading] = useState(false);
   const [loadingImage, setLoadingImage] = useState(false);
 
-  const cellPhoneValue = watch("cel");
+  const cellPhoneValue = watch("cellPhone");
   const phoneValue = watch("phone");
   const cnpjValue = watch("cnpj");
   const cepValue = watch("cep");
@@ -122,24 +120,22 @@ export function RegisterAdmin({ setSignUpVisible }: Props) {
     setLoading(true);
     setValue("photo", image);
 
-    const user: IRegister = {
-      password: data.password,
+    const user: IOrganization = {
       type: "admin",
-      data: {
-        name: data.name,
-        cnpj: data.cnpj,
-        email: data.email,
-        photo: image,
-        phone: data.phone,
-        cel: data.cel,
-        cep: data.cep,
-        state: data.state,
-        city: data.city,
-        street: data.street,
-        neighborhood: data.neighborhood,
-        number: data.number,
-        openingHours: data.openingHours,
-      },
+      name: data.name,
+      cnpj: data.cnpj,
+      email: data.email,
+      password: data.password,
+      photo: image,
+      phone: data.phone,
+      cellPhone: data.cellPhone,
+      cep: data.cep,
+      state: data.state,
+      city: data.city,
+      street: data.street,
+      neighborhood: data.neighborhood,
+      number: data.number,
+      openingHours: data.openingHours,
     };
 
     const isValidCNPJ = await verifyCNPJ(data.cnpj);
@@ -147,7 +143,7 @@ export function RegisterAdmin({ setSignUpVisible }: Props) {
     if (isValidCNPJ) {
       const res = await registerUser(user);
 
-      if (!res) {
+      if (!res.data) {
         return toast.error(
           "Erro ao cadastrar usuário. Tente novamente mais tarde."
         );
@@ -184,7 +180,7 @@ export function RegisterAdmin({ setSignUpVisible }: Props) {
 
   const handleImageChange = async (event: any) => {
     setLoadingImage(true);
-    const file = await upload(event.target.files[0]);
+    const file = event.target.files[0];
     if (file) {
       setLoadingImage(false);
       setImage(file);
@@ -201,7 +197,7 @@ export function RegisterAdmin({ setSignUpVisible }: Props) {
   };
 
   useEffect(() => {
-    setValue("cel", normalizePhoneNumber(cellPhoneValue));
+    setValue("cellPhone", normalizePhoneNumber(cellPhoneValue));
   }, [cellPhoneValue]);
 
   useEffect(() => {
@@ -330,11 +326,11 @@ export function RegisterAdmin({ setSignUpVisible }: Props) {
             label="Celular"
             control={control}
             name={"cel"}
-            refs={register("cel")}
+            refs={register("cellPhone")}
             isRequired
-            color={errors.cel ? "danger" : "primary"}
-            errorMessage={errors.cel?.message}
-            isInvalid={errors.cel ? true : false}
+            color={errors.cellPhone ? "danger" : "primary"}
+            errorMessage={errors.cellPhone?.message}
+            isInvalid={errors.cellPhone ? true : false}
           />
 
           <InputCustom

@@ -8,30 +8,38 @@ import { useNavigate } from "react-router-dom";
 import { IPet } from "../../../interfaces/IPet";
 import { Card } from "../../../components/card/card";
 import { Spinner } from "@nextui-org/react";
+import { getCurrentUser } from "../../../services/auth.service";
 
 export function MyPets() {
   const [listPets, setListPets] = useState<IPet[]>([]);
-  const [userLogged, setUserLogged] = useState<IOrganization>();
+  const [token, setToken] = useState("");
+  const [user, setUser] = useState<IOrganization>();
   const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    const user = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
+    getUser();
 
-    if (user) {
-      const userObject = JSON.parse(user);
-      listAll(userObject.id);
-      setUserLogged(userObject);
-    } else if (!user || userLogged?.type === "user") {
+    if (token) {
+      listAll(token);
+      setToken(token);
+    } else if (!token || user?.type === "user") {
       navigate("/login");
     }
   }, []);
 
-  async function listAll(id: string) {
-    const res = await listMyPets(id);
+  async function getUser() {
+    const res = await getCurrentUser(token);
 
-    const resOrdered = res.data?.sort(function (a, b) {
+    setUser(res.data);
+  }
+
+  async function listAll(token: string) {
+    const res = await listMyPets(token);
+
+    const resOrdered = res.data?.sort(function (a: { isAdopt: number; }, b: { isAdopt: number; }) {
       return a.isAdopt < b.isAdopt ? -1 : a.isAdopt > b.isAdopt ? 1 : 0;
     });
 
@@ -43,16 +51,20 @@ export function MyPets() {
   }
 
   async function handleDeletePet(id: string) {
-    await deletePet(id);
+    await deletePet(id, token);
 
-    await listAll(userLogged?.id as string);
+    await listAll(token);
   }
 
   return (
     <S.Container>
-      <RegisterPet user={userLogged} listAll={listAll} />
+      <RegisterPet token={token} listAll={listAll} />
       {isLoading ? (
-        <Spinner size="lg" color="warning" style={{marginTop: "13rem"}}></Spinner>
+        <Spinner
+          size="lg"
+          color="warning"
+          style={{ marginTop: "13rem" }}
+        ></Spinner>
       ) : (
         <>
           {listPets.length > 0 && (
@@ -61,15 +73,19 @@ export function MyPets() {
                 <Card
                   key={pet.id}
                   pet={pet}
-                  typeUser={userLogged?.type}
+                  typeUser={user?.type}
                   deletePet={handleDeletePet}
+                  token={token}
                 />
               ))}
             </S.ContainerCards>
           )}
           {listPets.length === 0 && (
             <S.ContainerDefaultValue>
-              <S.Text>Você ainda não tem peludinhos cadastrados por enquanto! Comece preenchendo o formulário acima.</S.Text>
+              <S.Text>
+                Você ainda não tem peludinhos cadastrados por enquanto! Comece
+                preenchendo o formulário acima.
+              </S.Text>
               <S.Image src={cute} />
             </S.ContainerDefaultValue>
           )}

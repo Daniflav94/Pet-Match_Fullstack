@@ -14,12 +14,10 @@ import { getDataCep } from "../../../../services/viaCep";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Toaster, toast } from "sonner";
-import { IRegister } from "../../../../interfaces/IRegister";
 import { register as registerUser } from "../../../../services/auth.service";
 import { CustomButton } from "../../../../components/customButton";
 
 interface SignUpUser extends IUser {
-  password: string;
   confirmPassword: string;
 }
 
@@ -112,27 +110,25 @@ export function RegisterUser({ setSignUpVisible }: Props) {
   const onSubmit: SubmitHandler<SignUpUser> = async (data) => {
     setLoading(true);
 
-    const user: IRegister = {
-      password: data.password,
+    const user: IUser = {
       type: "user",
-      data: {
-        name: data.name,
-        cpf: data.cpf,
-        birthdate: data.birthdate,
-        gender: data.gender,
-        email: data.email,
-        phone: data.phone,
-        cep: data.cep,
-        state: data.state,
-        city: data.city,
-        street: data.street,
-        neighborhood: data.neighborhood,
-      },
+      name: data.name,
+      cpf: data.cpf,
+      birthdate: data.birthdate,
+      gender: data.gender,
+      email: data.email,
+      password: data.password,
+      phone: data.phone,
+      cep: data.cep,
+      state: data.state,
+      city: data.city,
+      street: data.street,
+      neighborhood: data.neighborhood,
     };
 
-    const resRegisterUser = await registerUser(user);
+    const res = await registerUser(user);
 
-    if (resRegisterUser) {
+    if (res.data) {
       toast.success("Cadastro realizado com sucesso!");
       setSignUpVisible(false);
     } else {

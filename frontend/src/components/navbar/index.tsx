@@ -11,7 +11,7 @@ import { IOrganization } from "../../interfaces/IOrganization";
 import {
   Tooltip,
 } from "@nextui-org/react";
-import { logout } from "../../services/auth.service";
+import { getCurrentUser, logout } from "../../services/auth.service";
 import { Badge } from "@nextui-org/react";
 import { Notifications } from "../notifications";
 import NotificationsContext from "../../contexts/notificationContext";
@@ -23,19 +23,15 @@ export function Navbar() {
   const navigate = useNavigate();
 
   const [userLogged, setUserLogged] = useState<IUser | IOrganization>();
+  const [token, setToken] = useState("");
   const [isNotificationsVisible, setIsNotificationsVisible] = useState(false);
   const [newNotification, setNewNotification] = useState(false);
 
   const { notifications, setNotifications } = useContext(NotificationsContext);
 
   useEffect(() => {
-    const user = localStorage.getItem("user");
-
-    if (user) {
-      const userObject = JSON.parse(user);
-      setUserLogged(userObject);
-      listNotifications(userObject.id);
-    }
+      getUser();
+         
   }, []);
 
   useEffect(() => {
@@ -44,12 +40,24 @@ export function Navbar() {
     setNewNotification(newNotifications);
   }, [notifications]);
 
+  async function getUser() {
+    const token = localStorage.getItem("token");
+
+    if(token){
+      setToken(token);
+      const res = await getCurrentUser(token);
+
+      setUserLogged(res.data);
+      listNotifications(res.data.id);
+    }
+  }
+
   async function listNotifications(id: string) {
     const res = await getNotifications(id);
 
-    if (res.data) {
-      setNotifications(res.data);
-    }
+    // if (res.data) {
+    //   setNotifications(res.data);
+    // }
   }
 
   const logoutUser = () => {
@@ -189,7 +197,7 @@ export function Navbar() {
           >
             <Notifications
               setIsVisible={setIsNotificationsVisible}
-              userLogged={userLogged}
+              token={token}
             />
           </motion.div>
         </AnimatePresence>

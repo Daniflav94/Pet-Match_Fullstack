@@ -6,6 +6,7 @@ import { IUser } from "../../interfaces/IUser";
 import { getListFavorites } from "../../services/pet.service";
 import image from "../../assets/images/pets-home.png";
 import { Spinner } from "@nextui-org/react";
+import { getCurrentUser } from "../../services/auth.service";
 
 interface PetFavorite {
   pet: IPet;
@@ -14,23 +15,31 @@ interface PetFavorite {
 
 export function Favorites() {
   const [listPets, setListPets] = useState<PetFavorite[]>([]);
-  const [userLogged, setUserLogged] = useState<IUser>();
   const [loading, setLoading] = useState(false);
+  const [token, setToken] = useState('');
+  const [user, setUser] = useState< IUser>();
 
   useEffect(() => {
-    const user = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
 
-    if (user) {
-      const userObject = JSON.parse(user);
-      setUserLogged(userObject);
+    if (token) {
+      setToken(token);
 
-      getFavorites(userObject.id);
+      getFavorites(token);
     }
+
+    getUser();
   }, []);
 
-  async function getFavorites(id: string) {
+  async function getUser() {
+    const res = await getCurrentUser(token);
+
+    setUser(res.data);
+  }
+
+  async function getFavorites(token: string) {
     setLoading(true);
-    const res = await getListFavorites(id);
+    const res = await getListFavorites(token);
 
     if (res.data) {
       setListPets(res.data);
@@ -58,8 +67,8 @@ export function Favorites() {
                     <Card
                       key={item.pet.id}
                       pet={item.pet}
-                      typeUser={userLogged?.type}
-                      userLogged={userLogged}
+                      typeUser={user?.type}
+                      token={token}
                       favorites={listPets}
                     />
                   ))}

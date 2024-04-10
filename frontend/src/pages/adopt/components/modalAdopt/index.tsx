@@ -10,6 +10,7 @@ import { InputCustom } from "../../../../components/input";
 import { IUser } from "../../../../interfaces/IUser";
 import { IFormAdoption } from "../../../../interfaces/IFormAdoption";
 import { createRequest } from "../../../../services/requestAdoption.service";
+import { uploads } from "../../../../utils/config";
 
 type FormAdopt = {
   name: string;
@@ -27,9 +28,10 @@ type FormAdopt = {
 interface Props {
   pet: IPet;
   setIsFormSent: (param: boolean) => void;
+  token: string;
 }
 
-export function ModalAdopt({ pet, setIsFormSent }: Props) {
+export function ModalAdopt({ pet, setIsFormSent, token }: Props) {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [birthdate, setBirthdate] = useState('');
@@ -82,9 +84,9 @@ export function ModalAdopt({ pet, setIsFormSent }: Props) {
 
   async function sentFormAdoption(form: IFormAdoption) {
     
-    const res = await createRequest(form);
+    const res = await createRequest(form, token);
 
-    if(!res.error){
+    if(res.data){
       setSuccess(true);
       setIsFormSent(true);
     } else {
@@ -111,7 +113,7 @@ export function ModalAdopt({ pet, setIsFormSent }: Props) {
                 do pet. Alguns campos já foram preenchidos de acordo com o seu cadastro.
               </S.Subtitle>
 
-              <S.PetImage src={pet.photo} />
+              <S.PetImage src={`${uploads}/pets/${pet.photo}`} />
               <S.NamePet>{pet.name}</S.NamePet>
 
               <S.Form onSubmit={handleSubmit(onSubmit)}>

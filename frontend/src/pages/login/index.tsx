@@ -9,9 +9,6 @@ import { Register } from "./components/register";
 import { Toaster, toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../services/auth.service";
-import { findUser } from "../../services/user.service";
-import { IOrganization } from "../../interfaces/IOrganization";
-import { IUser } from "../../interfaces/IUser";
 import { CustomButton } from "../../components/customButton";
 
 type Login = {
@@ -40,55 +37,8 @@ export function Login() {
     if (!res.data) {
       toast.error(res.error);
     } else {
-      const userFirestore = await findUser(res.data?.user.uid as string);
-
-      handleUser(userFirestore);
-
       toast.success("Bem vindo(a)!");
       navigate("/");
-    }
-  };
-
-  const handleUser = (userFirestore: any) => {
-    if (userFirestore.type === "user") {
-      const newUser: IUser = {
-        cep: userFirestore?.cep,
-        city: userFirestore?.city,
-        email: userFirestore?.email,
-        name: userFirestore?.name,
-        birthdate: new Date(userFirestore?.birthdate.seconds * 1000),
-        gender: userFirestore?.gender,
-        cpf: userFirestore?.cpf,
-        neighborhood: userFirestore?.neighborhood,
-        phone: userFirestore?.phone,
-        state: userFirestore?.state,
-        street: userFirestore?.street,
-        type: userFirestore?.type,
-        id: userFirestore?.uid,
-      };
-
-      localStorage.setItem("user", JSON.stringify(newUser));
-      
-    } else if (userFirestore.type === "admin") {
-      const newAdmin: IOrganization = {
-        cep: userFirestore?.cep,
-        city: userFirestore?.city,
-        email: userFirestore?.email,
-        name: userFirestore?.name,
-        cnpj: userFirestore?.cnpj,
-        photo: userFirestore?.photo,
-        neighborhood: userFirestore?.neighborhood,
-        phone: userFirestore?.phone,
-        cellPhone: userFirestore?.cel,
-        state: userFirestore?.state,
-        street: userFirestore?.street,
-        number: userFirestore?.number,
-        openingHours: userFirestore?.openingHours,
-        type: userFirestore?.type,
-        id: userFirestore?.uid,
-      };
-
-      localStorage.setItem("user", JSON.stringify(newAdmin));
     }
   };
 

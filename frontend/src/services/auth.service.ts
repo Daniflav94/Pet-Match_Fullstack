@@ -1,73 +1,62 @@
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-  signOut,
-} from "firebase/auth";
-import { db } from "../firebase/config";
-import { collection, addDoc } from "firebase/firestore";
-import { IRegister } from "../interfaces/IRegister";
 import { ILogin } from "../interfaces/ILogin";
 import { IUser } from "../interfaces/IUser";
 import { IOrganization } from "../interfaces/IOrganization";
+import { api } from "../utils/config";
 
-const auth = getAuth();
-
-function getErrorMessage(error: unknown) {
-  if (error instanceof Error) return error.message;
-  return String(error);
-}
-
-export const register = async (data: IRegister) => {
+export const register = async (data: IUser | IOrganization) => {
   try {
-    const { user } = await createUserWithEmailAndPassword(
-      auth,
-      data.data.email,
-      data.password
-    );
+    const typeUser = data.type;
 
-    await updateProfile(user, {
-      displayName: data.data.name,
+    const res = await fetch(`${api}/auth/register/${typeUser}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     });
 
-    const userSaved = { ...data.data, uid: user.uid, type: data.type };
-    await createUser(userSaved);
-
-    return userSaved;
+    return res.json();
   } catch (error) {
-    return {error: getErrorMessage(error)}
+    console.log(error);
   }
 };
 
 export const login = async (data: ILogin) => {
   try {
-    const signIn = await signInWithEmailAndPassword(auth, data.email, data.password);
+    const res = await fetch(`${api}/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
 
-    return {data: signIn};
+    localStorage.setItem("token", JSON.stringify(res));
+
+    return res.json();
   } catch (error) {
-    const errorMessage = getErrorMessage(error);
-
-    if (errorMessage.indexOf("invalid-credential") !== -1) {
-      console.log(errorMessage)
-      return {error: "Login / senha inválidos"};
-    } else {
-      return {error: "Ocorreu um erro, por favor tente mais tarde."};
-    }
+    console.log(error);
   }
 };
 
-export const logout = () => {  
-  signOut(auth);
-  localStorage.clear()
-}
+export const logout = () => {
+  localStorage.clear();
+};
 
-const createUser = async (user: IUser | IOrganization) => {
+export const getCurrentUser = async(token: string) => {
   try {
-    const saveUser = await addDoc(collection(db, "users"), user);
+    const res = await fetch(`${api}/auth/profile`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },   
+    });
 
-    return saveUser;
+    localStorage.setItem("user", JSON.stringify(res));
+
+    return res.json();
   } catch (error) {
-    return {error: getErrorMessage(error)}
+    console.log(error);
   }
-};
+}

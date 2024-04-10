@@ -6,8 +6,6 @@ import { Pagination } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { ModalLoginRequired } from "./components/modalLoginRequired";
 import * as Dialog from "@radix-ui/react-dialog";
-import { IUser } from "../../interfaces/IUser";
-import { IOrganization } from "../../interfaces/IOrganization";
 import {
   getListFavorites,
   listPetsWithPagination,
@@ -15,6 +13,9 @@ import {
 import { HeartCrack } from "lucide-react";
 import { getRequestsUser } from "../../services/requestAdoption.service";
 import { IFormAdoption } from "../../interfaces/IFormAdoption";
+import { getCurrentUser } from "../../services/auth.service";
+import { IOrganization } from "../../interfaces/IOrganization";
+import { IUser } from "../../interfaces/IUser";
 
 interface PetFavorite {
   pet: IPet;
@@ -24,30 +25,36 @@ interface PetFavorite {
 export function Adopt() {
   const [pets, setPets] = useState<IPet[]>([]);
   const [petsFavorites, setPetsFavorites] = useState<PetFavorite[]>([]);
-  const [userLogged, setUserLogged] = useState<IUser | IOrganization>();
+  const [token, setToken] = useState('');
+  const [user, setUser] = useState<IOrganization | IUser>();
   const [totalList, setTotalList] = useState(1);
   const [filteredPets, setFilteredPets] = useState<IPet[]>([]);
   const [notFoundMessage, setNotFoundMessage] = useState("");
   const [listRequestAdoption, setListRequestAdoption] = useState<IFormAdoption[]>([]);
 
   useEffect(() => {
-    const user = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
 
-    if (user) {
-      const userObject = JSON.parse(user);
-      setUserLogged(userObject);
-
-      getFavorites(userObject.id);
-      getRequestsAdoptionUser(userObject.id);
+    if (token) {  
+      setToken(token); 
+      getFavorites(token);
+      getRequestsAdoptionUser(token);
     }
 
-    getPets(0);
+    getUser();
+    getPets(1);
   }, []);
 
   useEffect(() => {
     const total = filteredPets.length / 8;
     setTotalList(Math.ceil(Number(total.toFixed(1))));
   }, [filteredPets]);
+
+  async function getUser() {
+    const res = await getCurrentUser(token);
+
+    setUser(res.data);
+  }
 
   const filtered =
     filteredPets.length >= 1
@@ -74,8 +81,8 @@ export function Adopt() {
     }
   }
 
-  async function getRequestsAdoptionUser(id: string) {
-    const res = await getRequestsUser(id);
+  async function getRequestsAdoptionUser(token: string) {
+    const res = await getRequestsUser(token);
 
     if (res.data) {
       setListRequestAdoption(res.data);
@@ -93,7 +100,7 @@ export function Adopt() {
             <HeartCrack color="brown" />
           </S.Error>
         )}
-        {!userLogged ? (
+        {!token ? (
           <Dialog.Trigger>
             <S.ContainerCards>
               {filtered.map((pet) => (
@@ -107,8 +114,8 @@ export function Adopt() {
               <Card
                 key={pet.id}
                 pet={pet}
-                typeUser={userLogged?.type}
-                userLogged={userLogged}
+                typeUser={user?.type}
+                token={token}
                 favorites={petsFavorites}
                 listRequestAdoption={listRequestAdoption}
               />
@@ -121,7 +128,7 @@ export function Adopt() {
             total={totalList}
             initialPage={1}
             color="warning"
-            onChange={(page: number) => getPets(page - 1)}
+            onChange={(page: number) => getPets(page)}
           />
         </S.Pagination>
       </S.Container>
