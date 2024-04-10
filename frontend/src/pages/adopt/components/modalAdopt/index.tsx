@@ -73,8 +73,7 @@ export function ModalAdopt({ pet, setIsFormSent }: Props) {
       describePets: data.describePets,
       children: data.children,
       isFirstPet: data.isFirstPet,
-      pet,
-      userId: userLogged?.id as string
+      pet
     };
 
     sentFormAdoption(JSON.parse(JSON.stringify(dataForm)));
@@ -194,12 +193,12 @@ export function ModalAdopt({ pet, setIsFormSent }: Props) {
                   size="sm"
                   color="warning"
                   style={{ fontSize: "0.9rem" }}
-                  onValueChange={(value) => setValue("children", value)}
+                  onValueChange={(value) => setValue("children", value === "Sim" ? true : false)}
                   isRequired
                 >
                   <S.DualInput>
-                    <Radio value={true}>Sim</Radio>
-                    <Radio value={false}>Não</Radio>
+                    <Radio value="Sim">Sim</Radio>
+                    <Radio value="Não">Não</Radio>
                   </S.DualInput>
                 </RadioGroup>
 
@@ -208,12 +207,12 @@ export function ModalAdopt({ pet, setIsFormSent }: Props) {
                   size="sm"
                   color="warning"
                   style={{ fontSize: "0.9rem" }}
-                  onValueChange={(value) => setValue("isFirstPet", value)}
+                  onValueChange={(value) => setValue("isFirstPet", value === "Sim" ? true : false)}
                   isRequired
                 >
                   <S.DualInput>
-                    <Radio value={true}>Sim</Radio>
-                    <Radio value={false}>Não</Radio>
+                  <Radio value="Sim">Sim</Radio>
+                    <Radio value="Não">Não</Radio>
                   </S.DualInput>
                 </RadioGroup>
 
@@ -222,12 +221,12 @@ export function ModalAdopt({ pet, setIsFormSent }: Props) {
                   size="sm"
                   color="warning"
                   style={{ fontSize: "0.9rem" }}
-                  onValueChange={(value) => setValue("pets", value)}
+                  onValueChange={(value) => setValue("pets", value === "Sim" ? true : false)}
                   isRequired
                 >
                   <S.DualInput>
-                    <Radio value={true}>Sim</Radio>
-                    <Radio value={false}>Não</Radio>
+                  <Radio value="Sim">Sim</Radio>
+                    <Radio value="Não">Não</Radio>
                   </S.DualInput>
                 </RadioGroup>
 

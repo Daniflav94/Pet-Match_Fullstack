@@ -3,6 +3,7 @@ import { INotification } from "../../../../interfaces/INotification";
 import { ModalContentNotification } from "../modalContentNotification";
 import * as S from "./styles";
 import * as Dialog from "@radix-ui/react-dialog";
+import { IUser } from "../../../../interfaces/IUser";
 
 type Props = {
   notification: INotification;
@@ -29,7 +30,7 @@ export function Notification({
               <S.Title>Solicitação de adoção</S.Title>
               <S.Date>{notification.createdAt.toLocaleDateString("pt-BR")}</S.Date>
               <S.Description>
-                {notification.formAdoption?.user.name.split(" ")[0]}{" "}
+                {(notification.formAdoption?.user as IUser).name.split(" ")[0]}{" "}
                 gostaria de adotar{" "}
                 {notification.formAdoption?.pet.name}
               </S.Description>

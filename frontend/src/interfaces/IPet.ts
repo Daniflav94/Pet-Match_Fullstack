@@ -11,5 +11,6 @@ export interface IPet {
     isAdopt: boolean;
     personality: string[];
     organization?: IOrganization;
+    organizationId?: string;
     createdAt?: Date;
 }
