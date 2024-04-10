@@ -24,6 +24,7 @@ model User {
   type         String
   createdAt    DateTime       @default(now())
   FormAdoption FormAdoption[]
+  Favorites    Favorites[]
 }
 
 model Admin {
@@ -48,20 +49,22 @@ model Admin {
 }
 
 model Pet {
-  id             String   @id @default(uuid())
+  id             String    @id @default(uuid())
   type           String
   name           String
   age            String
   gender         String
   size           String
   photo          String
-  isAdopt        Boolean  @default(false)
+  isAdopt        Boolean   @default(false)
   personality    String[]
-  createdAt      DateTime @default(now())
   organizationId String
+  createdAt      DateTime  @default(now())
+  deletedAt      DateTime?
 
   organization Admin          @relation(fields: [organizationId], references: [id])
   FormAdoption FormAdoption[]
+  Favorites    Favorites[]
 }
 
 model FormAdoption {
@@ -91,4 +94,13 @@ model Notifications {
   createdAt      DateTime @default(now())
 
   formAdoption FormAdoption @relation(fields: [formAdoptionId], references: [id])
+}
+
+model Favorites {
+  id     String @id @default(uuid())
+  petId  String
+  userId String
+
+  pet  Pet  @relation(fields: [petId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 }
