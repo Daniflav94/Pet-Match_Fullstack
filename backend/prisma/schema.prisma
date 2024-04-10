@@ -66,11 +66,6 @@ model Pet {
 
 model FormAdoption {
   id           String   @id @default(uuid())
-  name         String
-  birthdate    DateTime
-  email        String
-  state        String
-  city         String
   liveIn       String
   children     Boolean
   isFirstPet   Boolean

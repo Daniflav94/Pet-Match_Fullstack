@@ -34,7 +34,7 @@ export function Navbar() {
     if (user) {
       const userObject = JSON.parse(user);
       setUserLogged(userObject);
-      listNotifications(userObject.uid);
+      listNotifications(userObject.id);
     }
   }, []);
 
@@ -44,8 +44,8 @@ export function Navbar() {
     setNewNotification(newNotifications);
   }, [notifications]);
 
-  async function listNotifications(uid: string) {
-    const res = await getNotifications(uid);
+  async function listNotifications(id: string) {
+    const res = await getNotifications(id);
 
     if (res.data) {
       setNotifications(res.data);

@@ -35,10 +35,10 @@ export function ModalContentNotification({ data, listNotifications }: Props) {
     const current_month = now.getMonth() + 1;
     const current_day = now.getDate();
 
-    const birthdate = data.formAdoption?.birthdate as string;
-    const birthdate_year = Number(birthdate.slice(6));
-    const birthdate_month = Number(birthdate.slice(3, 5));
-    const birthdate_day = Number(birthdate.slice(0, 2));
+    const birthdate = data.formAdoption?.user.birthdate as Date;
+    const birthdate_year = birthdate?.getFullYear();
+    const birthdate_month = birthdate?.getMonth();
+    const birthdate_day = birthdate?.getDay();
 
     let age = current_year - birthdate_year;
 
@@ -56,14 +56,14 @@ export function ModalContentNotification({ data, listNotifications }: Props) {
     const notification: INotification = {
       type: "response_adoption",
       formAdoption: data.formAdoption,
-      uidReceiver: data.formAdoption?.uidUser as string,
-      createdAt: new Date().toLocaleDateString("pt-BR"),
+      idReceiver: data.formAdoption?.user.id as string,
+      createdAt: new Date(),
       isViewed: false,
       wasApproved: isAccept,
       message: isAccept ? "" : message,
     };
 
-    await updateNotification(data.uid as string, {
+    await updateNotification(data.id as string, {
       wasApproved: isAccept,
     });
 

@@ -21,15 +21,15 @@ export function MyPets() {
 
     if (user) {
       const userObject = JSON.parse(user);
-      listAll(userObject.uid);
+      listAll(userObject.id);
       setUserLogged(userObject);
     } else if (!user || userLogged?.type === "user") {
       navigate("/login");
     }
   }, []);
 
-  async function listAll(uid: string) {
-    const res = await listMyPets(uid);
+  async function listAll(id: string) {
+    const res = await listMyPets(id);
 
     const resOrdered = res.data?.sort(function (a, b) {
       return a.isAdopt < b.isAdopt ? -1 : a.isAdopt > b.isAdopt ? 1 : 0;
@@ -42,10 +42,10 @@ export function MyPets() {
     setIsLoading(false);
   }
 
-  async function handleDeletePet(uid: string) {
-    await deletePet(uid);
+  async function handleDeletePet(id: string) {
+    await deletePet(id);
 
-    await listAll(userLogged?.uid as string);
+    await listAll(userLogged?.id as string);
   }
 
   return (
@@ -59,7 +59,7 @@ export function MyPets() {
             <S.ContainerCards>
               {listPets.map((pet) => (
                 <Card
-                  key={pet.uid}
+                  key={pet.id}
                   pet={pet}
                   typeUser={userLogged?.type}
                   deletePet={handleDeletePet}

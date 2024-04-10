@@ -1,17 +1,15 @@
 import { IPet } from "./IPet";
+import { IUser } from "./IUser";
 
 export interface IFormAdoption {
-  uid?: string;
-  name: string;
-  birthdate: string;
-  email: string;
-  state: string;
-  city: string;
+  id?: string;
+  user?: IUser;
+  userId?: string;
   liveIn: string;
-  children: string;
-  isFirstPet: string;
-  pets: string;
+  children: boolean;
+  isFirstPet: boolean;
+  pets: boolean;
   describePets?: string;
   pet: IPet;
-  uidUser: string;
+  createdAt?: Date;
 }

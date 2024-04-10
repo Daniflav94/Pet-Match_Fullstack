@@ -15,7 +15,7 @@ import { upload } from "../../../../../services/uploadStorage.service";
 
 type Props = {
   user: IOrganization | undefined;
-  listAll: (uid: string) => void;
+  listAll: (id: string) => void;
 };
 
 export function RegisterPet({ user, listAll }: Props) {
@@ -91,7 +91,7 @@ export function RegisterPet({ user, listAll }: Props) {
     if (res) {
       toast.success("Pet cadastrado com sucesso!");
 
-      listAll(user?.uid as string);
+      listAll(user?.id as string);
     } else {
       toast.error("Ocorreu um erro ao cadastrar. Tente novamente mais tarde.");
     }

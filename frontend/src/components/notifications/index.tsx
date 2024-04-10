@@ -23,16 +23,16 @@ export function Notifications({ setIsVisible, userLogged }: Props) {
   const newNotification = notifications.some((n) => n.isViewed === false);
   const oldNotifications = notifications.some((n) => n.isViewed === true);
 
-  async function markNotificationAsViewed(uid: string) {
+  async function markNotificationAsViewed(id: string) {
     const notification = {
       isViewed: true,
     };
 
-    await updateNotification(uid, notification);
+    await updateNotification(id, notification);
   }
 
   async function listNotifications() {
-    const res = await getNotifications(userLogged.uid as string);
+    const res = await getNotifications(userLogged.id as string);
 
     if (res.data) {
       setNotifications(res.data);

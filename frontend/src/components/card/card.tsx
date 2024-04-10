@@ -28,7 +28,7 @@ interface Props {
 
 interface PetFavorite {
   pet: IPet;
-  uidUser: string;
+  idUser: string;
 }
 
 export function Card({
@@ -54,34 +54,34 @@ export function Card({
     },
   };
 
-  async function handleAdopt(adopt: boolean, uid: string) {
+  async function handleAdopt(adopt: boolean, id: string) {
     setPlayAnimation(false);
     const edit = {
       isAdopt: adopt,
     };
     if (adopt == true) {
-      setIdPetAdopted(uid);
+      setIdPetAdopted(id);
       setPlayAnimation(true);
     }
     setTimeout(async () => {
       setIsAdopt(adopt);
-      await editPet(pet.uid as string, edit);
+      await editPet(pet.id as string, edit);
     }, 700);
   }
 
   async function setPetFavorite(pet: IPet) {
     setIsFavorite(!isFavorite);
     if (userLogged && !isFavorite) {
-      await addPetListFavorites(pet, userLogged.uid as string);
+      await addPetListFavorites(pet, userLogged.id as string);
 
     }else if(userLogged && isFavorite){
-      await removePetListFavorites(pet.uid as string, userLogged.uid as string)
+      await removePetListFavorites(pet.id as string, userLogged.id as string)
     }
   }
 
   useEffect(() => {
     favorites?.map((p) => {
-      if (p.pet.uid === pet.uid) {
+      if (p.pet.id === pet.id) {
         setIsFavorite(true);       
       }
     });
@@ -90,7 +90,7 @@ export function Card({
 
   useEffect(() => {
     listRequestAdoption?.map((p) => {
-      if (p.pet.uid === pet.uid) {
+      if (p.pet.id === pet.id) {
         setIsFormSent(true);       
       }
     });
@@ -106,7 +106,7 @@ export function Card({
             : { filter: "grayscale(0)", opacity: "1" }
         }
       >
-        {playAnimation && !isAdopt && idPetAdopted === pet.uid && (
+        {playAnimation && !isAdopt && idPetAdopted === pet.id && (
           <S.Lottie>
             <Lottie options={defaultOptions} height={100} width={100} />
           </S.Lottie>
@@ -140,7 +140,7 @@ export function Card({
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             style={{ position: "absolute", top: "1rem", left: "1rem" }}
-            onClick={() => deletePet && deletePet(pet.uid as string)}
+            onClick={() => deletePet && deletePet(pet.id as string)}
           >
             <Trash2 color="#c15722" size={20} />
           </motion.button>
@@ -179,7 +179,7 @@ export function Card({
         {!isFormSent && typeUser === "admin" && (
           <S.Button>
             Adotado?{" "}
-            <button onClick={() => handleAdopt(true, pet?.uid as string)}>
+            <button onClick={() => handleAdopt(true, pet?.id as string)}>
               {!isAdopt ? (
                 <>
                   <ThumbsUp color="#008000" strokeWidth={1.5} size={18} />
@@ -193,7 +193,7 @@ export function Card({
                 />
               )}
             </button>
-            <button onClick={() => handleAdopt(false, pet?.uid as string)}>
+            <button onClick={() => handleAdopt(false, pet?.id as string)}>
               {!isAdopt ? (
                 <ThumbsDown
                   color="#ec2300"

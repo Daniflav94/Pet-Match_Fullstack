@@ -64,7 +64,7 @@ export function Login() {
         state: userFirestore?.state,
         street: userFirestore?.street,
         type: userFirestore?.type,
-        uid: userFirestore?.uid,
+        id: userFirestore?.uid,
       };
 
       localStorage.setItem("user", JSON.stringify(newUser));
@@ -79,13 +79,13 @@ export function Login() {
         photo: userFirestore?.photo,
         neighborhood: userFirestore?.neighborhood,
         phone: userFirestore?.phone,
-        cel: userFirestore?.cel,
+        cellPhone: userFirestore?.cel,
         state: userFirestore?.state,
         street: userFirestore?.street,
         number: userFirestore?.number,
         openingHours: userFirestore?.openingHours,
         type: userFirestore?.type,
-        uid: userFirestore?.uid,
+        id: userFirestore?.uid,
       };
 
       localStorage.setItem("user", JSON.stringify(newAdmin));

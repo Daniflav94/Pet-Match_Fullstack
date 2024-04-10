@@ -6,7 +6,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 
 type Props = {
   notification: INotification;
-  markAsViewed: (uid: string) => void;
+  markAsViewed: (id: string) => void;
   listNotifications:() => void;
 };
 
@@ -27,9 +27,9 @@ export function Notification({
             />
             <S.ContainerText>
               <S.Title>Solicitação de adoção</S.Title>
-              <S.Date>{notification.createdAt}</S.Date>
+              <S.Date>{notification.createdAt.toLocaleDateString("pt-BR")}</S.Date>
               <S.Description>
-                {notification.formAdoption?.name.split(" ")[0]}{" "}
+                {notification.formAdoption?.user.name.split(" ")[0]}{" "}
                 gostaria de adotar{" "}
                 {notification.formAdoption?.pet.name}
               </S.Description>
@@ -42,7 +42,7 @@ export function Notification({
 
               <Dialog.Trigger>
                 <S.Button
-                  onClick={() => markAsViewed(notification.uid as string)}
+                  onClick={() => markAsViewed(notification.id as string)}
                 >
                   Ver formulário
                 </S.Button>
@@ -68,14 +68,14 @@ export function Notification({
               {notification.wasApproved === false && (
                 <S.Title>Adoção recusada</S.Title>
               )}
-              <S.Date>{notification.createdAt}</S.Date>
+              <S.Date>{notification.createdAt.toLocaleDateString("pt-BR")}</S.Date>
               <S.Description>
                 {notification.formAdoption?.pet.organization.name} respondeu seu pedido de adoção para {notification.formAdoption?.pet.name}
               </S.Description>
              
               <Dialog.Trigger>
                 <S.Button
-                  onClick={() => markAsViewed(notification.uid as string)}
+                  onClick={() => markAsViewed(notification.id as string)}
                 >
                   Ver mais
                 </S.Button>

@@ -1,12 +1,12 @@
 import { IFormAdoption } from "./IFormAdoption";
 
 export interface INotification {
-    uid?: string;
-    uidReceiver: string;
+    id?: string;
+    idReceiver: string;
     type: string;
     formAdoption?: IFormAdoption;
     isViewed: boolean;
-    createdAt: string;
+    createdAt: Date;
     wasApproved?: boolean
     message?: string;
 }

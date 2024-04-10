@@ -3,7 +3,7 @@ export interface IOrganization {
     email: string;
     password: string;
     phone?: string;
-    cel: string;
+    cellPhone: string;
     cnpj: string;
     name: string;
     photo?: string;
@@ -15,4 +15,5 @@ export interface IOrganization {
     number: string;
     openingHours: string;
     type?: string;
+    createdAt?: Date;
 }

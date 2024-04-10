@@ -18,9 +18,9 @@ type FormAdopt = {
   state: string;
   city: string;
   liveIn: string;
-  children: string;
-  isFirstPet: string;
-  pets: string;
+  children: boolean;
+  isFirstPet: boolean;
+  pets: boolean;
   describePets?: string;
 };
 
@@ -68,18 +68,13 @@ export function ModalAdopt({ pet, setIsFormSent }: Props) {
 
 
     const dataForm: IFormAdoption = {
-      name: data.name,
-      email: data.email,
-      birthdate: birthdate,
-      state: data.state,
-      city: data.city,
       liveIn: data.liveIn,
-      children: data.children,
-      isFirstPet: data.isFirstPet,
       pets: data.pets,
       describePets: data.describePets,
+      children: data.children,
+      isFirstPet: data.isFirstPet,
       pet,
-      uidUser: userLogged?.uid as string
+      userId: userLogged?.id as string
     };
 
     sentFormAdoption(JSON.parse(JSON.stringify(dataForm)));
@@ -203,8 +198,8 @@ export function ModalAdopt({ pet, setIsFormSent }: Props) {
                   isRequired
                 >
                   <S.DualInput>
-                    <Radio value="Sim">Sim</Radio>
-                    <Radio value="Não">Não</Radio>
+                    <Radio value={true}>Sim</Radio>
+                    <Radio value={false}>Não</Radio>
                   </S.DualInput>
                 </RadioGroup>
 
@@ -217,8 +212,8 @@ export function ModalAdopt({ pet, setIsFormSent }: Props) {
                   isRequired
                 >
                   <S.DualInput>
-                    <Radio value="Sim">Sim</Radio>
-                    <Radio value="Não">Não</Radio>
+                    <Radio value={true}>Sim</Radio>
+                    <Radio value={false}>Não</Radio>
                   </S.DualInput>
                 </RadioGroup>
 
@@ -231,12 +226,12 @@ export function ModalAdopt({ pet, setIsFormSent }: Props) {
                   isRequired
                 >
                   <S.DualInput>
-                    <Radio value="Sim">Sim</Radio>
-                    <Radio value="Não">Não</Radio>
+                    <Radio value={true}>Sim</Radio>
+                    <Radio value={false}>Não</Radio>
                   </S.DualInput>
                 </RadioGroup>
 
-                {watch("pets") === "Sim" && (
+                {watch("pets") === true && (
                   <InputCustom
                     type="text"
                     label="Quais? Descreva:"

@@ -9,7 +9,7 @@ import { Spinner } from "@nextui-org/react";
 
 interface PetFavorite {
   pet: IPet;
-  uidUser: string;
+  idUser: string;
 }
 
 export function Favorites() {
@@ -24,13 +24,13 @@ export function Favorites() {
       const userObject = JSON.parse(user);
       setUserLogged(userObject);
 
-      getFavorites(userObject.uid);
+      getFavorites(userObject.id);
     }
   }, []);
 
-  async function getFavorites(uid: string) {
+  async function getFavorites(id: string) {
     setLoading(true);
-    const res = await getListFavorites(uid);
+    const res = await getListFavorites(id);
 
     if (res.data) {
       setListPets(res.data);
@@ -56,7 +56,7 @@ export function Favorites() {
                 {listPets &&
                   listPets.map((item) => (
                     <Card
-                      key={item.pet.uid}
+                      key={item.pet.id}
                       pet={item.pet}
                       typeUser={userLogged?.type}
                       userLogged={userLogged}

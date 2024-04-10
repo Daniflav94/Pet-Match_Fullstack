@@ -1,7 +1,7 @@
 import { IOrganization } from "./IOrganization";
 
 export interface IPet {
-    uid?: string;
+    id?: string;
     type: "dog" | "cat";
     name: string;
     age: string;
@@ -11,4 +11,5 @@ export interface IPet {
     isAdopt: boolean;
     personality: string[];
     organization: IOrganization;
+    createdAt?: Date;
 }

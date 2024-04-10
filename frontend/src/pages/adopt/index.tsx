@@ -18,7 +18,7 @@ import { IFormAdoption } from "../../interfaces/IFormAdoption";
 
 interface PetFavorite {
   pet: IPet;
-  uidUser: string;
+  idUser: string;
 }
 
 export function Adopt() {
@@ -37,8 +37,8 @@ export function Adopt() {
       const userObject = JSON.parse(user);
       setUserLogged(userObject);
 
-      getFavorites(userObject.uid);
-      getRequestsAdoptionUser(userObject.uid);
+      getFavorites(userObject.id);
+      getRequestsAdoptionUser(userObject.id);
     }
 
     getPets(0);
@@ -52,7 +52,7 @@ export function Adopt() {
   const filtered =
     filteredPets.length >= 1
       ? filteredPets.filter((pet) => {
-          return pets.filter((i) => pet.uid === i.uid);
+          return pets.filter((i) => pet.id === i.id);
         })
       : pets;
 
@@ -66,16 +66,16 @@ export function Adopt() {
     }
   }
 
-  async function getFavorites(uid: string) {
-    const res = await getListFavorites(uid);
+  async function getFavorites(id: string) {
+    const res = await getListFavorites(id);
 
     if (res.data) {
       setPetsFavorites(res.data);
     }
   }
 
-  async function getRequestsAdoptionUser(uid: string) {
-    const res = await getRequestsUser(uid);
+  async function getRequestsAdoptionUser(id: string) {
+    const res = await getRequestsUser(id);
 
     if (res.data) {
       setListRequestAdoption(res.data);
@@ -97,7 +97,7 @@ export function Adopt() {
           <Dialog.Trigger>
             <S.ContainerCards>
               {filtered.map((pet) => (
-                <Card key={pet.uid} pet={pet} />
+                <Card key={pet.id} pet={pet} />
               ))}
             </S.ContainerCards>
           </Dialog.Trigger>
@@ -105,7 +105,7 @@ export function Adopt() {
           <S.ContainerCards>
             {filtered.map((pet) => (
               <Card
-                key={pet.uid}
+                key={pet.id}
                 pet={pet}
                 typeUser={userLogged?.type}
                 userLogged={userLogged}
