@@ -10,7 +10,6 @@ import addPhoto from "../../../../../assets/images/adicionar-foto.png";
 import { CustomButton } from "../../../../../components/customButton";
 import { createPet } from "../../../../../services/pet.service";
 import { Toaster, toast } from "sonner";
-import { upload } from "../../../../../services/uploadStorage.service";
 
 type Props = {
   token: string;
@@ -45,7 +44,7 @@ export function RegisterPet({ token, listAll }: Props) {
   ];
 
   const [personality, setPersonality] = useState<string[]>([]);
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState();
   const [loading, setLoading] = useState(false);
   const [loadingImage, setLoadingImage] = useState(false);
   const [error, setError] = useState(false);
@@ -58,16 +57,16 @@ export function RegisterPet({ token, listAll }: Props) {
 
   const handleImageChange = async (event: any) => {
     setLoadingImage(true);
-    // const file = await upload(event.target.files[0]);
-    // if (file) {
-    //   setLoadingImage(false);
-    //   setImage(file);
-    // }
+    const file = event.target.files[0];
+    if (file) {
+      setLoadingImage(false);
+      setImage(file);
+    }
   };
 
   const onSubmit: SubmitHandler<IPet> = async (data) => {
     setLoading(true);
-    const dataForm = {
+    const newPet = {
       type: data.type,
       name: data.name,
       age: data.age,
@@ -84,7 +83,14 @@ export function RegisterPet({ token, listAll }: Props) {
       return;
     }
 
-    const res = await createPet(dataForm, token);
+    const formData = new FormData();
+    const keys = Object.keys(newPet) as Array<keyof typeof newPet>;
+
+    keys.forEach((key) =>
+      formData.append(key, newPet[key] as string | Blob)
+    );
+
+    const res = await createPet(formData, token);
 
     if (res) {
       toast.success("Pet cadastrado com sucesso!");
@@ -99,7 +105,7 @@ export function RegisterPet({ token, listAll }: Props) {
     setValue("gender", "");
     setValue("age", "");
     setValue("size", "");
-    setImage("");
+    setImage(undefined);
     setError(false);
   };
 
@@ -258,7 +264,7 @@ export function RegisterPet({ token, listAll }: Props) {
               <S.InputFile>
                 <label>
                   {image ? (
-                    <S.Image src={image} />
+                    <S.Image src={URL.createObjectURL(image)} />
                   ) : (
                     <S.ContainerImage>
                       {loadingImage ? (

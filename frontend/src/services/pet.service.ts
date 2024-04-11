@@ -1,16 +1,16 @@
+import { IFilter } from "../interfaces/IFilter";
 import { IPet } from "../interfaces/IPet";
 import { api } from "../utils/config";
 
-export const createPet = async (pet: IPet, token: string) => {
+export const createPet = async (pet: FormData, token: string) => {
   try {
     const res = await fetch(`${api}/pets`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'multipart/form-data',
         "Authorization": `Bearer ${token}`
       },
-      body: JSON.stringify(pet),
-      
+      body: pet
     });
 
     return res.json();
@@ -56,6 +56,25 @@ export const deletePet = async (id: string, token: string) => {
   }
 };
 
+export const filterPets = async (filter: Partial<IFilter>, token: string) => {
+  try {
+    const res = await fetch(`${api}/pets/filter`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(filter),
+      
+    });
+
+    return res.json();
+    
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const listMyPets = async (token: string) => {
   try {
     const res = await fetch(`${api}/pets/my-pets`, {
@@ -63,6 +82,21 @@ export const listMyPets = async (token: string) => {
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
+      },      
+    });
+
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const listAllPets = async () => {
+  try {
+    const res = await fetch(`${api}/pets/get-all`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
       },      
     });
 

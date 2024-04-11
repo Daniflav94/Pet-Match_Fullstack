@@ -93,7 +93,7 @@ export function Adopt() {
   return (
     <Dialog.Root>
       <S.Container>
-        <FilterAdopt setFilteredPets={setFilteredPets} setNotFoundMessage={setNotFoundMessage} />
+        <FilterAdopt setFilteredPets={setFilteredPets} setNotFoundMessage={setNotFoundMessage} token={token} />
         {notFoundMessage != "" && (
           <S.Error>
             <span>{notFoundMessage}</span>

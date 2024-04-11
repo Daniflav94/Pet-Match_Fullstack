@@ -14,7 +14,7 @@ import { getDataCep } from "../../../../services/viaCep";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Toaster, toast } from "sonner";
-import { register as registerUser } from "../../../../services/auth.service";
+import { registerUser } from "../../../../services/auth.service";
 import { CustomButton } from "../../../../components/customButton";
 
 interface SignUpUser extends IUser {

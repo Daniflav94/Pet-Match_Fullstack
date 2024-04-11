@@ -60,6 +60,16 @@ export const updatePet = async (req: Request, res: Response) => {
   });
 };
 
+export const getAll = async (req: Request, res: Response) => {
+  const pets = await prisma.pet.findMany({
+    where: { isAdopt: false, deletedAt: null },
+  });
+
+  res.status(201).json({
+    data: pets,
+  });
+};
+
 export const getAllPets = async (req: Request, res: Response) => {
   const page = req.query.page || 1;
   const take = 8;

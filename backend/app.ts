@@ -1,25 +1,29 @@
 import express from "express";
 import path from "path";
-import cors from "cors";
 
+require("dotenv").config();
 
-require("dotenv").config()
-
-const router = require("../backend/routes/Router")
+const router = require("../backend/routes/Router");
+const cors = require('cors');
 
 const port = process.env.PORT;
 
-const app = express()
+const app = express();
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: false})); 
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-app.use(cors({origin: "http:localhost:3000"}))
-app.use("/uploads", express.static(path.join(__dirname, "/uploads")))
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.header( "Access-Control-Allow-Headers",
+  "Origin, X-Requested-With, Content-Type, Accept");
+  app.use(cors());
+  next();
+});
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
-
-app.use(router)
+app.use(router);
 
 app.listen(port, () => {
-    console.log(`App rodando na porta ${port}`)
-})
+  console.log(`App rodando na porta ${port}`);
+});

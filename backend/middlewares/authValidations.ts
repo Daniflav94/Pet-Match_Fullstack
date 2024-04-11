@@ -52,7 +52,7 @@ export const adminCreateValidation = () => {
 
     body("cnpj").isString().withMessage("O cnpj é obrigatório").isLength({min:18, max:18}),
     body("cellPhone").isString().withMessage("O telefone é obrigatório").isLength({min:15, max:15}),
-    body("phone").optional().isLength({min:14, max:14}).withMessage("O telefone precisa ter 14 dígitos"),
+    body("phone").optional(),
     body("cep").isString().withMessage("O cep é obrigatório").isLength({min:9, max:9}),
     body("state").isString().withMessage("O estado é obrigatório"),
     body("city").isString().withMessage("A cidade é obrigatória"),

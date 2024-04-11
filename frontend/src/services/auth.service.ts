@@ -1,27 +1,37 @@
 import { ILogin } from "../interfaces/ILogin";
 import { IUser } from "../interfaces/IUser";
-import { IOrganization } from "../interfaces/IOrganization";
 import { api } from "../utils/config";
 
-export const register = async (data: IUser | IOrganization) => {
+export const registerUser = async (data: IUser) => {
   try {
-    const typeUser = data.type;
-  
-    const formData = new FormData();
-   (Object.keys(data) as Array<keyof typeof data>).forEach(key => formData.append(key, data[key] as string));
-    return formData;
+      const res = await fetch(`${api}/auth/register/user`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
+      return res.json(); 
 
-    const res = await fetch(`${api}/auth/register/${typeUser}`, {
-      method: "POST",
-      body: formData
-    });
-
-    return res.json();
+    
   } catch (error) {
     console.log(error);
   }
 };
+
+export const registerAdmin = async (data: FormData) => {
+  try {
+    const res = await fetch(`${api}/auth/register/admin`, {
+      method: "POST",
+      body: data
+    });
+
+    return res.json();
+  } catch (error) {
+    
+  }
+}
 
 export const login = async (data: ILogin) => {
   try {

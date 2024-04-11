@@ -14,11 +14,10 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Toaster, toast } from "sonner";
 import { ApiCNPJ } from "../../../../services/apiCNPJ";
-import { register as registerUser } from "../../../../services/auth.service";
+import { registerAdmin } from "../../../../services/auth.service";
 import { IOrganization } from "../../../../interfaces/IOrganization";
 import { CustomButton } from "../../../../components/customButton";
 import addPhoto from "../../../../assets/images/imagem.png";
-import { upload } from "../../../../services/uploadStorage.service";
 
 interface SignUpAdmin extends IOrganization {
   confirmPassword: string;
@@ -102,7 +101,7 @@ export function RegisterAdmin({ setSignUpVisible }: Props) {
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
   const [isVisibleConfirmPassword, setIsVisibleConfirmPassword] =
     useState(false);
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState();
   const [loading, setLoading] = useState(false);
   const [loadingImage, setLoadingImage] = useState(false);
 
@@ -138,13 +137,20 @@ export function RegisterAdmin({ setSignUpVisible }: Props) {
       openingHours: data.openingHours,
     };
 
+    const formData = new FormData();
+    const keys = Object.keys(user) as Array<keyof typeof user>;
+
+    keys.forEach((key) =>
+      formData.append(key, user[key] as string | Blob)
+    );
+
     const isValidCNPJ = await verifyCNPJ(data.cnpj);
 
     if (isValidCNPJ) {
-      const res = await registerUser(user);
+      const res = await registerAdmin(formData);
 
       if (!res.data) {
-        return toast.error(
+        toast.error(
           "Erro ao cadastrar usuário. Tente novamente mais tarde."
         );
       } else {
@@ -325,7 +331,7 @@ export function RegisterAdmin({ setSignUpVisible }: Props) {
             type="tel"
             label="Celular"
             control={control}
-            name={"cel"}
+            name={"cellPhone"}
             refs={register("cellPhone")}
             isRequired
             color={errors.cellPhone ? "danger" : "primary"}
@@ -435,7 +441,7 @@ export function RegisterAdmin({ setSignUpVisible }: Props) {
           </S.ContentInputFile>
 
           {image ? (
-            <S.Image src={image} />
+            <S.Image src={URL.createObjectURL(image)} />
           ) : (
             <S.ContainerImage>
               {loadingImage ? (

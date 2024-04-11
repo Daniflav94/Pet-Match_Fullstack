@@ -7,9 +7,9 @@ import { getListCities, getListStates } from "../../../../services/apiIBGE";
 import { IFilter } from "../../../../interfaces/IFilter";
 import { CustomButton } from "../../../../components/customButton";
 import { useForm } from "react-hook-form";
-import { listAllPets } from "../../../../services/pet.service";
 import { IPet } from "../../../../interfaces/IPet";
 import { IOrganization } from "../../../../interfaces/IOrganization";
+import { filterPets, listAllPets } from "../../../../services/pet.service";
 
 export interface State {
   id: number;
@@ -30,9 +30,10 @@ type SelectLocation = {
 type Props = {
   setFilteredPets: (data: any[]) => void;
   setNotFoundMessage: (message: string) => void;
+  token: string;
 };
 
-export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
+export function FilterAdopt({ setFilteredPets, setNotFoundMessage, token }: Props) {
   const [typePet, setTypePet] = useState<string>();
   const [state, setState] = useState<string>();
   const [city, setCity] = useState<string>();
@@ -97,7 +98,7 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
   }
 
   async function onSubmit(data: IFilter) {
-    const filter = {
+    const newfilter = {
       type: typePet,
       size: data.size,
       age: data.age,
@@ -106,34 +107,12 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
       city: city,
     };
 
-    filterPets(JSON.parse(JSON.stringify(filter)));
+    filter(JSON.parse(JSON.stringify(newfilter)));
   }
 
-  async function filterPets(petFilter: IFilter) {
+  async function filter(petFilter: IFilter) {
     setNotFoundMessage("");
-    const pets = await getAllPets();
-
-    let arrayPets = [];
-
-    const keys = Object.keys(petFilter) as Array<keyof typeof petFilter>;
-
-    if (pets) {
-      for (let pet of pets) {
-        let isFilteredPet: boolean[] = [];
-        keys.forEach((key) => {
-          if (key === "state" || key === "city") {
-            isFilteredPet.push(pet.organization[key] === petFilter[key]);
-          } else {
-            isFilteredPet.push(pet[key] === petFilter[key]);
-          }
-        });
-
-        if (!isFilteredPet.includes(false)) {
-          arrayPets.push(pet);
-        }
-      
-      }
-    }
+    const arrayPets = await filterPets(petFilter, token)
 
     if (arrayPets.length > 0) {
       setFilteredPets(arrayPets);
