@@ -11,12 +11,14 @@ type Props = {
   notification: INotification;
   markAsViewed: (id: string) => void;
   listNotifications:() => void;
+  token: string;
 };
 
 export function Notification({
   notification,
   markAsViewed,
   listNotifications,
+  token
 }: Props) {
 
   return (
@@ -30,7 +32,7 @@ export function Notification({
             />
             <S.ContainerText>
               <S.Title>Solicitação de adoção</S.Title>
-              <S.Date>{notification.createdAt.toLocaleDateString("pt-BR")}</S.Date>
+              <S.Date>{(notification.createdAt as Date).toLocaleDateString("pt-BR")}</S.Date>
               <S.Description>
                 {(notification.formAdoption?.user as IUser).name.split(" ")[0]}{" "}
                 gostaria de adotar{" "}
@@ -71,7 +73,7 @@ export function Notification({
               {notification.wasApproved === false && (
                 <S.Title>Adoção recusada</S.Title>
               )}
-              <S.Date>{notification.createdAt.toLocaleDateString("pt-BR")}</S.Date>
+              <S.Date>{(notification.createdAt as Date).toLocaleDateString("pt-BR")}</S.Date>
               <S.Description>
                 {(notification.formAdoption?.pet.organization as IOrganization).name} respondeu seu pedido de adoção para {notification.formAdoption?.pet.name}
               </S.Description>
@@ -93,7 +95,7 @@ export function Notification({
           </>
         )}
       </S.Container>
-      <ModalContentNotification data={notification} listNotifications={listNotifications}/>
+      <ModalContentNotification data={notification} listNotifications={listNotifications} token={token} />
     </Dialog.Root>
   );
 }

@@ -4,6 +4,8 @@ import dog from "../../../../../assets/images/13.png";
 import iconAttention from "../../../../../assets/images/area-restrita.png";
 import { Dialog } from "@radix-ui/themes";
 import { useNavigate } from "react-router-dom";
+import { IOrganization } from "../../../../../interfaces/IOrganization";
+import { uploads } from "../../../../../utils/config";
 
 type Props = {
   data: INotification;
@@ -22,41 +24,41 @@ export function UserContentNotification({ data }: Props) {
             agora você pode ir conhecer {data.formAdoption?.pet.name}. Segue
             abaixo os dados da ONG:
           </S.Description>
-          <S.Image src={data.formAdoption?.pet.organization.photo} alt="" />
+          <S.Image src={`${uploads}/pets/${(data.formAdoption?.pet.organization as IOrganization).photo}`} alt="" />
 
           <S.NameOrganization>
-            {data.formAdoption?.pet.organization.name}
+            {(data.formAdoption?.pet.organization as IOrganization).name}
           </S.NameOrganization>
           <S.ContainerDescription>
             <S.Description>
-              <b>Endereço:</b> {data.formAdoption?.pet.organization.street},{" "}
-              {data.formAdoption?.pet.organization.number},{" "}
-              {data.formAdoption?.pet.organization.neighborhood} -{" "}
-              {data.formAdoption?.pet.organization.city} /{" "}
-              {data.formAdoption?.pet.organization.state} -{" "}
-              {data.formAdoption?.pet.organization.cep}
+              <b>Endereço:</b> {(data.formAdoption?.pet.organization as IOrganization).street},{" "}
+              {(data.formAdoption?.pet.organization as IOrganization).number},{" "}
+              {(data.formAdoption?.pet.organization as IOrganization).neighborhood} -{" "}
+              {(data.formAdoption?.pet.organization as IOrganization).city} /{" "}
+              {(data.formAdoption?.pet.organization as IOrganization).state} -{" "}
+              {(data.formAdoption?.pet.organization as IOrganization).cep}
               <br />
             </S.Description>
 
             <S.DualInfo>
-              {data.formAdoption?.pet.organization.phone ? (
+              {(data.formAdoption?.pet.organization as IOrganization).phone ? (
                 <S.Description>
-                  <b>Telefones:</b> {data.formAdoption?.pet.organization.cel} |{" "}
-                  {data.formAdoption?.pet.organization.phone}
+                  <b>Telefones:</b> {(data.formAdoption?.pet.organization as IOrganization).cellPhone} |{" "}
+                  {(data.formAdoption?.pet.organization as IOrganization).phone}
                 </S.Description>
               ) : (
                 <S.Description>
-                  <b>Telefone:</b> {data.formAdoption?.pet.organization.cel}
+                  <b>Telefone:</b> {(data.formAdoption?.pet.organization as IOrganization).cellPhone}
                 </S.Description>
               )}
               <S.Description>
-                <b>Email:</b> {data.formAdoption?.pet.organization.email}
+                <b>Email:</b> {(data.formAdoption?.pet.organization as IOrganization).email}
               </S.Description>
             </S.DualInfo>
 
             <S.Description>
               <b>Horário de funcionamento:</b>{" "}
-              {data.formAdoption?.pet.organization.openingHours}
+              {(data.formAdoption?.pet.organization as IOrganization).openingHours}
             </S.Description>
           </S.ContainerDescription>
         </S.ContentOrganization>

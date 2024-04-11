@@ -6,13 +6,15 @@ import { api } from "../utils/config";
 export const register = async (data: IUser | IOrganization) => {
   try {
     const typeUser = data.type;
+  
+    const formData = new FormData();
+   (Object.keys(data) as Array<keyof typeof data>).forEach(key => formData.append(key, data[key] as string));
+    return formData;
+
 
     const res = await fetch(`${api}/auth/register/${typeUser}`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
+      body: formData
     });
 
     return res.json();

@@ -5,19 +5,22 @@ import { useEffect, useState } from "react";
 import { INotification } from "../../../../interfaces/INotification";
 import { SuccessMessageAdopt } from "../successMessage";
 import {
+  createNotification,
   updateNotification,
 } from "../../../../services/notifications.service";
 import { DeniedAdoption } from "../deniedAdoption";
 import { AdminContentNotification } from "./components/adminContent";
 import { UserContentNotification } from "./components/userContent";
 import { IUser } from "../../../../interfaces/IUser";
+import { IFormAdoption } from "../../../../interfaces/IFormAdoption";
 
 type Props = {
   data: INotification;
   listNotifications: () => void;
+  token: string;
 };
 
-export function ModalContentNotification({ data, listNotifications }: Props) {
+export function ModalContentNotification({ data, listNotifications, token }: Props) {
   const [error, setError] = useState("");
   const [age, setAge] = useState<number>();
   const [success, setSuccess] = useState(false);
@@ -55,19 +58,17 @@ export function ModalContentNotification({ data, listNotifications }: Props) {
   async function acceptAdoption(isAccept: boolean, message?: string) {
     const notification: INotification = {
       type: "response_adoption",
-      formAdoption: data.formAdoption,
-      idReceiver: data.formAdoption?.user.id as string,
-      createdAt: new Date(),
-      isViewed: false,
+      formAdoptionId: (data.formAdoption as IFormAdoption).id,
       wasApproved: isAccept,
       message: isAccept ? "" : message,
+      idReceiver: (data.formAdoption?.user as IUser).id as string
     };
 
     await updateNotification(data.id as string, {
-      wasApproved: isAccept,
-    });
+      wasApproved: isAccept
+    }, token);
 
-    const res = await createNotification(notification);
+    const res = await createNotification(notification, token);
 
     if (!res.error) {
       if (isAccept) {

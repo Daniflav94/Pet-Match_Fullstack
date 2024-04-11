@@ -55,6 +55,7 @@ export function Notifications({ setIsVisible, token }: Props) {
                         notification={item}
                         markAsViewed={markNotificationAsViewed}
                         listNotifications={listNotifications}
+                        token={token}
                       />
                     )}
                   </div>
@@ -77,6 +78,7 @@ export function Notifications({ setIsVisible, token }: Props) {
                         notification={item}
                         markAsViewed={markNotificationAsViewed}
                         listNotifications={listNotifications}
+                        token={token}
                       />
                     )}
                   </div>

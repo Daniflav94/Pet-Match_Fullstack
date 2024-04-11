@@ -34,14 +34,13 @@ export const registerFormAdoption = async (req: Req, res: Response) => {
 
   const findPet = await prisma.pet.findUnique({ where: { id: data.petId } });
 
-  const newNotification = {
-    idReceiver: findPet?.organizationId,
-    type: "request_adoption",
-    formAdoptionId: newFormAdoption.id,
-  };
-
-  const notification = await createNotification(newNotification);
-  console.log(notification);
+  await prisma.notifications.create({
+    data: {
+      idReceiver: findPet?.organizationId as string,
+      type: "request_adoption",
+      formAdoptionId: newFormAdoption.id,
+    },
+  });
 
   res.status(201).json({
     data: newFormAdoption,
@@ -53,7 +52,7 @@ export const getFormsAdoptionUser = async (req: Req, res: Response) => {
 
   const formsAdoption = await prisma.formAdoption.findMany({
     where: { userId },
-    include: { pet: true }
+    include: { pet: true },
   });
 
   res.status(201).json({

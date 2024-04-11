@@ -5,8 +5,9 @@ export interface INotification {
     idReceiver: string;
     type: string;
     formAdoption?: IFormAdoption;
-    isViewed: boolean;
-    createdAt: Date;
+    formAdoptionId?: string;
+    isViewed?: boolean;
+    createdAt?: Date;
     wasApproved?: boolean
     message?: string;
 }

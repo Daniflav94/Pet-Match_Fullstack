@@ -8,13 +8,15 @@ interface Req extends Request {
 }
 
 export const createNotification = async (
-  notification: Partial<Notifications>
+  req: Request, res: Response
 ) => {
+  const data = req.body;
+
   const newNotification = await prisma.notifications.create({
     data: {
-      idReceiver: notification.idReceiver as string,
-      type: notification.type as string,
-      formAdoptionId: notification.formAdoptionId as string,
+      idReceiver: data.idReceiver as string,
+      type: data.type as string,
+      formAdoptionId: data.formAdoptionId as string,
     },
   });
 
@@ -24,7 +26,9 @@ export const createNotification = async (
     );
   }
 
-  return newNotification;
+  res.status(201).json({
+    data: newNotification,
+  });
 };
 
 export const getNotifications = async (req: Req, res: Response) => {
@@ -32,6 +36,7 @@ export const getNotifications = async (req: Req, res: Response) => {
 
   const notifications = await prisma.notifications.findMany({
     where: { idReceiver: idUser },
+    include: { formAdoption: { include: { user: true } } },
   });
 
   res.status(201).json({
@@ -66,15 +71,20 @@ export const updateNotification = async (req: Req, res: Response) => {
     };
   }
 
-  const update = await prisma.notifications.update({ where: { id }, data: {
-    ...editNotification
-  } });
+  const update = await prisma.notifications.update({
+    where: { id },
+    data: {
+      ...editNotification,
+    },
+  });
 
-  if(!update){
-    res.status(500).json({ errors: ["Ocorreu um erro ao atualizar notificação."]})
+  if (!update) {
+    res
+      .status(500)
+      .json({ errors: ["Ocorreu um erro ao atualizar notificação."] });
   }
 
   res.status(201).json({
-    data: update
-  })
+    data: update,
+  });
 };
