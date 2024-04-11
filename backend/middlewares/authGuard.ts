@@ -14,13 +14,16 @@ export const authGuard = async (
   res: Response,
   next: NextFunction
 ) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
+  const { authorization } = req.headers;
+  const token = (authorization ?? "").split(" ")[1];
+  const cleanToken = token.replace(/"/g, '');
 
-  if (!token) return res.status(403).json({ errors: ["Acesso negado."] });
+  if (!token) {
+    return res.status(403).json({ errors: ["Acesso negado."] });
+  }
 
   try {
-    const verified = jwt.verify(token, jwtSecret);
+    const verified = jwt.verify(cleanToken, jwtSecret);
 
     const user = await prisma.user.findUnique({
       where: { id: (verified as JwtPayload).id },

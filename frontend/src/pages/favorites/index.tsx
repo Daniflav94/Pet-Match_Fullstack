@@ -16,14 +16,16 @@ interface PetFavorite {
 export function Favorites() {
   const [listPets, setListPets] = useState<PetFavorite[]>([]);
   const [loading, setLoading] = useState(false);
-  const [token, setToken] = useState('');
-  const [user, setUser] = useState< IUser>();
+  const [token, setToken] = useState("");
+  const [user, setUser] = useState<IUser>();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
 
     if (token) {
-      setToken(token);
+      const objectToken = JSON.parse(token);
+      console.log(objectToken)
+      setToken(objectToken);
 
       getFavorites(token);
     }
@@ -34,7 +36,9 @@ export function Favorites() {
   async function getUser() {
     const res = await getCurrentUser(token);
 
-    setUser(res.data);
+    if (res.data) {
+      setUser(res.data);
+    }
   }
 
   async function getFavorites(token: string) {
@@ -52,7 +56,7 @@ export function Favorites() {
     <S.Container>
       <h2>Meus favoritos</h2>
       {loading ? (
-        <Spinner color="default" size="lg" style={{marginTop: "8rem"}} />
+        <Spinner color="default" size="lg" style={{ marginTop: "8rem" }} />
       ) : (
         <>
           {listPets.length > 0 ? (

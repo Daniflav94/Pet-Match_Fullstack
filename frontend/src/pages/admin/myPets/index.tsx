@@ -33,7 +33,9 @@ export function MyPets() {
   async function getUser() {
     const res = await getCurrentUser(token);
 
-    setUser(res.data);
+    if (res.data) {
+      setUser(res.data);
+    }    
   }
 
   async function listAll(token: string) {

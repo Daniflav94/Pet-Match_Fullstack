@@ -8,30 +8,41 @@ import { useContext, useEffect, useState } from "react";
 
 import { IUser } from "../../interfaces/IUser";
 import { IOrganization } from "../../interfaces/IOrganization";
-import {
-  Tooltip,
-} from "@nextui-org/react";
+import { Tooltip } from "@nextui-org/react";
 import { getCurrentUser, logout } from "../../services/auth.service";
 import { Badge } from "@nextui-org/react";
 import { Notifications } from "../notifications";
 import NotificationsContext from "../../contexts/notificationContext";
 import { AnimatePresence, motion } from "framer-motion";
 import { getNotifications } from "../../services/notifications.service";
+import TokenContext from "../../contexts/tokenContext";
 
 export function Navbar() {
   const route = useLocation();
   const navigate = useNavigate();
 
   const [userLogged, setUserLogged] = useState<IUser | IOrganization>();
-  const [token, setToken] = useState("");
   const [isNotificationsVisible, setIsNotificationsVisible] = useState(false);
   const [newNotification, setNewNotification] = useState(false);
 
   const { notifications, setNotifications } = useContext(NotificationsContext);
+  const { token, setToken } = useContext(TokenContext);
 
   useEffect(() => {
-      getUser();
-         
+    const tokenStorage = localStorage.getItem("token");
+    const user = localStorage.getItem("user");
+
+    if (tokenStorage) {
+      setToken(tokenStorage);
+      listNotifications(tokenStorage)
+    }
+
+    if (user) {
+      const userObject = JSON.parse(user);
+      
+      setUserLogged(userObject);     
+    }
+    
   }, []);
 
   useEffect(() => {
@@ -40,24 +51,12 @@ export function Navbar() {
     setNewNotification(newNotifications);
   }, [notifications]);
 
-  async function getUser() {
-    const token = localStorage.getItem("token");
+  async function listNotifications(token: string) {
+    const res = await getNotifications(token);
 
-    if(token){
-      setToken(token);
-      const res = await getCurrentUser(token);
-
-      setUserLogged(res.data);
-      listNotifications(res.data.id);
+    if (res.data) {
+      setNotifications(res.data);
     }
-  }
-
-  async function listNotifications(id: string) {
-    const res = await getNotifications(id);
-
-    // if (res.data) {
-    //   setNotifications(res.data);
-    // }
   }
 
   const logoutUser = () => {

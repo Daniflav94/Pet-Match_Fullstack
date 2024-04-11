@@ -15,6 +15,7 @@ import { Profile } from "./pages/profile/index.tsx";
 import { Favorites } from "./pages/favorites/index.tsx";
 import { NotificationsContextProvider } from "./contexts/notificationContext.tsx";
 import { ErrorPage } from "./components/errorPage/index.tsx";
+import { TokenContextProvider } from "./contexts/tokenContext.tsx";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +57,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
+    <TokenContextProvider>
       <NotificationsContextProvider>
         <Theme>
           <NextUIProvider>
@@ -63,5 +65,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           </NextUIProvider>
         </Theme>
       </NotificationsContextProvider>
+    </TokenContextProvider>
   </React.StrictMode>
 );

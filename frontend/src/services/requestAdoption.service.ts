@@ -6,8 +6,9 @@ export const createRequest = async (form: IFormAdoption, token: string) => {
     const res = await fetch(`${api}/adoption/`, {
       method: "POST",
       headers: {
+        Accept: "application/json",
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+        Authorization: "Bearer " + token
       },
       body: JSON.stringify(form),
       
@@ -24,8 +25,9 @@ export const getRequestsUser = async (token: string) => {
     const res = await fetch(`${api}/adoption/`, {
       method: "GET",
       headers: {
+        Accept: "application/json",
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+        Authorization: "Bearer " + token
       },
       
     });

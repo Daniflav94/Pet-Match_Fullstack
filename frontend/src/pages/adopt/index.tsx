@@ -25,18 +25,20 @@ interface PetFavorite {
 export function Adopt() {
   const [pets, setPets] = useState<IPet[]>([]);
   const [petsFavorites, setPetsFavorites] = useState<PetFavorite[]>([]);
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState("");
   const [user, setUser] = useState<IOrganization | IUser>();
   const [totalList, setTotalList] = useState(1);
   const [filteredPets, setFilteredPets] = useState<IPet[]>([]);
   const [notFoundMessage, setNotFoundMessage] = useState("");
-  const [listRequestAdoption, setListRequestAdoption] = useState<IFormAdoption[]>([]);
+  const [listRequestAdoption, setListRequestAdoption] = useState<
+    IFormAdoption[]
+  >([]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    if (token) {  
-      setToken(token); 
+    if (token) {
+      setToken(token);
       getFavorites(token);
       getRequestsAdoptionUser(token);
     }
@@ -53,7 +55,9 @@ export function Adopt() {
   async function getUser() {
     const res = await getCurrentUser(token);
 
-    setUser(res.data);
+    if (res.data) {
+      setUser(res.data);
+    }
   }
 
   const filtered =
@@ -89,11 +93,14 @@ export function Adopt() {
     }
   }
 
-
   return (
     <Dialog.Root>
       <S.Container>
-        <FilterAdopt setFilteredPets={setFilteredPets} setNotFoundMessage={setNotFoundMessage} token={token} />
+        <FilterAdopt
+          setFilteredPets={setFilteredPets}
+          setNotFoundMessage={setNotFoundMessage}
+          token={token}
+        />
         {notFoundMessage != "" && (
           <S.Error>
             <span>{notFoundMessage}</span>

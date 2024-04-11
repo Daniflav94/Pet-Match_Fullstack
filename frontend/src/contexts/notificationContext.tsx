@@ -9,9 +9,7 @@ type PropsNotificationsContext = {
 const DEFAULT_VALUE = {
   notifications : [{
       idReceiver: '',
-      type: '',
-      createdAt: new Date(),
-      isViewed: true     
+      type: '', 
   }],
   setNotifications: () => {},
 }

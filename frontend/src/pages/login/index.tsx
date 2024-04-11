@@ -3,13 +3,14 @@ import imageDog from "../../assets/images/viralata.jpeg";
 import logo from "../../assets/icons/petHouseBlue.png";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { EyeIcon, EyeOff } from "lucide-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { InputCustom } from "../../components/input";
 import { Register } from "./components/register";
 import { Toaster, toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../services/auth.service";
 import { CustomButton } from "../../components/customButton";
+import TokenContext from "../../contexts/tokenContext";
 
 type Login = {
   email: string;
@@ -31,12 +32,21 @@ export function Login() {
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
+  const { setToken } = useContext(TokenContext);
+
   const onSubmit: SubmitHandler<Login> = async (data) => {
     const res = await login(data);
 
-    if (!res.data) {
-      toast.error(res.error);
+    if (res.errors) {
+      toast.error(res.errors);
     } else {
+      const tokenResponse = res.token;
+      const user = res.user;
+      setToken(tokenResponse);
+
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("token", JSON.stringify(tokenResponse));
+
       toast.success("Bem vindo(a)!");
       navigate("/");
     }

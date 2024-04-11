@@ -70,7 +70,7 @@ export function ModalContentNotification({ data, listNotifications, token }: Pro
 
     const res = await createNotification(notification, token);
 
-    if (!res.error) {
+    if (!res.errors) {
       if (isAccept) {
         setSuccess(true);
       } else {

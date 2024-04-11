@@ -6,8 +6,9 @@ export const createNotification = async (notification: INotification, token: str
     const res = await fetch(`${api}/notifications/`, {
       method: "POST",
       headers: {
+        Accept: "application/json",
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+        Authorization: "Bearer " + token
       },
       body: JSON.stringify(notification),
     });
@@ -24,8 +25,9 @@ export const getNotifications = async (token: string) => {
     const res = await fetch(`${api}/notifications/`, {
       method: "GET",
       headers: {
+        Accept: "application/json",
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+        Authorization: "Bearer " + token
       },
     });
 
@@ -44,8 +46,9 @@ export const updateNotification = async (
     const res = await fetch(`${api}/notifications/${id}/`, {
       method: "PUT",
       headers: {
+        Accept: "application/json",
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+        Authorization: "Bearer " + token
       },
       body: JSON.stringify(data),
     });

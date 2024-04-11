@@ -13,13 +13,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
-  res.header( "Access-Control-Allow-Headers",
-  "Origin, X-Requested-With, Content-Type, Accept");
-  app.use(cors());
-  next();
-});
+app.use(cors({origin: "http://localhost:5173"}));
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
 app.use(router);

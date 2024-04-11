@@ -7,8 +7,9 @@ export const createPet = async (pet: FormData, token: string) => {
     const res = await fetch(`${api}/pets`, {
       method: "POST",
       headers: {
-        'Content-Type': 'multipart/form-data',
-        "Authorization": `Bearer ${token}`
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token
       },
       body: pet
     });
@@ -25,8 +26,9 @@ export const editPet = async (id: string, pet: Partial<IPet>, token: string) => 
     const res = await fetch(`${api}/pets/${id}`, {
       method: "PUT",
       headers: {
+        Accept: "application/json",
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+        Authorization: "Bearer " + token
       },
       body: JSON.stringify(pet),
       
@@ -44,8 +46,9 @@ export const deletePet = async (id: string, token: string) => {
     const res = await fetch(`${api}/pets/${id}`, {
       method: "DELETE",
       headers: {
+        Accept: "application/json",
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+        Authorization: "Bearer " + token
       },      
     });
 
@@ -61,8 +64,9 @@ export const filterPets = async (filter: Partial<IFilter>, token: string) => {
     const res = await fetch(`${api}/pets/filter`, {
       method: "POST",
       headers: {
+        Accept: "application/json",
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+        Authorization: "Bearer " + token
       },
       body: JSON.stringify(filter),
       
@@ -80,8 +84,9 @@ export const listMyPets = async (token: string) => {
     const res = await fetch(`${api}/pets/my-pets`, {
       method: "GET",
       headers: {
+        Accept: "application/json",
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+        Authorization: "Bearer " + token
       },      
     });
 
@@ -127,8 +132,9 @@ export const addPetListFavorites = async (petId: string, token: string) => {
     const res = await fetch(`${api}/pets/favorite/${petId}`, {
       method: "POST",
       headers: {
+        Accept: "application/json",
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+        Authorization: "Bearer " + token
       },      
     });
 
@@ -143,8 +149,9 @@ export const removePetListFavorites = async (petId: string, token: string) => {
     const res = await fetch(`${api}/pets/favorite/${petId}`, {
       method: "DELETE",
       headers: {
+        Accept: "application/json",
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+        Authorization: "Bearer " + token
       },      
     });
 
@@ -159,8 +166,9 @@ export const getListFavorites = async (token: string) => {
     const res = await fetch(`${api}/pets/favorite/`, {
       method: "GET",
       headers: {
+        Accept: "application/json",
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+        Authorization: "Bearer " + token
       },      
     });
 

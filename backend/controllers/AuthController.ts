@@ -12,11 +12,8 @@ interface Req extends Request {
   user?: User | Admin | null;
 }
 
-
 const generateToken = (id: string) => {
-  return jwt.sign({ id }, jwtSecret, {
-    expiresIn: "7d",
-  });
+  return jwt.sign({ id }, jwtSecret,);
 };
 
 const verifyUserExist = async (email: string, type?: string) => {
@@ -30,13 +27,13 @@ const verifyUserExist = async (email: string, type?: string) => {
   } else {
     const user = await prisma.user.findUnique({ where: { email: email } });
 
-    if(!user){
+    if (!user) {
       const admin = await prisma.admin.findUnique({ where: { email: email } });
 
-      return admin
+      return admin;
     }
 
-    return user
+    return user;
   }
 };
 
@@ -104,35 +101,32 @@ export const register = async (req: Request, res: Response) => {
   }
 
   res.status(201).json({
-    data: create
+    data: create,
   });
 };
 
-export const login = async(req: Request, res: Response) => {
-  const {email, password} = req.body
+export const login = async (req: Request, res: Response) => {
+  const { email, password } = req.body;
 
   const user = await verifyUserExist(email);
 
-  if(!user) {
-    res.status(400).json({errors: ["Email não cadastrado!"]})
-    return
+  if (!user) {
+    res.status(400).json({ errors: ["Email não cadastrado!"] });
+    return;
   }
 
-  if(!(await bcrypt.compare(password, user.password))){
-    res.status(400).json({errors: ["Credenciais inválidas!"]})
-    return
+  if (!(await bcrypt.compare(password, user.password))) {
+    res.status(400).json({ errors: ["Credenciais inválidas!"] });
+    return;
   }
 
-  res.status(201).json({
-    token: generateToken(user.id),
-  });
+  res.status(201).json({ token: generateToken(user.id), user: user });
 };
 
 export const getCurrentUser = async (req: Req, res: Response) => {
   const user = req.user;
 
   res.status(200).json({
-    data: user
+    data: user,
   });
-
-}
+};

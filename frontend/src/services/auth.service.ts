@@ -42,10 +42,8 @@ export const login = async (data: ILogin) => {
       },
       body: JSON.stringify(data),
     });
-
-    localStorage.setItem("token", JSON.stringify(res));
-
-    return res.json();
+    
+    return res.json()
   } catch (error) {
     console.log(error);
   }
@@ -60,8 +58,9 @@ export const getCurrentUser = async(token: string) => {
     const res = await fetch(`${api}/auth/profile`, {
       method: "GET",
       headers: {
+        Accept: "application/json",
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+        Authorization: "Bearer " + token
       },   
     });
 
