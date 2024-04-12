@@ -36,7 +36,7 @@ export const getNotifications = async (req: Req, res: Response) => {
 
   const notifications = await prisma.notifications.findMany({
     where: { idReceiver: idUser },
-    include: { formAdoption: { include: { user: true } } },
+    include: { formAdoption: { include: { user: true, pet: true } } },
   });
 
   res.status(201).json({
