@@ -6,6 +6,10 @@ export const Background = styled.div`
   width: 100vw;
   height: 40vh;
   z-index: 2;
+
+  @media only screen and (max-width: 700px){
+    height: 30vh;
+  }
 `;
 
 export const Container = styled.section`
@@ -16,12 +20,23 @@ export const Container = styled.section`
   align-items: center;
   background-color: ${(props) => props.theme.colors.snow};
   font-family: 'Poppins', sans-serif;
+
+  @media only screen and (max-width: 700px){
+    flex-direction: column;
+    width: 100%;
+    padding: 2rem;
+  }
 `;
 
 export const Content = styled.div`
   width: 40rem;
   margin-left: 5rem;
   z-index: 999999 !important;
+
+  @media only screen and (max-width: 700px){
+    width: 100%;
+    margin-left: 0;
+  }
   
 `;
 
@@ -30,6 +45,10 @@ export const Image = styled.img`
   height: 25rem;
   z-index: 99999;
   border-radius: 8px;
+
+  @media only screen and (max-width: 700px){
+    display: none;
+  }
 `;
 
 export const Title = styled.h2`
