@@ -109,6 +109,7 @@ export function RegisterPet({ listAll }: Props) {
 
     setLoading(false);
     reset();
+    setPersonality([]);
     setValue("gender", "");
     setValue("age", "");
     setValue("size", "");
@@ -170,6 +171,7 @@ export function RegisterPet({ listAll }: Props) {
                   }}
                   style={{ border: "2px solid #e4e4e7" }}
                   isRequired
+                  selectedKeys={personality}
                   onChange={(e) => {
                     handleSelect(e.target.value);
                   }}

@@ -18,14 +18,14 @@ export function Notification({
   markAsViewed,
   listNotifications,
 }: Props) {
-  console.log(notification)
   const date = new Date(notification.createdAt as Date).toLocaleDateString("pt-BR")
+  
   return (
     <Dialog.Root>
       <S.Container>
         {notification.type === "request_adoption" ? (
           <S.ContentNotification>
-            <S.Img src={notification.formAdoption?.pet?.photo} alt="" />
+            <S.Img src={`${uploads}/pets/${notification.formAdoption?.pet?.photo}`} alt="" />
             <S.ContainerText>
               <S.Title>Solicitação de adoção</S.Title>
               <S.Date>

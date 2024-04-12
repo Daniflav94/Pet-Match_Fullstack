@@ -1,4 +1,6 @@
 import { INotification } from "../../../../../interfaces/INotification";
+import { IUser } from "../../../../../interfaces/IUser";
+import { uploads } from "../../../../../utils/config";
 import { CustomButton } from "../../../../customButton";
 import * as S from "../styles";
 
@@ -23,18 +25,21 @@ export function AdminContentNotification({
       <S.Content>
         <S.DataPet>
           <S.Subtitle>Deseja adotar:</S.Subtitle>
-          <S.PetImage src={data.formAdoption?.pet?.photo} />
+          <S.PetImage
+            src={`${uploads}/pets/${data.formAdoption?.pet?.photo}`}
+          />
           <S.NamePet>{data.formAdoption?.pet?.name}</S.NamePet>
         </S.DataPet>
         <S.DataUser>
           <S.Subtitle>Dados solicitante:</S.Subtitle>
           <span style={{ textAlign: "center" }}>
-            {data.formAdoption?.name}, {age} anos - {data.formAdoption?.city} /{" "}
-            {data.formAdoption?.state}{" "}
+            {(data.formAdoption?.user as IUser).name}, {age} anos -{" "}
+            {(data.formAdoption?.user as IUser).city} /{" "}
+            {(data.formAdoption?.user as IUser).state}{" "}
           </span>
 
           <span style={{ textAlign: "center", marginBottom: "1rem" }}>
-            {data.formAdoption?.email}
+            {(data.formAdoption?.user as IUser).email}
           </span>
 
           <div>
@@ -45,18 +50,18 @@ export function AdminContentNotification({
 
               <span>
                 <b>Tem crianças: </b>
-                {data.formAdoption?.children}
+                {data.formAdoption?.children ? 'Sim' : 'Não'}
               </span>
             </S.DualInfo>
 
             <S.DualInfo>
               <span>
                 <b>Seria primeiro pet: </b>
-                {data.formAdoption?.isFirstPet}
+                {data.formAdoption?.isFirstPet ? 'Sim' : 'Não'}
               </span>
               <span>
                 <b>Possui outros pets: </b>
-                {data.formAdoption?.pets}
+                {data.formAdoption?.pets ? 'Sim' : 'Não'}
               </span>
             </S.DualInfo>
 

@@ -40,7 +40,7 @@ export function ModalContentNotification({ data, listNotifications }: Props) {
     const current_month = now.getMonth() + 1;
     const current_day = now.getDate();
 
-    const birthdate = (data.formAdoption?.user as IUser).birthdate as Date;
+    const birthdate = new Date((data.formAdoption?.user as IUser).birthdate as Date);
     const birthdate_year = birthdate?.getFullYear();
     const birthdate_month = birthdate?.getMonth();
     const birthdate_day = birthdate?.getDay();

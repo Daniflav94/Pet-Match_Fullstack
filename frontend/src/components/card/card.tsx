@@ -210,7 +210,7 @@ export function Card({
 
         {isFormSent && <S.ButtonDisabled>Adoção solicitada</S.ButtonDisabled>}
       </S.ContainerCard>
-      <ModalAdopt pet={pet} setIsFormSent={setIsFormSent} token={token as string} />
+      <ModalAdopt pet={pet} setIsFormSent={setIsFormSent} />
     </Dialog.Root>
   );
 }
