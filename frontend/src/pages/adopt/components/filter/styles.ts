@@ -8,8 +8,12 @@ export const ContainerSearch = styled.div`
   width: 100vw;
   background-color: ${(props) => props.theme.colors.snow};
   gap: 0.5rem;
-`;
 
+  @media only screen and (max-width: 700px){
+   flex-direction: column;
+   
+  }
+`;
 
 export const Form = styled.form`
   display: flex;
@@ -17,8 +21,13 @@ export const Form = styled.form`
   justify-content: center;
   width: 80%;
   gap: 2rem;
-`;
 
+  @media only screen and (max-width: 700px){
+   flex-direction: column;
+   gap: 1rem;
+   
+  }
+`;
 
 
 export const H3 = styled.h3`
@@ -42,6 +51,12 @@ export const ContentIcon = styled.span`
 export const ContainerIcons = styled.div`
   display: flex;
   gap: 0.8rem;
+
+  @media only screen and (max-width: 700px){
+   width: 100%;
+   align-items: center;
+   justify-content: center;
+  }
 `;
 
 export const Icon = styled.img`
@@ -60,6 +75,8 @@ export const ContainerSelect = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+
+
 `;
 
 export const ContentSelect = styled.div`

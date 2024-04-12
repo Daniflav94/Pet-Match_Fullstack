@@ -23,6 +23,12 @@ export const ContainerCards = styled.section`
   justify-content: center;
   gap: 2rem;
   margin: 5rem 3rem;
+
+  @media only screen and (max-width: 700px){
+    gap: 0.8rem;
+    margin: 2rem 0;
+    width: 100vw;
+  }
 `;
 
 export const Pagination = styled.div`

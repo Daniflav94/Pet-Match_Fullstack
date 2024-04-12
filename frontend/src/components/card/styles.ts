@@ -13,6 +13,10 @@ export const ContainerCard = styled.div`
   -webkit-box-shadow: 0px 0px 5px 3px rgba(224,215,208,1);
 -moz-box-shadow: 0px 0px 5px 3px rgba(224,215,208,1);
 box-shadow: 0px 0px 5px 3px rgba(224,215,208,1);
+
+@media only screen and (max-width: 700px){
+    width: 11.5rem;
+  }
 `;
 
 export const ContentCard = styled.div`
