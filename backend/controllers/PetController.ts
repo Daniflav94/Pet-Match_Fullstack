@@ -212,10 +212,10 @@ export const getMyPetsFavorites = async (req: Req, res: Response) => {
 
 export const deletePetFavorite = async (req: Req, res: Response) => {
   const { id } = req.params;
-  const userId = req.user?.id;
+  const user = req.user?.id;
 
-  const petFavorite = await prisma.favorites.findUnique({
-    where: { id, userId },
+  const petFavorite = await prisma.favorites.findFirst({
+    where: { petId: id, userId: user as string },
   });
 
   if (!petFavorite) {
@@ -223,7 +223,9 @@ export const deletePetFavorite = async (req: Req, res: Response) => {
     return;
   }
 
-  await prisma.favorites.delete({ where: { id } });
+  const idFavorite = petFavorite.id;
+
+  await prisma.favorites.delete({ where: { id: idFavorite } });
 
   res.status(201).json("Pet desfavoritado.");
 };

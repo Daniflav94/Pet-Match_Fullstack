@@ -81,7 +81,7 @@ export function Card({
 
   useEffect(() => {
     favorites?.map((p) => {
-      if (p.pet.id === pet.id) {
+      if ((p.pet as IPet).id === pet.id) {
         setIsFavorite(true);       
       }
     });
@@ -90,7 +90,7 @@ export function Card({
 
   useEffect(() => {
     listRequestAdoption?.map((p) => {
-      if (p.pet.id === pet.id) {
+      if ((p.pet as IPet).id === pet.id) {
         setIsFormSent(true);       
       }
     });

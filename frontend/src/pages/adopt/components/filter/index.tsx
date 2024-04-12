@@ -53,8 +53,7 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
   async function getStates() {
     const pets = await getAllPets();
     const res = await getListStates();
-    console.log(pets)
-
+  
     if (res) {
       const states = res.map((state: State) => {
         return { value: state.sigla, name: state.nome };
