@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+type Props = {
+  opacity?: number;
+}
+
 export const Pet = styled.img`
   position: absolute;
   top: 27.8rem;
@@ -32,6 +36,12 @@ export const Main = styled.div`
   flex-direction: column;
   align-items: center;
   padding-top: 8.5rem;
+`;
+
+export const TitleAnimation = styled.div<Props>`
+  opacity: ${props => props.opacity};
+
+  transition: opacity 0.7s ease;
 `;
 
 export const Title = styled.h2`
@@ -99,7 +109,7 @@ export const ContentAdopt = styled.div`
 `;
 
 export const Cat = styled.img`
-  width: 14rem;
+  width: 15rem;
 `;
 
 export const TextAdopt = styled.span`
@@ -127,7 +137,7 @@ export const ContentDonation = styled.div`
 `;
 
 export const Dog = styled.img`
-  width: 14rem;
+  width: 15rem;
 `;
 
 export const TextDonation = styled(TextAdopt)`

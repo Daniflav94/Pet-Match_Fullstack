@@ -26,7 +26,7 @@ export function Navbar() {
   const [newNotification, setNewNotification] = useState(false);
 
   const { notifications, setNotifications } = useContext(NotificationsContext);
-  const { token, setToken } = useContext(TokenContext);
+  const { setToken } = useContext(TokenContext);
 
   useEffect(() => {
     const tokenStorage = localStorage.getItem("token");

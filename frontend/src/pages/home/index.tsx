@@ -7,27 +7,30 @@ import addPet from "../../assets/icons/cat-add.svg";
 import cat from "../../assets/images/cat.png";
 import dog from "../../assets/images/1.png";
 import { Link } from "react-router-dom";
-import { easeIn, motion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export function Home() {
+  const [opacity, setOpacity] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setOpacity(1)
+    }, 800)
+    
+  }, [])
+
   return (
     <S.Section>
       <S.ContainerTitle>
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{
-            delay: 0.4,
-            duration: 0.7,
-            ease: "linear",
-          }}
+        <S.TitleAnimation opacity={opacity}
         >
           <S.Title>Não compre.</S.Title>
-        </motion.div>
+        </S.TitleAnimation>
         <motion.div
           initial={{ opacity: 0, y: -100 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.4, ease: "linear"  }}
+          transition={{ delay: 1.5, ease: "linear", type: "spring"  }}
         >
           <S.Title2>&nbsp;Adote!</S.Title2>
         </motion.div>
@@ -57,7 +60,7 @@ export function Home() {
             <S.Icon src={form} alt="" />
             <S.Text>Preencha o formulário de adoção</S.Text>
             <S.Description>
-              Finalize o processo de adoção e receba todas as informações
+              Após conhecer o pet, finalize o processo de adoção e receba todas as informações
               necessárias.
             </S.Description>
           </S.ContentIcons>

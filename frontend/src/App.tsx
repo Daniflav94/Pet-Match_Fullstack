@@ -1,6 +1,7 @@
 import { Outlet, useLocation } from 'react-router-dom'
 import { Navbar } from './components/navbar'
 import  { ThemeProvider  } from 'styled-components';
+import { Footer } from './components/footer';
 
 function App() {
 const theme = {
@@ -25,6 +26,7 @@ const route = useLocation();
     <ThemeProvider theme={theme} >
       {route.pathname != '/login' && <Navbar/>}
      <Outlet />
+     {route.pathname != '/login' && <Footer/>}
     </ThemeProvider>
   )
 }
