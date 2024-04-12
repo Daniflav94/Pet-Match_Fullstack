@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export const ContainerRegister = styled.div`
-  width: 70%;
+  width: 100%;
   height: 100vh;
+  overflow-y: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,7 +16,7 @@ export const ContainerRegister = styled.div`
 export const ButtonArrow = styled.button`
   width: 2.5rem;
   position: absolute;
-  top: 0;
+  top: 3rem;
   left: 3rem;
 `;
 
@@ -25,16 +26,19 @@ export const Title = styled.h1`
     color: ${props => props.theme.colors.blue};
     font-family: "Poppins", sans-serif;
     margin-bottom: 2rem;
+    margin-top: 4rem;
 `;
 
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   width: 100%;
-  max-width: 30rem;
-  gap: 1rem;
+  max-width: 35rem;
+  gap: 0.8rem;
+  height: fit-content;
+  overflow-y: auto;
+  padding: 2rem;
 `;
 
 export const DualInput = styled.div`

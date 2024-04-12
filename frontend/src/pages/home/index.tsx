@@ -15,27 +15,29 @@ export function Home() {
 
   useEffect(() => {
     setTimeout(() => {
-      setOpacity(1)
-    }, 800)
-    
-  }, [])
+      setOpacity(1);
+    }, 800);
+  }, []);
 
   return (
     <S.Section>
       <S.ContainerTitle>
-        <S.TitleAnimation opacity={opacity}
-        >
+
+        <S.TitleAnimation opacity={opacity}>
           <S.Title>Não compre.</S.Title>
         </S.TitleAnimation>
+
         <motion.div
           initial={{ opacity: 0, y: -100 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.5, ease: "linear", type: "spring"  }}
+          transition={{ delay: 1.5, ease: "linear", type: "spring" }}
         >
           <S.Title2>&nbsp;Adote!</S.Title2>
         </motion.div>
+        
+        <S.Pet src={pet} alt="" />
       </S.ContainerTitle>
-      
+
       <S.Main>
         <h2>Como funciona</h2>
         <S.ContainerIcons>
@@ -47,7 +49,9 @@ export function Home() {
               Todos são castrados e vacinados.
             </S.Description>
           </S.ContentIcons>
+
           <S.Divider></S.Divider>
+
           <S.ContentIcons>
             <S.Icon src={requestPet} alt="" />
             <S.Text>Conheça seu pet</S.Text>
@@ -56,16 +60,20 @@ export function Home() {
               para conhecer o pet.
             </S.Description>
           </S.ContentIcons>
+          
           <S.Divider></S.Divider>
+
           <S.ContentIcons>
             <S.Icon src={form} alt="" />
             <S.Text>Preencha o formulário de adoção</S.Text>
             <S.Description>
-              Após conhecer o pet, finalize o processo de adoção e receba todas as informações
-              necessárias.
+              Após conhecer o pet, finalize o processo de adoção e receba todas
+              as informações necessárias.
             </S.Description>
           </S.ContentIcons>
+
           <S.Divider></S.Divider>
+
           <S.ContentIcons>
             <S.Icon src={addPet} alt="" />
             <S.Text>Adicione o pet a sua família</S.Text>
@@ -91,6 +99,7 @@ export function Home() {
             </S.TextAdopt>
           </S.ContentAdopt>
         </S.ContainerAdopt>
+
         <S.ContainerDonation>
           <S.ContentDonation>
             <h2>Apadrinhar um pet</h2>
@@ -104,12 +113,11 @@ export function Home() {
               você. A ONG / abrigo receberá sua contribuição e poderá continuar
               cuidando bem de seus peludos.
             </S.TextDonation>
+            
           </S.ContentDonation>
           <S.Dog src={dog} alt="" />
         </S.ContainerDonation>
       </S.Main>
-
-      <S.Pet src={pet} alt="" />
     </S.Section>
   );
 }

@@ -11,12 +11,22 @@ export const Container = styled.div`
 
 export const ContainerImage = styled.div`
   min-width: 40rem;
-  height: 100%;
+  height: 100vh;
   overflow: hidden;
+ 
+`;
+
+export const ContainerForm = styled.div`
+  width: 70%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const ContainerLogin = styled.div`
-  width: 70%;
+  width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -27,6 +37,7 @@ export const ContainerLogin = styled.div`
 
 export const Image = styled.img`
   width: 100%;
+   object-fit: cover;
 `;
 
 export const ContainerLogo = styled.div`
