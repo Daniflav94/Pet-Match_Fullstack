@@ -25,7 +25,7 @@ export const ContainerCards = styled.section`
   margin: 5rem 3rem;
 
   @media only screen and (max-width: 700px){
-    gap: 0.8rem;
+    gap: 1rem;
     margin: 2rem 0;
     width: 100vw;
   }

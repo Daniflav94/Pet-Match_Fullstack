@@ -15,7 +15,7 @@ export const ContainerCard = styled.div`
 box-shadow: 0px 0px 5px 3px rgba(224,215,208,1);
 
 @media only screen and (max-width: 700px){
-    width: 11.5rem;
+    width: 80%;
   }
 `;
 
@@ -34,6 +34,10 @@ export const Image = styled.img`
   object-fit: cover;
   object-position: center top;
   margin-right: 0.4rem;
+
+  @media only screen and (max-width: 700px){
+    height: 70%;
+  }
 `;
 
 export const Title = styled.span`

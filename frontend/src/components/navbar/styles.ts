@@ -15,6 +15,10 @@ export const Ul = styled.ul`
   align-items: center;
   padding: 1rem 5rem;
   margin: 0;
+
+  @media only screen and (max-width: 700px){
+    padding: 1rem;
+  }
 `;
 
 export const Logo = styled.li`
@@ -115,7 +119,7 @@ export const IconBell = styled(Icon)`
 export const IconHeart = styled(Icon)`
   &:hover {
     transform: scale(1);
-    animation: ${pulse} 0.5s forwards 1 ;
+    animation: ${pulse} 0.5s forwards 1;
   }
 `;
 

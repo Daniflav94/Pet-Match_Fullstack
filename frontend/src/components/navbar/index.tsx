@@ -16,6 +16,7 @@ import NotificationsContext from "../../contexts/notificationContext";
 import { AnimatePresence, motion } from "framer-motion";
 import { getNotifications } from "../../services/notifications.service";
 import TokenContext from "../../contexts/tokenContext";
+import { Menu } from "lucide-react";
 
 export function Navbar() {
   const route = useLocation();
@@ -28,21 +29,22 @@ export function Navbar() {
   const { notifications, setNotifications } = useContext(NotificationsContext);
   const { setToken } = useContext(TokenContext);
 
+  const width = screen.width;
+
   useEffect(() => {
     const tokenStorage = localStorage.getItem("token");
     const user = localStorage.getItem("user");
 
     if (tokenStorage) {
       setToken(tokenStorage);
-      listNotifications(tokenStorage)
+      listNotifications(tokenStorage);
     }
 
     if (user) {
       const userObject = JSON.parse(user);
-      
-      setUserLogged(userObject);     
+
+      setUserLogged(userObject);
     }
-    
   }, []);
 
   useEffect(() => {
@@ -68,69 +70,14 @@ export function Navbar() {
 
   return (
     <S.Nav>
-      <S.Ul>
-        <Link to="/">
-          <S.Logo>
-            <S.Img src={logo} alt="logo pet match" />
-            <S.LogoText>pet match</S.LogoText>
-          </S.Logo>
-        </Link>
-        <S.Div>
-          <li>
-            <Link to="/">
-              <S.Span
-                style={
-                  route.pathname === "/"
-                    ? { borderBottom: "2px solid #ECB159" }
-                    : {}
-                }
-              >
-                Início
-              </S.Span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/sobre">
-              <S.Span
-                style={
-                  route.pathname === "/sobre"
-                    ? { borderBottom: "2px solid #ECB159" }
-                    : {}
-                }
-              >
-                Sobre
-              </S.Span>
-            </Link>
-          </li>
-          {userLogged?.type != "admin" ? (
-            <li>
-              <Link to="/adotar">
-                <S.Span
-                  style={
-                    route.pathname === "/adotar"
-                      ? { borderBottom: "2px solid #ECB159" }
-                      : {}
-                  }
-                >
-                  Adotar
-                </S.Span>
-              </Link>
-            </li>
-          ) : (
-            <li>
-              <Link to="/meus-pets">
-                <S.Span
-                  style={
-                    route.pathname === "/meus-pets"
-                      ? { borderBottom: "2px solid #ECB159" }
-                      : {}
-                  }
-                >
-                  Meus Pets
-                </S.Span>
-              </Link>
-            </li>
-          )}
+      {width < 700 ? (
+        <S.Ul>
+          <Link to="/">
+            <S.Logo>
+              <S.Img src={logo} alt="logo pet match" />
+              <S.LogoText>pet match</S.LogoText>
+            </S.Logo>
+          </Link>
 
           <S.Container>
             {userLogged?.type === "user" && (
@@ -159,28 +106,127 @@ export function Navbar() {
                 </S.Container>
               </li>
             )}
-            <li>
-              {userLogged ? (
-                <S.ContainerButtonsLogged>
-                  <S.Container>
-                    <S.Login>Olá, {userLogged.name.split(" ")[0]}</S.Login>
-                  </S.Container>
-
-                  <Tooltip content="Sair" placement="bottom-start" size="sm">
-                    <button onClick={logoutUser}>
-                      <S.Icon src={logoutIcon} />
-                    </button>
-                  </Tooltip>
-                </S.ContainerButtonsLogged>
-              ) : (
-                <Link to="/login">
-                  <S.Login>Entrar</S.Login>
-                </Link>
-              )}
-            </li>
+            
           </S.Container>
-        </S.Div>
-      </S.Ul>
+
+          <Menu color="#f0e4c4" />
+        </S.Ul>
+      ) : (
+        <S.Ul>
+          <Link to="/">
+            <S.Logo>
+              <S.Img src={logo} alt="logo pet match" />
+              <S.LogoText>pet match</S.LogoText>
+            </S.Logo>
+          </Link>
+          <S.Div>
+            <li>
+              <Link to="/">
+                <S.Span
+                  style={
+                    route.pathname === "/"
+                      ? { borderBottom: "2px solid #ECB159" }
+                      : {}
+                  }
+                >
+                  Início
+                </S.Span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/sobre">
+                <S.Span
+                  style={
+                    route.pathname === "/sobre"
+                      ? { borderBottom: "2px solid #ECB159" }
+                      : {}
+                  }
+                >
+                  Sobre
+                </S.Span>
+              </Link>
+            </li>
+            {userLogged?.type != "admin" ? (
+              <li>
+                <Link to="/adotar">
+                  <S.Span
+                    style={
+                      route.pathname === "/adotar"
+                        ? { borderBottom: "2px solid #ECB159" }
+                        : {}
+                    }
+                  >
+                    Adotar
+                  </S.Span>
+                </Link>
+              </li>
+            ) : (
+              <li>
+                <Link to="/meus-pets">
+                  <S.Span
+                    style={
+                      route.pathname === "/meus-pets"
+                        ? { borderBottom: "2px solid #ECB159" }
+                        : {}
+                    }
+                  >
+                    Meus Pets
+                  </S.Span>
+                </Link>
+              </li>
+            )}
+
+            <S.Container>
+              {userLogged?.type === "user" && (
+                <li>
+                  <Link to="/favoritos">
+                    <S.Container>
+                      <S.IconHeart src={heart} alt="" />
+                    </S.Container>
+                  </Link>
+                </li>
+              )}
+              {userLogged?.type && (
+                <li>
+                  <S.Container
+                    onClick={() =>
+                      setIsNotificationsVisible(!isNotificationsVisible)
+                    }
+                  >
+                    {newNotification ? (
+                      <Badge content="" color="warning" shape="circle">
+                        <S.IconBell src={bell} alt="" />
+                      </Badge>
+                    ) : (
+                      <S.IconBell src={bell} alt="" />
+                    )}
+                  </S.Container>
+                </li>
+              )}
+              <li>
+                {userLogged ? (
+                  <S.ContainerButtonsLogged>
+                    <S.Container>
+                      <S.Login>Olá, {userLogged.name.split(" ")[0]}</S.Login>
+                    </S.Container>
+
+                    <Tooltip content="Sair" placement="bottom-start" size="sm">
+                      <button onClick={logoutUser}>
+                        <S.Icon src={logoutIcon} />
+                      </button>
+                    </Tooltip>
+                  </S.ContainerButtonsLogged>
+                ) : (
+                  <Link to="/login">
+                    <S.Login>Entrar</S.Login>
+                  </Link>
+                )}
+              </li>
+            </S.Container>
+          </S.Div>
+        </S.Ul>
+      )}
+
       {isNotificationsVisible && userLogged && (
         <AnimatePresence>
           <motion.div
@@ -194,9 +240,7 @@ export function Navbar() {
             animate={{ opacity: 1, right: 0, top: 0, position: "absolute" }}
             transition={{ duration: 0.2 }}
           >
-            <Notifications
-              setIsVisible={setIsNotificationsVisible}
-            />
+            <Notifications setIsVisible={setIsNotificationsVisible} />
           </motion.div>
         </AnimatePresence>
       )}

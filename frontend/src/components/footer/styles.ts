@@ -32,6 +32,7 @@ export const LogoText = styled.span`
 
 export const Text = styled.span`
   color: ${props => props.theme.colors.nude2};
+  font-size: 0.9rem;
 `;
 
 export const Link = styled.span`

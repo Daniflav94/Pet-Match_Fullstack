@@ -9,6 +9,8 @@
   position: relative;
   font-family: "Poppins", sans-serif;
   padding-top: 6rem;
+
+  
 }
 
 .h1 {
@@ -22,6 +24,10 @@
   color: #fefbf6;
   font-size: 3rem;
   font-weight: 600;
+
+  @media only screen and (max-width: 700px){
+    text-align: center;
+  }
 }
 
 .button{
@@ -35,4 +41,8 @@
   width: 38%;
   position: absolute;
   bottom: 0;
+
+  @media only screen and (max-width: 700px){
+    width: 80%;
+  }
 }

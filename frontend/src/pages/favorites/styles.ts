@@ -11,8 +11,11 @@ export const Container = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-
   color: ${(props) => props.theme.colors.gray};
+
+  @media only screen and (max-width: 700px){
+    padding-top: 7rem;
+  }
 `;
 
 export const Text = styled.span`
@@ -20,6 +23,10 @@ export const Text = styled.span`
   text-align: center;
   font-weight: 400;
   width: 40rem;
+
+  @media only screen and (max-width: 700px){
+    width: 85%;
+  }
 `;
 
 export const Image = styled.img`
