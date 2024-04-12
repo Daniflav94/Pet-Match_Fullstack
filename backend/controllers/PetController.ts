@@ -63,6 +63,7 @@ export const updatePet = async (req: Request, res: Response) => {
 export const getAll = async (req: Request, res: Response) => {
   const pets = await prisma.pet.findMany({
     where: { isAdopt: false, deletedAt: null },
+    include: { organization: true }
   });
 
   res.status(201).json({
