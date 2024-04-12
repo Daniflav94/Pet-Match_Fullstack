@@ -52,7 +52,7 @@ export const getFormsAdoptionUser = async (req: Req, res: Response) => {
 
   const formsAdoption = await prisma.formAdoption.findMany({
     where: { userId },
-    include: { pet: true },
+    include: { pet: { include: { organization: true }} },
   });
 
   res.status(201).json({

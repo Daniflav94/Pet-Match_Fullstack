@@ -22,7 +22,7 @@ export function Notification({
   const date = new Date(notification.createdAt as Date).toLocaleDateString(
     "pt-BR"
   );
-
+ 
   return (
     <Dialog.Root>
       <S.Container>
@@ -74,7 +74,7 @@ export function Notification({
                   <S.Title>Adoção recusada</S.Title>
                 )}
                 <S.Date>
-                  {(notification.createdAt as Date).toLocaleDateString("pt-BR")}
+                  {date}
                 </S.Date>
                 <S.Description>
                   {

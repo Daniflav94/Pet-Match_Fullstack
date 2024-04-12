@@ -6,6 +6,7 @@ import { Dialog } from "@radix-ui/themes";
 import { useNavigate } from "react-router-dom";
 import { IOrganization } from "../../../../../interfaces/IOrganization";
 import { uploads } from "../../../../../utils/config";
+import { IPet } from "../../../../../interfaces/IPet";
 
 type Props = {
   data: INotification;
@@ -21,44 +22,44 @@ export function UserContentNotification({ data }: Props) {
           <S.Title>Adoção aprovada!</S.Title>
           <S.Description>
             Que notícia maravilhosa, sua solicitação de adoção foi aprovada e
-            agora você pode ir conhecer {data.formAdoption?.pet.name}. Segue
+            agora você pode ir conhecer {(data.formAdoption?.pet as IPet).name}. Segue
             abaixo os dados da ONG:
           </S.Description>
-          <S.Image src={`${uploads}/pets/${(data.formAdoption?.pet.organization as IOrganization).photo}`} alt="" />
+          <S.Image src={`${uploads}/organizations/${((data.formAdoption?.pet as IPet).organization as IOrganization).photo}`} alt="" />
 
           <S.NameOrganization>
-            {(data.formAdoption?.pet.organization as IOrganization).name}
+            {((data.formAdoption?.pet as IPet).organization as IOrganization).name}
           </S.NameOrganization>
           <S.ContainerDescription>
             <S.Description>
-              <b>Endereço:</b> {(data.formAdoption?.pet.organization as IOrganization).street},{" "}
-              {(data.formAdoption?.pet.organization as IOrganization).number},{" "}
-              {(data.formAdoption?.pet.organization as IOrganization).neighborhood} -{" "}
-              {(data.formAdoption?.pet.organization as IOrganization).city} /{" "}
-              {(data.formAdoption?.pet.organization as IOrganization).state} -{" "}
-              {(data.formAdoption?.pet.organization as IOrganization).cep}
+              <b>Endereço:</b> {((data.formAdoption?.pet as IPet).organization as IOrganization).street},{" "}
+              {((data.formAdoption?.pet as IPet).organization as IOrganization).number},{" "}
+              {((data.formAdoption?.pet as IPet).organization as IOrganization).neighborhood} -{" "}
+              {((data.formAdoption?.pet as IPet).organization as IOrganization).city} /{" "}
+              {((data.formAdoption?.pet as IPet).organization as IOrganization).state} -{" "}
+              {((data.formAdoption?.pet as IPet).organization as IOrganization).cep}
               <br />
             </S.Description>
 
             <S.DualInfo>
-              {(data.formAdoption?.pet.organization as IOrganization).phone ? (
+              {((data.formAdoption?.pet as IPet).organization as IOrganization).phone ? (
                 <S.Description>
-                  <b>Telefones:</b> {(data.formAdoption?.pet.organization as IOrganization).cellPhone} |{" "}
-                  {(data.formAdoption?.pet.organization as IOrganization).phone}
+                  <b>Telefones:</b> {((data.formAdoption?.pet as IPet).organization as IOrganization).cellPhone} |{" "}
+                  {((data.formAdoption?.pet as IPet).organization as IOrganization).phone}
                 </S.Description>
               ) : (
                 <S.Description>
-                  <b>Telefone:</b> {(data.formAdoption?.pet.organization as IOrganization).cellPhone}
+                  <b>Telefone:</b> {((data.formAdoption?.pet as IPet).organization as IOrganization).cellPhone}
                 </S.Description>
               )}
               <S.Description>
-                <b>Email:</b> {(data.formAdoption?.pet.organization as IOrganization).email}
+                <b>Email:</b> {((data.formAdoption?.pet as IPet).organization as IOrganization).email}
               </S.Description>
             </S.DualInfo>
 
             <S.Description>
               <b>Horário de funcionamento:</b>{" "}
-              {(data.formAdoption?.pet.organization as IOrganization).openingHours}
+              {((data.formAdoption?.pet as IPet).organization as IOrganization).openingHours}
             </S.Description>
           </S.ContainerDescription>
         </S.ContentOrganization>

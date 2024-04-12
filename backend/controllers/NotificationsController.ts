@@ -7,9 +7,7 @@ interface Req extends Request {
   user?: User | Admin | null;
 }
 
-export const createNotification = async (
-  req: Request, res: Response
-) => {
+export const createNotification = async (req: Request, res: Response) => {
   const data = req.body;
 
   const newNotification = await prisma.notifications.create({
@@ -17,7 +15,8 @@ export const createNotification = async (
       idReceiver: data.idReceiver as string,
       type: data.type as string,
       formAdoptionId: data.formAdoptionId as string,
-      wasApproved: data.wasApproved
+      wasApproved: data.wasApproved,
+      message: data.message
     },
   });
 
@@ -37,7 +36,12 @@ export const getNotifications = async (req: Req, res: Response) => {
 
   const notifications = await prisma.notifications.findMany({
     where: { idReceiver: idUser },
-    include: { formAdoption: { include: { user: true, pet: true } } },
+    include: {
+      formAdoption: {
+        include: { user: true, pet: { include: { organization: true }}},
+      },
+    },
+    orderBy: {createdAt: "asc"}
   });
 
   res.status(201).json({
@@ -60,9 +64,9 @@ export const updateNotification = async (req: Req, res: Response) => {
 
   let editNotification;
 
-  if (data.isViewed) {
+  if (data.isViewed === true) {
     editNotification = {
-      isViewed: data.isViewed,
+      isViewed: true,
     };
   }
 
@@ -70,10 +74,10 @@ export const updateNotification = async (req: Req, res: Response) => {
     editNotification = {
       wasApproved: true,
     };
-  }else {
+  } else if (data.wasApproved === false) {
     editNotification = {
       wasApproved: false,
-      message: data.message
+      message: data.message,
     };
   }
 

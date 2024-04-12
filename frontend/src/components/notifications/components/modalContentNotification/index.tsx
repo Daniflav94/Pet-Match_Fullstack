@@ -70,7 +70,6 @@ export function ModalContentNotification({ data, listNotifications }: Props) {
     await updateNotification(data.id as string, {
       wasApproved: isAccept
     }, token);
-    console.log("wasApproved", isAccept)
 
     const res = await createNotification(notification, token);
 
