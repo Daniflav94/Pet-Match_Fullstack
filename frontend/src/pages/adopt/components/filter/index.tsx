@@ -116,10 +116,11 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
     setNotFoundMessage("");
     const arrayPets = await filterPets(petFilter, token)
 
-    if (arrayPets.length > 0) {
-      setFilteredPets(arrayPets);
+    if (arrayPets.data.length > 0) {
+      setFilteredPets(arrayPets.data);
     } else {
       setNotFoundMessage("Nenhum peludinho com essas especificações foi encontrado!");
+      setFilteredPets([])
     }
   }
 

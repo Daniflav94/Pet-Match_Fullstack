@@ -40,6 +40,6 @@ export const Error = styled.div`
   justify-content: center;
   width: 100%;
   font-size: 0.9rem;
-  margin-top: 1rem;
+  margin-top: 4rem;
   gap: 1rem;
 `;

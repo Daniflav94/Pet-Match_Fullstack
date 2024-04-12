@@ -6,6 +6,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { IUser } from "../../../../interfaces/IUser";
 import { IOrganization } from "../../../../interfaces/IOrganization";
 import { uploads } from "../../../../utils/config";
+import { IPet } from "../../../../interfaces/IPet";
 
 type Props = {
   notification: INotification;
@@ -18,22 +19,26 @@ export function Notification({
   markAsViewed,
   listNotifications,
 }: Props) {
-  const date = new Date(notification.createdAt as Date).toLocaleDateString("pt-BR")
-  
+  const date = new Date(notification.createdAt as Date).toLocaleDateString(
+    "pt-BR"
+  );
+
   return (
     <Dialog.Root>
       <S.Container>
         {notification.type === "request_adoption" ? (
           <S.ContentNotification>
-            <S.Img src={`${uploads}/pets/${notification.formAdoption?.pet?.photo}`} alt="" />
+            <S.Img
+              src={`${uploads}/pets/${notification.formAdoption?.pet?.photo}`}
+              alt=""
+            />
             <S.ContainerText>
               <S.Title>Solicitação de adoção</S.Title>
-              <S.Date>
-                {date}
-              </S.Date>
+              <S.Date>{date}</S.Date>
               <S.Description>
                 {(notification.formAdoption?.user as IUser).name.split(" ")[0]}{" "}
-                gostaria de adotar {notification.formAdoption?.pet.name}
+                gostaria de adotar{" "}
+                {(notification.formAdoption?.pet as IPet).name}
               </S.Description>
               {notification.wasApproved && (
                 <S.Success>Adoção aprovada!</S.Success>
@@ -73,13 +78,12 @@ export function Notification({
                 </S.Date>
                 <S.Description>
                   {
-                    (
-                      notification.formAdoption?.pet
+                    ((notification.formAdoption?.pet as IPet)
                         .organization as IOrganization
                     ).name
                   }{" "}
                   respondeu seu pedido de adoção para{" "}
-                  {notification.formAdoption?.pet.name}
+                  {(notification.formAdoption?.pet as IPet).name}
                 </S.Description>
 
                 <Dialog.Trigger>

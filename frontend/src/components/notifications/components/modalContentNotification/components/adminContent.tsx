@@ -74,7 +74,7 @@ export function AdminContentNotification({
         </S.DataUser>
       </S.Content>
 
-      {data.wasApproved === undefined && (
+      {data.wasApproved === null && (
         <S.ContainerButtons>
           <CustomButton
             type="button"

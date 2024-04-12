@@ -29,6 +29,7 @@ export function ModalContentNotification({ data, listNotifications }: Props) {
   const { token } = useContext(TokenContext);
 
   useEffect(() => {
+    
     if (data.type === "request_adoption") {
       calcAge();
     }
@@ -69,6 +70,7 @@ export function ModalContentNotification({ data, listNotifications }: Props) {
     await updateNotification(data.id as string, {
       wasApproved: isAccept
     }, token);
+    console.log("wasApproved", isAccept)
 
     const res = await createNotification(notification, token);
 
@@ -93,7 +95,7 @@ export function ModalContentNotification({ data, listNotifications }: Props) {
       <Dialog.Content>
         <S.Container>
           <Dialog.Close>
-            <S.IconClose onClick={() => listNotifications()}>
+            <S.IconClose onClick={() => {setSuccess(false); listNotifications()}}>
               <X size={25} color="#ABB2BF" />
             </S.IconClose>
           </Dialog.Close>

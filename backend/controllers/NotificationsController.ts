@@ -17,6 +17,7 @@ export const createNotification = async (
       idReceiver: data.idReceiver as string,
       type: data.type as string,
       formAdoptionId: data.formAdoptionId as string,
+      wasApproved: data.wasApproved
     },
   });
 
@@ -65,9 +66,14 @@ export const updateNotification = async (req: Req, res: Response) => {
     };
   }
 
-  if (data.wasApproved) {
+  if (data.wasApproved === true) {
     editNotification = {
-      wasApproved: data.wasApproved,
+      wasApproved: true,
+    };
+  }else {
+    editNotification = {
+      wasApproved: false,
+      message: data.message
     };
   }
 
