@@ -3,7 +3,7 @@ import { FilterAdopt } from "./components/filter";
 import { IPet } from "../../interfaces/IPet";
 import { Card } from "../../components/card/card";
 import { Pagination } from "@nextui-org/react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ModalLoginRequired } from "./components/modalLoginRequired";
 import * as Dialog from "@radix-ui/react-dialog";
 import {
@@ -16,6 +16,7 @@ import { IFormAdoption } from "../../interfaces/IFormAdoption";
 import { getCurrentUser } from "../../services/auth.service";
 import { IOrganization } from "../../interfaces/IOrganization";
 import { IUser } from "../../interfaces/IUser";
+import TokenContext from "../../contexts/tokenContext";
 
 interface PetFavorite {
   pet: IPet;
@@ -25,7 +26,6 @@ interface PetFavorite {
 export function Adopt() {
   const [pets, setPets] = useState<IPet[]>([]);
   const [petsFavorites, setPetsFavorites] = useState<PetFavorite[]>([]);
-  const [token, setToken] = useState("");
   const [user, setUser] = useState<IOrganization | IUser>();
   const [totalList, setTotalList] = useState(1);
   const [filteredPets, setFilteredPets] = useState<IPet[]>([]);
@@ -34,11 +34,10 @@ export function Adopt() {
     IFormAdoption[]
   >([]);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
+  const { token } = useContext(TokenContext);
 
+  useEffect(() => {
     if (token) {
-      setToken(token);
       getFavorites(token);
       getRequestsAdoptionUser(token);
     }
@@ -99,7 +98,6 @@ export function Adopt() {
         <FilterAdopt
           setFilteredPets={setFilteredPets}
           setNotFoundMessage={setNotFoundMessage}
-          token={token}
         />
         {notFoundMessage != "" && (
           <S.Error>
@@ -122,7 +120,6 @@ export function Adopt() {
                 key={pet.id}
                 pet={pet}
                 typeUser={user?.type}
-                token={token}
                 favorites={petsFavorites}
                 listRequestAdoption={listRequestAdoption}
               />

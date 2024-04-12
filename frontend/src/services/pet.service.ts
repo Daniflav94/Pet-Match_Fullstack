@@ -7,8 +7,6 @@ export const createPet = async (pet: FormData, token: string) => {
     const res = await fetch(`${api}/pets`, {
       method: "POST",
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
         Authorization: "Bearer " + token
       },
       body: pet

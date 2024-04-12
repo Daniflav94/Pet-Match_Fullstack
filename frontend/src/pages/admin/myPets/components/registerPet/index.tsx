@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import * as S from "./styles";
 import dogIcon from "../../../../../assets/icons/dog.svg";
 import catIcon from "../../../../../assets/icons/cat.svg";
@@ -10,13 +10,13 @@ import addPhoto from "../../../../../assets/images/adicionar-foto.png";
 import { CustomButton } from "../../../../../components/customButton";
 import { createPet } from "../../../../../services/pet.service";
 import { Toaster, toast } from "sonner";
+import TokenContext from "../../../../../contexts/tokenContext";
 
 type Props = {
-  token: string;
   listAll: (id: string) => void;
 };
 
-export function RegisterPet({ token, listAll }: Props) {
+export function RegisterPet({ listAll }: Props) {
   const { handleSubmit, watch, setValue, register, reset, control } =
     useForm<IPet>();
 
@@ -42,6 +42,8 @@ export function RegisterPet({ token, listAll }: Props) {
     "Sapeca",
     "Sociável",
   ];
+
+  const { token } = useContext(TokenContext);
 
   const [personality, setPersonality] = useState<string[]>([]);
   const [image, setImage] = useState();
@@ -73,8 +75,7 @@ export function RegisterPet({ token, listAll }: Props) {
       gender: data.gender,
       size: data.size,
       photo: image,
-      isAdopt: false,
-      personality: personality
+      personality: personality,
     };
 
     if (!data.age || !data.gender || !data.size || image === "") {
@@ -86,13 +87,19 @@ export function RegisterPet({ token, listAll }: Props) {
     const formData = new FormData();
     const keys = Object.keys(newPet) as Array<keyof typeof newPet>;
 
-    keys.forEach((key) =>
-      formData.append(key, newPet[key] as string | Blob)
-    );
+    keys.forEach((key) => {
+      if (key === "personality") {
+        personality.forEach((item) => {
+          formData.append(key, item as string);
+        });
+      } else {
+        formData.append(key, newPet[key] as string | Blob);
+      }
+    });
 
     const res = await createPet(formData, token);
 
-    if (res) {
+    if (!res.errors) {
       toast.success("Pet cadastrado com sucesso!");
 
       listAll(token);

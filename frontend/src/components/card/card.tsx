@@ -7,7 +7,7 @@ import gender from "../../assets/icons/genero.png";
 import * as Dialog from "@radix-ui/react-dialog";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ModalAdopt } from "../../pages/adopt/components/modalAdopt";
 import { Heart, ThumbsDown, ThumbsUp, Trash2 } from "lucide-react";
 import { addPetListFavorites, editPet, removePetListFavorites } from "../../services/pet.service";
@@ -15,12 +15,12 @@ import Lottie from "react-lottie";
 import animationSuccess from "../../assets/animations/animationSuccess.json";
 import { IFormAdoption } from "../../interfaces/IFormAdoption";
 import { uploads } from "../../utils/config";
+import TokenContext from "../../contexts/tokenContext";
 
 interface Props {
   pet: IPet;
   typeUser?: string;
   deletePet?: (id: string) => void;
-  token?: string;
   favorites?: PetFavorite[];
   listRequestAdoption?: IFormAdoption[];
 }
@@ -34,7 +34,6 @@ export function Card({
   pet,
   typeUser,
   deletePet,
-  token,
   favorites,
   listRequestAdoption,
 }: Props) {
@@ -43,6 +42,8 @@ export function Card({
   const [isFormSent, setIsFormSent] = useState(false);
   const [playAnimation, setPlayAnimation] = useState(false);
   const [idPetAdopted, setIdPetAdopted] = useState("");
+
+  const { token } = useContext(TokenContext);
 
   const defaultOptions = {
     loop: false,

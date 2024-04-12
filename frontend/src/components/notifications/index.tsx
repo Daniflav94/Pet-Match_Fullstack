@@ -1,7 +1,7 @@
 import { X } from "lucide-react";
 import NotificationsContext from "../../contexts/notificationContext";
 import * as S from "./styles";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Tab, Tabs } from "@nextui-org/react";
 import notificationOff from "../../assets/images/alerta-de-notificacao.png";
 import { Notification } from "./components/notification";
@@ -9,14 +9,15 @@ import {
   getNotifications,
   updateNotification,
 } from "../../services/notifications.service";
+import TokenContext from "../../contexts/tokenContext";
 
 type Props = {
   setIsVisible: (visible: boolean) => void;
-  token: string;
 };
 
-export function Notifications({ setIsVisible, token }: Props) {
+export function Notifications({ setIsVisible }: Props) {
   const { notifications, setNotifications } = useContext(NotificationsContext);
+  const { token } = useContext(TokenContext);
 
   const newNotification = notifications.some((n) => n.isViewed === false);
   const oldNotifications = notifications.some((n) => n.isViewed === true);
@@ -55,7 +56,6 @@ export function Notifications({ setIsVisible, token }: Props) {
                         notification={item}
                         markAsViewed={markNotificationAsViewed}
                         listNotifications={listNotifications}
-                        token={token}
                       />
                     )}
                   </div>
@@ -78,7 +78,6 @@ export function Notifications({ setIsVisible, token }: Props) {
                         notification={item}
                         markAsViewed={markNotificationAsViewed}
                         listNotifications={listNotifications}
-                        token={token}
                       />
                     )}
                   </div>

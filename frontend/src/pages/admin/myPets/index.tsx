@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import * as S from "./styles";
 import cute from "../../../assets/images/2.png";
 import { RegisterPet } from "./components/registerPet";
@@ -8,40 +8,36 @@ import { useNavigate } from "react-router-dom";
 import { IPet } from "../../../interfaces/IPet";
 import { Card } from "../../../components/card/card";
 import { Spinner } from "@nextui-org/react";
-import { getCurrentUser } from "../../../services/auth.service";
+import TokenContext from "../../../contexts/tokenContext";
 
 export function MyPets() {
   const [listPets, setListPets] = useState<IPet[]>([]);
-  const [token, setToken] = useState("");
   const [user, setUser] = useState<IOrganization>();
   const [isLoading, setIsLoading] = useState(true);
+
+  const { token } = useContext(TokenContext);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    getUser();
+    const userStorage = localStorage.getItem("user");
 
-    if (token) {
+    if (token && userStorage) {
       listAll(token);
-      setToken(token);
+      setUser(JSON.parse(userStorage));
+
     } else if (!token || user?.type === "user") {
       navigate("/login");
     }
   }, []);
 
-  async function getUser() {
-    const res = await getCurrentUser(token);
-
-    if (res.data) {
-      setUser(res.data);
-    }    
-  }
-
   async function listAll(token: string) {
     const res = await listMyPets(token);
 
-    const resOrdered = res.data?.sort(function (a: { isAdopt: number; }, b: { isAdopt: number; }) {
+    const resOrdered = res.data?.sort(function (
+      a: { isAdopt: number },
+      b: { isAdopt: number }
+    ) {
       return a.isAdopt < b.isAdopt ? -1 : a.isAdopt > b.isAdopt ? 1 : 0;
     });
 
@@ -60,7 +56,7 @@ export function MyPets() {
 
   return (
     <S.Container>
-      <RegisterPet token={token} listAll={listAll} />
+      <RegisterPet listAll={listAll} />
       {isLoading ? (
         <Spinner
           size="lg"
@@ -77,7 +73,6 @@ export function MyPets() {
                   pet={pet}
                   typeUser={user?.type}
                   deletePet={handleDeletePet}
-                  token={token}
                 />
               ))}
             </S.ContainerCards>

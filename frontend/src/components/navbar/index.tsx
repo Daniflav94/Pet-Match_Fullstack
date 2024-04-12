@@ -9,7 +9,7 @@ import { useContext, useEffect, useState } from "react";
 import { IUser } from "../../interfaces/IUser";
 import { IOrganization } from "../../interfaces/IOrganization";
 import { Tooltip } from "@nextui-org/react";
-import { getCurrentUser, logout } from "../../services/auth.service";
+import { logout } from "../../services/auth.service";
 import { Badge } from "@nextui-org/react";
 import { Notifications } from "../notifications";
 import NotificationsContext from "../../contexts/notificationContext";
@@ -196,7 +196,6 @@ export function Navbar() {
           >
             <Notifications
               setIsVisible={setIsNotificationsVisible}
-              token={token}
             />
           </motion.div>
         </AnimatePresence>

@@ -1,7 +1,7 @@
 import * as S from "./styles";
 import dogIcon from "../../../../assets/icons/dog.svg";
 import catIcon from "../../../../assets/icons/cat.svg";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SelectInput } from "../../../../components/select";
 import { getListCities, getListStates } from "../../../../services/apiIBGE";
 import { IFilter } from "../../../../interfaces/IFilter";
@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { IPet } from "../../../../interfaces/IPet";
 import { IOrganization } from "../../../../interfaces/IOrganization";
 import { filterPets, listAllPets } from "../../../../services/pet.service";
+import TokenContext from "../../../../contexts/tokenContext";
 
 export interface State {
   id: number;
@@ -30,15 +31,16 @@ type SelectLocation = {
 type Props = {
   setFilteredPets: (data: any[]) => void;
   setNotFoundMessage: (message: string) => void;
-  token: string;
 };
 
-export function FilterAdopt({ setFilteredPets, setNotFoundMessage, token }: Props) {
+export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
   const [typePet, setTypePet] = useState<string>();
   const [state, setState] = useState<string>();
   const [city, setCity] = useState<string>();
   const [listStates, setListStates] = useState<SelectLocation[]>([]);
   const [listCities, setListCities] = useState<SelectLocation[]>([]);
+
+  const { token } = useContext(TokenContext);
 
   const { handleSubmit, setValue } = useForm<IFilter>();
 

@@ -4,13 +4,14 @@ import { X } from "lucide-react";
 import * as S from "./styles";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { IPet } from "../../../../interfaces/IPet";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SuccessMessage } from "../successMessage";
 import { InputCustom } from "../../../../components/input";
 import { IUser } from "../../../../interfaces/IUser";
 import { IFormAdoption } from "../../../../interfaces/IFormAdoption";
 import { createRequest } from "../../../../services/requestAdoption.service";
 import { uploads } from "../../../../utils/config";
+import TokenContext from "../../../../contexts/tokenContext";
 
 type FormAdopt = {
   name: string;
@@ -28,15 +29,15 @@ type FormAdopt = {
 interface Props {
   pet: IPet;
   setIsFormSent: (param: boolean) => void;
-  token: string;
 }
 
-export function ModalAdopt({ pet, setIsFormSent, token }: Props) {
+export function ModalAdopt({ pet, setIsFormSent }: Props) {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [birthdate, setBirthdate] = useState('');
 
   const [userLogged, setUserLogged] = useState<IUser>();
+  const { token } = useContext(TokenContext);
 
   useEffect(() => {
     setError("")

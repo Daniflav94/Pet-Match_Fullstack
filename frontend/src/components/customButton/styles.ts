@@ -11,7 +11,7 @@ type Props = {
 
 export const Button = styled.button<Props>`
   background-color: ${(props) => props.$backgroundColor};
-  padding: 0.5rem 2rem;
+  padding: 0.6rem 2rem;
   border: ${(props) => props.$border || "none"};
   border-radius: 8px;
   font-weight: 500;
@@ -21,6 +21,9 @@ export const Button = styled.button<Props>`
   font-size: ${(props) => props.$fontSize|| '0.9rem'};
   min-width: 10rem;
   width: ${(props) => props.$width};
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
     background-color: ${(props) => props.$hoverBackgroundColor || 'transparent'};;

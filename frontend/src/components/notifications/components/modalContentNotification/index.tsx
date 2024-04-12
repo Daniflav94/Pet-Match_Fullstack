@@ -1,7 +1,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 import * as S from "./styles";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { INotification } from "../../../../interfaces/INotification";
 import { SuccessMessageAdopt } from "../successMessage";
 import {
@@ -13,18 +13,20 @@ import { AdminContentNotification } from "./components/adminContent";
 import { UserContentNotification } from "./components/userContent";
 import { IUser } from "../../../../interfaces/IUser";
 import { IFormAdoption } from "../../../../interfaces/IFormAdoption";
+import TokenContext from "../../../../contexts/tokenContext";
 
 type Props = {
   data: INotification;
   listNotifications: () => void;
-  token: string;
 };
 
-export function ModalContentNotification({ data, listNotifications, token }: Props) {
+export function ModalContentNotification({ data, listNotifications }: Props) {
   const [error, setError] = useState("");
   const [age, setAge] = useState<number>();
   const [success, setSuccess] = useState(false);
   const [confirmAdoptionDenied, setConfirmAdoptionDenied] = useState(false);
+
+  const { token } = useContext(TokenContext);
 
   useEffect(() => {
     if (data.type === "request_adoption") {
