@@ -13,7 +13,6 @@ import {
 import { HeartCrack } from "lucide-react";
 import { getRequestsUser } from "../../services/requestAdoption.service";
 import { IFormAdoption } from "../../interfaces/IFormAdoption";
-import { getCurrentUser } from "../../services/auth.service";
 import { IOrganization } from "../../interfaces/IOrganization";
 import { IUser } from "../../interfaces/IUser";
 import TokenContext from "../../contexts/tokenContext";
@@ -37,12 +36,15 @@ export function Adopt() {
   const { token } = useContext(TokenContext);
 
   useEffect(() => {
-    if (token) {
+    const userStorage = localStorage.getItem("user");
+
+    if (token && userStorage) {
       getFavorites(token);
       getRequestsAdoptionUser(token);
+
+      setUser(JSON.parse(userStorage));
     }
 
-    getUser();
     getPets(1);
   }, []);
 
@@ -51,13 +53,6 @@ export function Adopt() {
     setTotalList(Math.ceil(Number(total.toFixed(1))));
   }, [filteredPets]);
 
-  async function getUser() {
-    const res = await getCurrentUser(token);
-
-    if (res.data) {
-      setUser(res.data);
-    }
-  }
 
   const filtered =
     filteredPets.length >= 1

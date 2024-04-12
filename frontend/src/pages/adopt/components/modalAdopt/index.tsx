@@ -46,8 +46,8 @@ export function ModalAdopt({ pet, setIsFormSent }: Props) {
     if (user) {
       const objectUser = JSON.parse(user);
       setUserLogged(objectUser);
-      const birthdateUser = new Date(objectUser.birthdate)
-      const birthdateString = birthdateUser.toLocaleDateString()
+      const birthdateUser = new Date(objectUser.birthdate);
+      const birthdateString = `${birthdateUser.getUTCDate().toString().padStart(2, '0')}/${(birthdateUser.getUTCMonth()+1).toString().padStart(2, '0')}/${birthdateUser.getUTCFullYear()}`
       setBirthdate(birthdateString)
     }
   }, []);
@@ -76,7 +76,7 @@ export function ModalAdopt({ pet, setIsFormSent }: Props) {
       describePets: data.describePets,
       children: data.children,
       isFirstPet: data.isFirstPet,
-      pet
+      petId: pet.id
     };
 
     sentFormAdoption(JSON.parse(JSON.stringify(dataForm)));

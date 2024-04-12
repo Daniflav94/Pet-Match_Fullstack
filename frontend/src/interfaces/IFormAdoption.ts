@@ -9,7 +9,7 @@ export interface IFormAdoption {
   isFirstPet: boolean;
   pets: boolean;
   describePets?: string;
-  pet: IPet;
+  pet?: IPet;
   petId?: string;
   createdAt?: Date;
 }
