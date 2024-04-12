@@ -35,6 +35,7 @@ export function Home() {
           <S.Title2>&nbsp;Adote!</S.Title2>
         </motion.div>
       </S.ContainerTitle>
+      
       <S.Main>
         <h2>Como funciona</h2>
         <S.ContainerIcons>

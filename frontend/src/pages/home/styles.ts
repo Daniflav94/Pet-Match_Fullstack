@@ -6,7 +6,7 @@ type Props = {
 
 export const Pet = styled.img`
   position: absolute;
-  top: 27.8rem;
+  top: 24.5rem;
   right: 5rem;
   width: 40rem;
   z-index: 9999;
@@ -14,7 +14,7 @@ export const Pet = styled.img`
 
 export const Section = styled.section`
   width: 100vw;
-  padding-top: 7rem;
+  padding-top: 5rem;
   overflow: hidden;
   background-color: ${(props) => props.theme.colors.blue};
   font-family: "Poppins", sans-serif;
@@ -24,7 +24,7 @@ export const Section = styled.section`
 export const ContainerTitle = styled.div`
   display: flex;
   justify-content: center;
-  margin-bottom: 19rem;
+  height: 90vh;
 `;
 
 export const Main = styled.div`
@@ -100,7 +100,7 @@ export const ContainerAdopt = styled.div`
   justify-content: center;
   align-items: center;
   width: 70vw;
-  margin-bottom: 8rem;
+  margin-bottom: 4rem;
   margin-right: 8rem;
 `;
 
