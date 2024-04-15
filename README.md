@@ -8,7 +8,7 @@
 - Node.js com Typescript.
 
 ## Objetivo
-Aplicação para cadastro de pets que estão para adoção, usuários podem ver todos os pets disponíveis, utilizar filtros, favoritar pets e solicitar adoção. A ong cadastrada como admin consegue administrar os seus pets e recebe notificações quando um usuário solicitar adoção, podendo aceitar ou recusar.
+Aplicação para cadastro de pets que estão para adoção, usuários podem ver todos os pets disponíveis, utilizar filtros, favoritar pets e solicitar adoção. A ong cadastrada como admin consegue administrar os seus pets e recebe notificações quando um usuário solicitar adoção, podendo aceitar ou recusar. A aplicação está responsiva podendo ser utilizada em computadores, tablets ou celulares.
 
 ## Imagens aplicação
 
