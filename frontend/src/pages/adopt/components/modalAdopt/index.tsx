@@ -20,9 +20,9 @@ type FormAdopt = {
   state: string;
   city: string;
   liveIn: string;
-  children: boolean;
-  isFirstPet: boolean;
-  pets: boolean;
+  children: string;
+  isFirstPet: string;
+  pets: string;
   describePets?: string;
 };
 
@@ -68,14 +68,19 @@ export function ModalAdopt({ pet, setIsFormSent }: Props) {
     setValue("birthdate", birthdate)
     setValue("state", userLogged?.state as string)
     setValue("city", userLogged?.city as string)
+    console.log(data)
 
+    if(!data.children || !data.liveIn || !data.isFirstPet || !data.pets){
+      setError("Preencha todos os campos para continuar.")
+      return
+    }
 
     const dataForm: IFormAdoption = {
       liveIn: data.liveIn,
-      pets: data.pets,
+      pets: data.pets === "Sim" ? true : false,
       describePets: data.describePets,
-      children: data.children,
-      isFirstPet: data.isFirstPet,
+      children: data.children === "Sim" ? true : false,
+      isFirstPet: data.isFirstPet === "Sim" ? true : false,
       petId: pet.id
     };
 
@@ -196,7 +201,7 @@ export function ModalAdopt({ pet, setIsFormSent }: Props) {
                   size="sm"
                   color="warning"
                   style={{ fontSize: "0.9rem" }}
-                  onValueChange={(value) => setValue("children", value === "Sim" ? true : false)}
+                  onValueChange={(value) => setValue("children", value)}
                   isRequired
                 >
                   <S.DualInput>
@@ -210,7 +215,7 @@ export function ModalAdopt({ pet, setIsFormSent }: Props) {
                   size="sm"
                   color="warning"
                   style={{ fontSize: "0.9rem" }}
-                  onValueChange={(value) => setValue("isFirstPet", value === "Sim" ? true : false)}
+                  onValueChange={(value) => setValue("isFirstPet", value)}
                   isRequired
                 >
                   <S.DualInput>
@@ -224,7 +229,7 @@ export function ModalAdopt({ pet, setIsFormSent }: Props) {
                   size="sm"
                   color="warning"
                   style={{ fontSize: "0.9rem" }}
-                  onValueChange={(value) => setValue("pets", value === "Sim" ? true : false)}
+                  onValueChange={(value) => setValue("pets", value)}
                   isRequired
                 >
                   <S.DualInput>
@@ -233,7 +238,7 @@ export function ModalAdopt({ pet, setIsFormSent }: Props) {
                   </S.DualInput>
                 </RadioGroup>
 
-                {watch("pets") === true && (
+                {watch("pets") === "Sim" && (
                   <InputCustom
                     type="text"
                     label="Quais? Descreva:"

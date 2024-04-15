@@ -16,7 +16,7 @@ export function InputCustom(props: any) {
       onChange={field.onChange}
       variant="bordered"
       classNames={{
-        label: ["text-black/60", "font-[Poppins]"],
+        label: ["text-black/60", "font-[Poppins]", "w-full"],
         input: ["bg-transparent", "text-black/90", "font-[Poppins]",  "placeholder:text-default-600/50"],
       }}
     />

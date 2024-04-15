@@ -23,7 +23,6 @@ import NotificationsContext from "../../contexts/notificationContext";
 import { AnimatePresence, motion } from "framer-motion";
 import { getNotifications } from "../../services/notifications.service";
 import TokenContext from "../../contexts/tokenContext";
-import { Menu } from "lucide-react";
 
 export function Navbar() {
   const route = useLocation();

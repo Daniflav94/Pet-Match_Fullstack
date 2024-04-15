@@ -23,6 +23,8 @@ export const Container = styled.div`
     width: 95%;
     overflow-x: hidden;
     left: 49%;
+    max-height: 98vh;
+    padding: 1rem;
   }
 `;
 

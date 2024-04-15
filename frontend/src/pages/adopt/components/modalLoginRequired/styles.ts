@@ -17,6 +17,10 @@ export const Container = styled.div`
   border-radius: 8px;
   gap: 1rem;
   overflow-y: auto;
+
+  @media only screen and (max-width: 700px){
+    width: 90%;
+  }
 `;
 
 export const IconClose = styled.span`

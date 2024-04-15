@@ -13,7 +13,8 @@ export const Pet = styled.img`
 
   @media only screen and (max-width: 700px){
     right: 0;
-    bottom: -3rem;
+    bottom: -2.5rem;
+    width: 20rem;
   }
 `;
 
