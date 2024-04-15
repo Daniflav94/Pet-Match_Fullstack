@@ -16,9 +16,8 @@ Aplicação para cadastro de pets que estão para adoção, usuários podem ver 
 
 ![petMatch-cadastro1](https://github.com/Daniflav94/Pet-Match_Fullstack/assets/99519903/081b4812-9c73-4d6b-bbac-50e48430d1d8)
 ![petMatch-cadastro2](https://github.com/Daniflav94/Pet-Match_Fullstack/assets/99519903/35a96268-e3e0-4d53-be23-bbbc55276850)
-![petMatch-2](https://github.com/Daniflav94/Pet-Match_Fullstack/assets/99519903/a122de9a-efa0-406e-b1cc-24696c1ca1d5)
 ![petMatch-1](https://github.com/Daniflav94/Pet-Match_Fullstack/assets/99519903/43823c1d-8ebd-44ed-9c3d-5d5581b07544)
-![petMatch-2](https://github.com/Daniflav94/Pet-Match_Fullstack/assets/99519903/41c9d67d-e814-4457-81d3-ea6310be5861)
+![petMatch-2](https://github.com/Daniflav94/Pet-Match_Fullstack/assets/99519903/a122de9a-efa0-406e-b1cc-24696c1ca1d5)
 ![petMatch-3](https://github.com/Daniflav94/Pet-Match_Fullstack/assets/99519903/e3a534ff-58eb-4552-a8c8-f13ae60a77a5)
 ![petMatch-4](https://github.com/Daniflav94/Pet-Match_Fullstack/assets/99519903/a8516804-b82c-43da-bf7a-e586b68b58db)
 ![petMatch-5](https://github.com/Daniflav94/Pet-Match_Fullstack/assets/99519903/8982a9e6-6840-45ee-9d88-bad312598e67)
