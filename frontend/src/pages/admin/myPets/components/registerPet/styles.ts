@@ -28,7 +28,6 @@ export const ContentRegister = styled.div`
   padding: 1.5rem;
   display: flex;
   align-items: center;
-
   width: 100vw;
   gap: 2rem;
 `;
@@ -39,7 +38,6 @@ export const Form = styled.form`
   gap: 2rem;
   width: 100%;
   align-items: center;
-  
 `;
 
 export const ContainerForm = styled.div`
@@ -48,12 +46,22 @@ export const ContainerForm = styled.div`
   justify-content: space-around;
   align-items: center;
   gap: 1rem;
+
+  @media only screen and (max-width: 700px) {
+    flex-direction: column;
+    align-items: start;
+  }
 `;
 
 export const ContainerIcons = styled.div`
   display: flex;
   flex-direction: row;
   gap: 0.4rem;
+
+  @media only screen and (max-width: 700px) {
+    width: 100%;
+    justify-content: center;
+  }
 `;
 
 export const ContentIcon = styled.div`
@@ -84,6 +92,10 @@ export const DualInput = styled.div`
   flex-direction: column;
   gap: 1rem;
   width: 15rem;
+
+  @media only screen and (max-width: 700px) {
+    width: 100%;
+  }
 `;
 
 export const ContainerRadio = styled.div`
@@ -97,6 +109,11 @@ export const InputFile = styled.div`
   font-weight: 400;
   color: ${(props) => props.theme.colors.gray};
   display: flex;
+
+  @media only screen and (max-width: 700px) {
+    width: 100%;
+    justify-content: center;
+  }
 `;
 
 export const Image = styled.img`
@@ -129,7 +146,3 @@ export const Error = styled.span`
   color: red;
   font-size: small;
 `;
-
-
-
-

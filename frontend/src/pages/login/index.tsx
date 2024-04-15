@@ -37,9 +37,16 @@ export function Login() {
   const onSubmit: SubmitHandler<Login> = async (data) => {
     const res = await login(data);
 
-    if (res.errors) {
-      toast.error(res.errors);
-    } else {
+    if (!res) {
+      toast.error(
+        "Estamos ocm problemas no servidor. Tente novamente mais tarde"
+      );
+      
+    } else if (res) {
+      if (res.errors) {
+        toast.error(res.errors);
+      }
+
       const tokenResponse = res.token;
       const user = res.user;
       setToken(tokenResponse);

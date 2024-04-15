@@ -42,6 +42,12 @@ export const ContainerButtons = styled.div`
   justify-content: center;
   gap: 2rem;
   margin-top: 2rem;
+
+  @media only screen and (max-width: 700px){
+    width: 98%;
+    margin-top: 1rem;
+   
+  }
 `;
 
 export const ErrorMessage = styled.span`

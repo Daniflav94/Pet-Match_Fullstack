@@ -17,6 +17,10 @@ export const Container = styled.div`
     scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   border-radius: 8px;
   gap: 0.5rem;
+
+  @media only screen and (max-width: 700px){
+    width: 98%;
+  }
 `;
 
 export const IconClose = styled.span`
@@ -28,6 +32,12 @@ export const IconClose = styled.span`
 export const Content = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr;
+
+  @media only screen and (max-width: 700px){
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
 `;
 
 export const Title = styled.h3`

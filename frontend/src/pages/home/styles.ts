@@ -143,7 +143,7 @@ export const ContainerAdopt = styled.div`
 
   @media only screen and (max-width: 700px){
     width: 100vw;
-    margin: 10rem 0 4rem 0;
+    margin: 15rem 0 4rem 0;
     display: grid;
     padding: 0 2rem;
   }
@@ -159,7 +159,7 @@ export const Cat = styled.img`
   @media only screen and (max-width: 700px){
     width: 10rem;
     position: absolute;
-    top: -10rem;
+    top: -12rem;
   }
 `;
 

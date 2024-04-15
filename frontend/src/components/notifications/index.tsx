@@ -1,7 +1,7 @@
 import { X } from "lucide-react";
 import NotificationsContext from "../../contexts/notificationContext";
 import * as S from "./styles";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Tab, Tabs } from "@nextui-org/react";
 import notificationOff from "../../assets/images/alerta-de-notificacao.png";
 import { Notification } from "./components/notification";
@@ -38,15 +38,27 @@ export function Notifications({ setIsVisible }: Props) {
     }
   }
 
+  useEffect(() => {
+    document.body.style.overflowY = 'hidden';
+    
+ }, []);
+
+ 
+  function handleVisible() {
+    document.body.style.overflowY = 'unset';
+    setIsVisible(false)
+  }  
+
   return (
     <S.Container>
       <S.ContentTitle>
         <S.Title>Notificações</S.Title>
-        <X color="#707070" onClick={() => setIsVisible(false)} />
+        <X color="#707070" onClick={() => handleVisible()} />
       </S.ContentTitle>
-      <S.ContainerNotifications>
+      
         <Tabs variant="underlined" color="warning" className="">
           <Tab key="not-viewed" title="Não lidas">
+          <S.ContainerNotifications>
             {newNotification ? (
               <>
                 {notifications.map((item, key) => (
@@ -67,8 +79,10 @@ export function Notifications({ setIsVisible }: Props) {
                 <S.Span>Você não tem novas notificações!</S.Span>
               </S.ContainerDefault>
             )}
+            </S.ContainerNotifications>
           </Tab>
           <Tab key="viewed" title="Lidas">
+          <S.ContainerNotifications>
             {oldNotifications ? (
               <>
                 {notifications.map((item, key) => (
@@ -89,9 +103,12 @@ export function Notifications({ setIsVisible }: Props) {
                 <S.Span>Sem notificações lidas por enquanto!</S.Span>
               </S.ContainerDefault>
             )}
+            </S.ContainerNotifications>
           </Tab>
         </Tabs>
-      </S.ContainerNotifications>
+      
     </S.Container>
   );
 }
+
+

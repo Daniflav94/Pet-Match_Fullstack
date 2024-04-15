@@ -20,6 +20,11 @@ export const ContainerCards = styled.section`
   flex-wrap: wrap;
   gap: 2rem;
   margin: 4rem;
+
+  @media only screen and (max-width: 700px){
+    gap: 1rem;
+    margin: 1rem;
+  }
 `;
 
 export const ContainerDefaultValue = styled.div`
@@ -32,8 +37,8 @@ export const ContainerDefaultValue = styled.div`
 
 export const Image = styled.img`
   width: 17rem;
-position: absolute;
-bottom: 0;
+  position: absolute;
+  bottom: 0;
 `;
 
 export const Text = styled.span`

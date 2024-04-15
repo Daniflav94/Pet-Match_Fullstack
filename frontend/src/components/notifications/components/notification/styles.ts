@@ -11,6 +11,7 @@ export const ContentNotification = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
+  margin-right: 1rem;
 `;
 
 export const Img = styled.img`

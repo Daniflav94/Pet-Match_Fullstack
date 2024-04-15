@@ -43,4 +43,9 @@ export const ContainerCards = styled.section`
   justify-content: center;
   gap: 2rem;
   margin: 2rem 3rem;
+
+  @media only screen and (max-width: 700px){
+    gap: 1rem;
+    margin: 2rem 1rem;
+  }
 `;

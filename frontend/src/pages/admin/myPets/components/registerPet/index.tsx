@@ -149,6 +149,7 @@ export function RegisterPet({ listAll }: Props) {
                   <S.IconText>Gato</S.IconText>
                 </S.ContentIcon>
               </S.ContainerIcons>
+              
               <S.DualInput>
                 <Input
                   label="Nome"

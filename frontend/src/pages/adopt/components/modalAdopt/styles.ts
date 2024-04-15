@@ -18,6 +18,12 @@ export const Container = styled.div`
   border-radius: 8px;
   gap: 0.5rem;
   overflow-y: auto;
+
+  @media only screen and (max-width: 700px) {
+    width: 95%;
+    overflow-x: hidden;
+    left: 49%;
+  }
 `;
 
 export const IconClose = styled.span`
@@ -75,13 +81,17 @@ export const ContainerButtons = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 2rem;
+
+  @media only screen and (max-width: 700px) {
+    width: 100%;
+  }
 `;
 
 export const ButtonSubmit = styled.button`
   background-color: ${(props) => props.theme.colors.yellow};
   border-radius: 8px;
   padding: 0.5rem 2rem;
-  width: 18em;
+  width: 17em;
   color: #ffff;
   font-size: smaller;
   font-weight: 500;
@@ -89,6 +99,12 @@ export const ButtonSubmit = styled.button`
   &:hover {
     background-color: #e5ac58;
   }
+
+  @media only screen and (max-width: 700px) {
+    width: 9rem;
+    display: block;
+  }
+
 `;
 
 export const ButtonCancel = styled.span`
@@ -97,10 +113,15 @@ export const ButtonCancel = styled.span`
   border: 1px solid ${(props) => props.theme.colors.yellow};
   border-radius: 8px;
   padding: 0.5rem 2rem;
-  width: 18em;
+  width: 17em;
   color: ${(props) => props.theme.colors.yellow};
   font-size: smaller;
   font-weight: 500;
+
+  @media only screen and (max-width: 700px) {
+    width: 9rem;
+    display: block;
+  }
 `;
 
 export const ErrorMessage = styled.span`

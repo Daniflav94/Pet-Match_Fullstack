@@ -24,7 +24,7 @@ export const Container = styled.section`
   @media only screen and (max-width: 700px){
     flex-direction: column;
     width: 100%;
-    padding: 2rem;
+    padding: 2rem;   
   }
 `;
 
@@ -36,6 +36,7 @@ export const Content = styled.div`
   @media only screen and (max-width: 700px){
     width: 100%;
     margin-left: 0;
+    z-index: 2 !important;
   }
   
 `;

@@ -8,7 +8,14 @@ import { useContext, useEffect, useState } from "react";
 
 import { IUser } from "../../interfaces/IUser";
 import { IOrganization } from "../../interfaces/IOrganization";
-import { Tooltip } from "@nextui-org/react";
+import {
+  Navbar as Nav,
+  Tooltip,
+  NavbarContent,
+  NavbarMenuToggle,
+  NavbarMenu,
+  NavbarMenuItem,
+} from "@nextui-org/react";
 import { logout } from "../../services/auth.service";
 import { Badge } from "@nextui-org/react";
 import { Notifications } from "../notifications";
@@ -25,6 +32,7 @@ export function Navbar() {
   const [userLogged, setUserLogged] = useState<IUser | IOrganization>();
   const [isNotificationsVisible, setIsNotificationsVisible] = useState(false);
   const [newNotification, setNewNotification] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const { notifications, setNotifications } = useContext(NotificationsContext);
   const { setToken } = useContext(TokenContext);
@@ -71,46 +79,99 @@ export function Navbar() {
   return (
     <S.Nav>
       {width < 700 ? (
-        <S.Ul>
-          <Link to="/">
-            <S.Logo>
-              <S.Img src={logo} alt="logo pet match" />
-              <S.LogoText>pet match</S.LogoText>
-            </S.Logo>
-          </Link>
+        <Nav
+          onMenuOpenChange={setIsMenuOpen}
+          className="bg-[#8CB9BD] h-18 z-[99999]"
+          maxWidth="full"
+          height="6rem"
+        >
+          <NavbarContent
+            justify="center"
+            className="flex gap-8 justify-between w-full items-center"
+          >
+            <Link to="/">
+              <S.Logo>
+                <S.Img src={logo} alt="logo pet match" />
+                <S.LogoText>pet match</S.LogoText>
+              </S.Logo>
+            </Link>
 
-          <S.Container>
-            {userLogged?.type === "user" && (
-              <li>
-                <Link to="/favoritos">
-                  <S.Container>
-                    <S.IconHeart src={heart} alt="" />
-                  </S.Container>
-                </Link>
-              </li>
-            )}
-            {userLogged?.type && (
-              <li>
-                <S.Container
-                  onClick={() =>
-                    setIsNotificationsVisible(!isNotificationsVisible)
-                  }
-                >
-                  {newNotification ? (
-                    <Badge content="" color="warning" shape="circle">
+            <S.Container>
+              {userLogged?.type === "user" && (
+                <li>
+                  <Link to="/favoritos">
+                    <S.Container>
+                      <S.IconHeart src={heart} alt="" />
+                    </S.Container>
+                  </Link>
+                </li>
+              )}
+              {userLogged?.type && (
+                <li>
+                  <S.Container
+                    onClick={() =>
+                      setIsNotificationsVisible(!isNotificationsVisible)
+                    }
+                  >
+                    {newNotification ? (
+                      <Badge content="" color="warning" shape="circle">
+                        <S.IconBell src={bell} alt="" />
+                      </Badge>
+                    ) : (
                       <S.IconBell src={bell} alt="" />
-                    </Badge>
-                  ) : (
-                    <S.IconBell src={bell} alt="" />
-                  )}
-                </S.Container>
-              </li>
-            )}
-            
-          </S.Container>
+                    )}
+                  </S.Container>
+                </li>
+              )}
+            </S.Container>
 
-          <Menu color="#f0e4c4" />
-        </S.Ul>
+            <NavbarMenuToggle
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+              className="sm:hidden text-[#f0e4c4] "
+            />
+
+            <NavbarMenu className="flex items-center text-2xl">
+              <NavbarMenuItem isActive={route.pathname === "/sobre"}>
+                <Link to="/sobre" className="w-full ">
+                  Sobre
+                </Link>
+              </NavbarMenuItem>
+
+              {userLogged?.type != "admin" ? (
+                <NavbarMenuItem isActive={route.pathname === "/adotar"}>
+                  <Link to="/adotar" className="w-full">
+                    Adotar
+                  </Link>
+                </NavbarMenuItem>
+              ) : (
+                <NavbarMenuItem isActive={route.pathname === "/adotar"}>
+                  <Link to="/meus-pets" className="w-full">
+                    Meus pets
+                  </Link>
+                </NavbarMenuItem>
+              )}
+
+              {userLogged ? (
+                <NavbarMenuItem>
+                  <span
+                    onClick={() => {
+                      logoutUser();
+                    }}
+                    className="w-full"
+                  >
+                    Sair
+                  </span>
+                </NavbarMenuItem>
+              ) : (
+                <NavbarMenuItem>
+                  <Link to="/login" className="w-full">
+                    Entrar
+                  </Link>
+                </NavbarMenuItem>
+              )}
+            </NavbarMenu>
+          </NavbarContent>
+        </Nav>
       ) : (
         <S.Ul>
           <Link to="/">

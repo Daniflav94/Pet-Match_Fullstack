@@ -13,6 +13,10 @@ export const ContainerImage = styled.div`
   min-width: 40rem;
   height: 100vh;
   overflow: hidden;
+
+  @media only screen and (max-width: 700px){
+    display: none;
+  }
  
 `;
 
@@ -23,6 +27,10 @@ export const ContainerForm = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  @media only screen and (max-width: 700px){
+    width: 100%;
+  }
 `;
 
 export const ContainerLogin = styled.div`
@@ -33,6 +41,10 @@ export const ContainerLogin = styled.div`
   align-items: center;
   justify-content: center;
   padding: 0 6rem;
+
+  @media only screen and (max-width: 700px){
+    padding: 0 2rem;
+  }
 `;
 
 export const Image = styled.img`
@@ -75,6 +87,7 @@ export const Form = styled.form`
   width: 100%;
   max-width: 30rem;
   gap: 1rem;
+
 `;
 
 

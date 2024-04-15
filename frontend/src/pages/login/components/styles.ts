@@ -9,8 +9,12 @@ export const ContainerRegister = styled.div`
   align-items: center;
   justify-content: center;
   padding: 0 4rem;
-  background-color: ${props => props.theme.colors.snow};
+  background-color: ${(props) => props.theme.colors.snow};
   position: relative;
+
+  @media only screen and (max-width: 700px) {
+    padding: 0;
+  }
 `;
 
 export const ButtonArrow = styled.button`
@@ -18,15 +22,20 @@ export const ButtonArrow = styled.button`
   position: absolute;
   top: 3rem;
   left: 3rem;
+
+  @media only screen and (max-width: 700px) {
+    top: 1rem;
+    left: 1rem;
+  }
 `;
 
 export const Title = styled.h1`
-    font-size: 2rem;
-    font-weight: 700;
-    color: ${props => props.theme.colors.blue};
-    font-family: "Poppins", sans-serif;
-    margin-bottom: 2rem;
-    margin-top: 4rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: ${(props) => props.theme.colors.blue};
+  font-family: "Poppins", sans-serif;
+  margin-bottom: 2rem;
+  margin-top: 4rem;
 `;
 
 export const Form = styled.form`
@@ -39,6 +48,10 @@ export const Form = styled.form`
   height: fit-content;
   overflow-y: auto;
   padding: 2rem;
+
+  @media only screen and (max-width: 700px) {
+    padding: 1rem;
+  }
 `;
 
 export const DualInput = styled.div`
@@ -61,7 +74,7 @@ export const InputFile = styled.div`
   justify-content: space-around;
 
   &:hover {
-    border: 2px solid ${props => props.theme.colors.gray2};
+    border: 2px solid ${(props) => props.theme.colors.gray2};
     transition: border 0.3s;
   }
 `;
@@ -76,7 +89,7 @@ export const ContentInputFile = styled.div`
 
 export const ButtonImage = styled.span`
   width: 50%;
-  background-color: ${props => props.theme.colors.yellow};
+  background-color: ${(props) => props.theme.colors.yellow};
   padding: 0.5rem 1rem;
   border-radius: 8px;
   color: white;
@@ -107,4 +120,3 @@ export const ContainerImage = styled.div`
   align-items: center;
   cursor: pointer;
 `;
-
