@@ -126,7 +126,7 @@ export function Navbar() {
 
             <NavbarMenuToggle
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-              className="sm:hidden text-[#f0e4c4] "
+              className="md:hidden text-[#f0e4c4] "
             />
 
             <NavbarMenu className="flex items-center text-2xl">
