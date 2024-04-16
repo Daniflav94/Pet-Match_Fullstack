@@ -8,7 +8,8 @@
 - Node.js com Typescript.
 
 ## Objetivo
-Aplicação para cadastro de pets que estão para adoção, usuários podem ver todos os pets disponíveis, utilizar filtros, favoritar pets e solicitar adoção. A ong cadastrada como admin consegue administrar os seus pets e recebe notificações quando um usuário solicitar adoção, podendo aceitar ou recusar. A aplicação está responsiva podendo ser utilizada em computadores, tablets ou celulares.
+Aplicação para cadastro de pets que estão para adoção, usuários podem ver todos os pets disponíveis, utilizar filtros, favoritar pets e solicitar adoção. A ong cadastrada como admin consegue administrar os seus pets e recebe notificações pela aplicação e também via email quando um usuário solicitar adoção, podendo aceitar ou recusar. O usuário também é notificado por email e pela aplicação.
+A aplicação está responsiva podendo ser utilizada em computadores, tablets ou celulares.
 
 ## Imagens aplicação
 
@@ -27,6 +28,9 @@ Aplicação para cadastro de pets que estão para adoção, usuários podem ver 
 ![petMatch-7](https://github.com/Daniflav94/Pet-Match_Fullstack/assets/99519903/19b805da-b371-4f79-b855-a64379e380aa)
 ![petMatch-8](https://github.com/Daniflav94/Pet-Match_Fullstack/assets/99519903/7826e30a-5733-41fc-a4e3-73448f76ce00)
 ![petMatch-9](https://github.com/Daniflav94/Pet-Match_Fullstack/assets/99519903/94d45942-ba59-4f90-a090-46978845116e)
+
+### Notificação via email
+![email-pet-match](https://github.com/Daniflav94/Pet-Match_Fullstack/assets/99519903/0a3dfdb5-4a9a-4fa5-89c7-064ec7b5e633)
 
 ### Mobile
 
