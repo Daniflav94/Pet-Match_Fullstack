@@ -81,7 +81,7 @@ export function ModalAdopt({ pet, setIsFormSent }: Props) {
       describePets: data.describePets,
       children: data.children === "Sim" ? true : false,
       isFirstPet: data.isFirstPet === "Sim" ? true : false,
-      petId: pet.id
+      petId: pet.id,
     };
 
     sentFormAdoption(JSON.parse(JSON.stringify(dataForm)));

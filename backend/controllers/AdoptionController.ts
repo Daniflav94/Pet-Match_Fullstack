@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Admin, PrismaClient, User } from "@prisma/client";
 import { createNotification } from "./NotificationsController";
+import { sendEmail } from "./MailController";
 
 const prisma = new PrismaClient();
 
@@ -41,6 +42,10 @@ export const registerFormAdoption = async (req: Req, res: Response) => {
       formAdoptionId: newFormAdoption.id,
     },
   });
+
+  const organization = await prisma.admin.findUnique({where: {id: findPet?.organizationId as string}})
+
+  sendEmail(organization?.email as string, data.type)
 
   res.status(201).json({
     data: newFormAdoption,

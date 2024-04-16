@@ -10,4 +10,5 @@ export interface INotification {
     createdAt?: Date;
     wasApproved?: boolean
     message?: string;
+    mailTo?: string;
 }

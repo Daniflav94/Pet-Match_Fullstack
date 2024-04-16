@@ -12,6 +12,7 @@ export const Container = styled.section`
   flex-direction: column;
   align-items: center;
   color: ${(props) => props.theme.colors.gray};
+  position: relative;
 
   @media only screen and (max-width: 700px){
     padding-top: 7rem;

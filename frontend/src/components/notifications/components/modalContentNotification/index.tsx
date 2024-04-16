@@ -64,7 +64,8 @@ export function ModalContentNotification({ data, listNotifications }: Props) {
       formAdoptionId: (data.formAdoption as IFormAdoption).id,
       wasApproved: isAccept,
       message: isAccept ? "" : message,
-      idReceiver: (data.formAdoption?.user as IUser).id as string
+      idReceiver: (data.formAdoption?.user as IUser).id as string,
+      mailTo: (data.formAdoption?.user as IUser).email
     };
 
     await updateNotification(data.id as string, {

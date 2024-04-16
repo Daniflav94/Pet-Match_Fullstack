@@ -86,7 +86,7 @@ export function Card({
       }
     });
     
-  }, []);
+  }, [favorites]);
 
   useEffect(() => {
     listRequestAdoption?.map((p) => {
@@ -95,7 +95,7 @@ export function Card({
       }
     });
     
-  }, []);
+  }, [listRequestAdoption]);
 
   return (
     <Dialog.Root>

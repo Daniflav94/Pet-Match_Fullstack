@@ -7,6 +7,8 @@ import { getListFavorites } from "../../services/pet.service";
 import image from "../../assets/images/pets-home.png";
 import { Spinner } from "@nextui-org/react";
 import TokenContext from "../../contexts/tokenContext";
+import { IFormAdoption } from "../../interfaces/IFormAdoption";
+import { getRequestsUser } from "../../services/requestAdoption.service";
 
 interface PetFavorite {
   pet: IPet;
@@ -17,6 +19,9 @@ export function Favorites() {
   const [listPets, setListPets] = useState<PetFavorite[]>([]);
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<IUser>();
+  const [listRequestAdoption, setListRequestAdoption] = useState<
+    IFormAdoption[]
+  >([]);
 
   const { token } = useContext(TokenContext);
 
@@ -25,6 +30,7 @@ export function Favorites() {
 
     if (token && userStorage) {
       getFavorites(token);
+      getRequestsAdoptionUser(token);
 
       setUser(JSON.parse(userStorage));
     }
@@ -38,6 +44,14 @@ export function Favorites() {
       setListPets(res.data);
 
       setLoading(false);
+    }
+  }
+
+  async function getRequestsAdoptionUser(token: string) {
+    const res = await getRequestsUser(token);
+
+    if (res.data) {
+      setListRequestAdoption(res.data);
     }
   }
 
@@ -62,6 +76,7 @@ export function Favorites() {
                       pet={item.pet}
                       typeUser={user?.type}
                       favorites={listPets}
+                      listRequestAdoption={listRequestAdoption}
                     />
                   ))}
               </S.ContainerCards>

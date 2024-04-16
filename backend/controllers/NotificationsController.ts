@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Admin, Notifications, PrismaClient, User } from "@prisma/client";
+import { sendEmail } from "./MailController";
 
 const prisma = new PrismaClient();
 
@@ -19,6 +20,8 @@ export const createNotification = async (req: Request, res: Response) => {
       message: data.message
     },
   });
+
+  sendEmail(data.mailTo, data.type)
 
   if (!newNotification) {
     return new Error(
