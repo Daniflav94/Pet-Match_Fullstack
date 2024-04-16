@@ -1,8 +1,8 @@
 <mjml>
   <mj-body>
-    <mj-section>
+    <mj-section background-color="#FEFBF6">
       <mj-column>
-        <mj-image width="250px" src="cid:logo"></mj-image>
+        <mj-image width="220px" src="cid:logo"></mj-image>
       </mj-column>
     </mj-section>
 
