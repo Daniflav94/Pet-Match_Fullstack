@@ -1,0 +1,19 @@
+<mjml>
+  <mj-body>
+    <mj-section>
+      <mj-column>
+        <mj-image width="250px" src="cid:logo"></mj-image>
+      </mj-column>
+    </mj-section>
+
+    <mj-section background-color="#8CB9BD" padding="10px">
+      <mj-column>
+        <mj-image width="160px" src="cid:dog" align="center"></mj-image>
+      </mj-column>
+      <mj-column vertical-align="middle">
+        <mj-text font-size="28px" color="#f0e4c4" align="center" padding="40px 40px 20px 0" font-family="Lato, sans-serif">Oba! Você recebeu um retorno da sua solicitação de adoção.</mj-text>
+        <mj-button background-color="#ECB159" align="center" border="8px" font-size="16px" padding="0 40px 20px 0" font-family="Lato, sans-serif" font-weight="medium" href="http://localhost:5173/">Ver detalhes</mj-button>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

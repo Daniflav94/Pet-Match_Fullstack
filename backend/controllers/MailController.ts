@@ -1,6 +1,13 @@
 import { transporter } from "../config/mailConfig";
+import { nodemailerMjmlPlugin } from "nodemailer-mjml";
+import { join } from "path";
 
-export const sendEmail = async(to: string, type: string) => {
+transporter.use(
+  "compile",
+  nodemailerMjmlPlugin({ templateFolder: join(__dirname, "../mailTemplates") })
+);
+
+export const sendEmail = async (to: string, type: string) => {
   const mailOptions = {
     from: process.env.MAIL_USERNAME,
     to: to,
@@ -8,17 +15,28 @@ export const sendEmail = async(to: string, type: string) => {
       type === "request_adoption"
         ? "Solicitação de adoção"
         : "Resposta pedido de adoção",
-    html:
-      type === "request_adoption"
-        ? `<h2>Você recebeu uma solicitação de adoção </h2>`
-        : `<h2>Você recebeu um retorno de solicitação de adoção</h2>`,
-  };
-  console.log(mailOptions)
+      templateName: type === "request_adoption" ? "requestAdoption" : "responseAdoption",
+      templateData: {
+        logo: join(__dirname, '../assets/img/logo.png'),
+        dogImage:join(__dirname, '../assets/img/dog.png')
+      },
+      attachments: [{
+        filename: "logo.png",
+        path: join(__dirname, '../assets/img/logo.png'),
+        cid: 'logo'
+    },
+    {
+      filename: "dog.png",
+      path:  join(__dirname, '../assets/img/dog.png'),
+      cid: 'dog'
+  }],
+    
+  }
 
   try {
     await transporter.sendMail(mailOptions);
-    console.log("Email enviado!")
+    console.log("Email enviado!");
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
 };
