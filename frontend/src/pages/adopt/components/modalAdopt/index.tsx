@@ -68,7 +68,6 @@ export function ModalAdopt({ pet, setIsFormSent }: Props) {
     setValue("birthdate", birthdate)
     setValue("state", userLogged?.state as string)
     setValue("city", userLogged?.city as string)
-    console.log(data)
 
     if(!data.children || !data.liveIn || !data.isFirstPet || !data.pets){
       setError("Preencha todos os campos para continuar.")
