@@ -62,6 +62,58 @@ export const getCurrentUser = async(token: string) => {
         "Content-Type": "application/json",
         Authorization: "Bearer " + token
       },   
+      
+    });
+
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const forgetPassword = async(data: {email: string}) => {
+  try {
+    const res = await fetch(`${api}/auth/forget-password`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },   
+      body: JSON.stringify(data),
+    });
+
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const validateCode = async(data: {code: string, userId: string}) => {
+  try {
+    const res = await fetch(`${api}/auth/validate-code`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },   
+      body: JSON.stringify(data),
+    });
+
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const resetPassword = async(data: {code: string, userId: string, password: string}) => {
+  try {
+    const res = await fetch(`${api}/auth/reset-password`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },   
+      body: JSON.stringify(data),
     });
 
     return res.json();

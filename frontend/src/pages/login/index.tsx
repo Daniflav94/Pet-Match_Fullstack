@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../../services/auth.service";
 import { CustomButton } from "../../components/customButton";
 import TokenContext from "../../contexts/tokenContext";
+import { ForgetPassword } from "./components/forgetPassword";
 
 type Login = {
   email: string;
@@ -28,6 +29,7 @@ export function Login() {
 
   const [isVisible, setIsVisible] = useState(false);
   const [signUpVisible, setSignUpVisible] = useState(false);
+  const [forgetPassword, setForgetPassword] = useState(false);
   const [typeUser, setTypeUser] = useState("user");
 
   const toggleVisibility = () => setIsVisible(!isVisible);
@@ -39,12 +41,13 @@ export function Login() {
 
     if (!res) {
       toast.error(
-        "Estamos ocm problemas no servidor. Tente novamente mais tarde"
+        "Estamos com problemas no servidor. Tente novamente mais tarde"
       );
-      
+      return;
     } else if (res) {
       if (res.errors) {
         toast.error(res.errors);
+        return;
       }
 
       const tokenResponse = res.token;
@@ -66,7 +69,7 @@ export function Login() {
       </S.ContainerImage>
 
       <S.ContainerForm>
-        {!signUpVisible ? (
+        {!signUpVisible && !forgetPassword && (
           <S.ContainerLogin>
             <S.ContainerLogo>
               <S.Logo src={logo} alt="" />
@@ -84,35 +87,39 @@ export function Login() {
                 refs={register("email")}
                 isRequired
               />
-
-              <InputCustom
-                type={isVisible ? "text" : "password"}
-                label="Senha"
-                color="primary"
-                control={control}
-                name={"password"}
-                refs={register("password")}
-                isRequired
-                endContent={
-                  <button
-                    className="focus:outline-none"
-                    type="button"
-                    onClick={toggleVisibility}
-                  >
-                    {isVisible ? (
-                      <EyeOff
-                        className="text-default-400 pointer-events-none"
-                        size={22}
-                      />
-                    ) : (
-                      <EyeIcon
-                        className=" text-default-400 pointer-events-none"
-                        size={22}
-                      />
-                    )}
-                  </button>
-                }
-              />
+              <div>
+                <InputCustom
+                  type={isVisible ? "text" : "password"}
+                  label="Senha"
+                  color="primary"
+                  control={control}
+                  name={"password"}
+                  refs={register("password")}
+                  isRequired
+                  endContent={
+                    <button
+                      className="focus:outline-none"
+                      type="button"
+                      onClick={toggleVisibility}
+                    >
+                      {isVisible ? (
+                        <EyeOff
+                          className="text-default-400 pointer-events-none"
+                          size={22}
+                        />
+                      ) : (
+                        <EyeIcon
+                          className=" text-default-400 pointer-events-none"
+                          size={22}
+                        />
+                      )}
+                    </button>
+                  }
+                />
+                <S.ForgetPassword onClick={() => setForgetPassword(true)}>
+                  Esqueci minha senha
+                </S.ForgetPassword>
+              </div>
 
               <CustomButton
                 type="submit"
@@ -146,8 +153,14 @@ export function Login() {
               </S.TextSignUp>
             </S.Form>
           </S.ContainerLogin>
-        ) : (
+        )}
+
+        {signUpVisible && !forgetPassword && (
           <Register type={typeUser} setSignUpVisible={setSignUpVisible} />
+        )}
+
+        {!signUpVisible && forgetPassword && (
+          <ForgetPassword setForgetPassword={setForgetPassword} />
         )}
       </S.ContainerForm>
 

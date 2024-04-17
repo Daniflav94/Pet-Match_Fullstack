@@ -1,5 +1,5 @@
 import * as S from "./styles";
-import arrow from "../../../assets/icons/botao-voltar.png";
+import arrow from "../../../../assets/icons/botao-voltar.png";
 
 import { RegisterUser } from "./registerUser";
 import { RegisterAdmin } from "./registerAdmin";

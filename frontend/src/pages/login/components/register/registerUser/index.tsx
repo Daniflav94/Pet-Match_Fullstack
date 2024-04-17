@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as S from "../styles";
-import { IUser } from "../../../../interfaces/IUser";
-import { InputCustom } from "../../../../components/input";
+import { IUser } from "../../../../../interfaces/IUser";
+import { InputCustom } from "../../../../../components/input";
 import { EyeIcon, EyeOff } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Select, SelectItem, Spinner } from "@nextui-org/react";
@@ -9,13 +9,13 @@ import {
   normalizeCepNumber,
   normalizeCpfNumber,
   normalizePhoneNumber,
-} from "../../../../masks/mask";
-import { getDataCep } from "../../../../services/viaCep";
+} from "../../../../../masks/mask";
+import { getDataCep } from "../../../../../services/viaCep";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Toaster, toast } from "sonner";
-import { registerUser } from "../../../../services/auth.service";
-import { CustomButton } from "../../../../components/customButton";
+import { registerUser } from "../../../../../services/auth.service";
+import { CustomButton } from "../../../../../components/customButton";
 
 interface SignUpUser extends IUser {
   confirmPassword: string;

@@ -132,18 +132,75 @@ export const getCurrentUser = async (req: Req, res: Response) => {
   });
 };
 
-export const resetPassword = async (req: Req, res: Response) => {
+export const forgetPassword = async (req: Req, res: Response) => {
   const { email } = req.body;
 
   const findUser = await verifyUserExist(email);
 
   if(!findUser){
     res.status(400).json({errors: ["Email não cadastrado."]})
+    return
   }
 
-  const code = Math.floor(Math.random() * 900000) + 100000;
+  const code = (Math.floor(Math.random() * 900000) + 100000).toString();
+
+  const saveCode = await prisma.codeResetPassword.create({
+    data: {
+      code,
+      userId: findUser?.id as string
+    }
+  })
+
+  if(!saveCode){
+    res.status(500).json({ errors: ["Ocorreu um erro ao gerar código."]})
+    return
+  }
 
   sendEmailResetPassword(email, code);
 
-  res.status(200).json("Código enviado por email!");
+  res.status(200).json({ userId: findUser?.id});
 };
+
+export const verifyCode = async (code: string, userId: string) => {
+  const findCode = await prisma.codeResetPassword.findFirst({ where: {
+    code,
+    userId
+  }})
+
+  return findCode;
+}
+
+export const validateCode = async (req: Req, res: Response) => {
+  const {code, userId} = req.body;
+
+  const isValidCode = await verifyCode(code, userId);
+
+  if(isValidCode === null){
+    res.status(400).json({errors: ["Código incorreto!"]})
+    return
+  }
+
+  res.status(200).json("Código válido!")
+}
+
+export const resetPassword = async (req: Req, res: Response) => {
+  const {password, userId, code} = req.body;
+
+  const isValidCode = verifyCode(code, userId);
+
+  if(!isValidCode){
+    res.status(400).json({errors: ["Código incorreto!"]})
+    return
+  }
+
+  const salt = await bcrypt.genSalt();
+  const passwordHash = await bcrypt.hash(password, salt);
+
+  await prisma.user.update({where: { id: userId },
+    data: {
+      password: passwordHash
+    },})
+
+    res.status(200).json("Senha alterada com sucesso!")
+
+}

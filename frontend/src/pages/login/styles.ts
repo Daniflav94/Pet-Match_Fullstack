@@ -90,7 +90,6 @@ export const Form = styled.form`
 
 `;
 
-
 export const TextSignUp = styled.span`
     font-family: "Poppins", sans-serif;
     font-size: 0.8rem;
@@ -99,4 +98,17 @@ export const TextSignUp = styled.span`
 export const ButtonSignUp = styled.button`
     color:  ${props => props.theme.colors.yellow};
     font-weight: 600;
+`;
+
+export const ForgetPassword = styled.button`
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 0.7rem;
+    text-align: start;
+    width: 100%;
+    color: ${props => props.theme.colors.gray};
+
+    &:hover {
+      color: ${props => props.theme.colors.gray2};
+    }
 `;

@@ -8,23 +8,24 @@ datasource db {
 }
 
 model User {
-  id           String         @id @default(uuid())
-  name         String
-  email        String         @unique
-  password     String
-  cpf          String         @unique
-  birthdate    DateTime       @db.Date
-  gender       String
-  phone        String
-  cep          String
-  state        String
-  city         String
-  street       String
-  neighborhood String
-  type         String
-  createdAt    DateTime       @default(now())
-  FormAdoption FormAdoption[]
-  Favorites    Favorites[]
+  id                String              @id @default(uuid())
+  name              String
+  email             String              @unique
+  password          String
+  cpf               String              @unique
+  birthdate         DateTime            @db.Date
+  gender            String
+  phone             String
+  cep               String
+  state             String
+  city              String
+  street            String
+  neighborhood      String
+  type              String
+  createdAt         DateTime            @default(now())
+  FormAdoption      FormAdoption[]
+  Favorites         Favorites[]
+  CodeResetPassword CodeResetPassword[]
 }
 
 model Admin {
@@ -91,7 +92,7 @@ model Notifications {
   isViewed       Boolean  @default(false)
   wasApproved    Boolean?
   message        String?
-  mailTo             String?
+  mailTo         String?
   createdAt      DateTime @default(now())
 
   formAdoption FormAdoption @relation(fields: [formAdoptionId], references: [id])
@@ -103,5 +104,13 @@ model Favorites {
   userId String
 
   pet  Pet  @relation(fields: [petId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+}
+
+model CodeResetPassword {
+  id     String @id @default(uuid())
+  code   String
+  userId String
+
   user User @relation(fields: [userId], references: [id])
 }

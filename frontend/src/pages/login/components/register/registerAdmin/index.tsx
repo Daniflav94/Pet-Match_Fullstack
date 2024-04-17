@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as S from "../styles";
-import { InputCustom } from "../../../../components/input";
+import { InputCustom } from "../../../../../components/input";
 import { EyeIcon, EyeOff } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Spinner } from "@nextui-org/react";
@@ -8,16 +8,16 @@ import {
   normalizeCepNumber,
   normalizeCnpjNumber,
   normalizePhoneNumber,
-} from "../../../../masks/mask";
-import { getDataCep } from "../../../../services/viaCep";
+} from "../../../../../masks/mask";
+import { getDataCep } from "../../../../../services/viaCep";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Toaster, toast } from "sonner";
-import { ApiCNPJ } from "../../../../services/apiCNPJ";
-import { registerAdmin } from "../../../../services/auth.service";
-import { IOrganization } from "../../../../interfaces/IOrganization";
-import { CustomButton } from "../../../../components/customButton";
-import addPhoto from "../../../../assets/images/imagem.png";
+import { ApiCNPJ } from "../../../../../services/apiCNPJ";
+import { registerAdmin } from "../../../../../services/auth.service";
+import { IOrganization } from "../../../../../interfaces/IOrganization";
+import { CustomButton } from "../../../../../components/customButton";
+import addPhoto from "../../../../../assets/images/imagem.png";
 
 interface SignUpAdmin extends IOrganization {
   confirmPassword: string;

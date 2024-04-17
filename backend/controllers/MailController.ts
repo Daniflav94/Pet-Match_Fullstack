@@ -86,15 +86,13 @@ export const sendEmailHelpOng = async (to: string, pet?: string, user?: Partial<
   }
 };
 
-export const sendEmailResetPassword = async (to: string, code: number) => {
+export const sendEmailResetPassword = async (to: string, code: string) => {
   const mailOptions = {
     from: process.env.MAIL_USERNAME,
     to: to,
     subject: "Redefinir senha",
     templateName: "resetPassword",
     templateData: {
-      logo: join(__dirname, "../assets/img/logo.png"),
-      dogImage: join(__dirname, "../assets/img/dog.png"),
       code: code
     },
     attachments: [
