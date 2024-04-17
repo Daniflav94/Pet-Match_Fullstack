@@ -132,11 +132,11 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
     setFilteredPets([]);
     setNotFoundMessage("");
     setTypePet(undefined);
-    setState(undefined)
-    setCity(undefined)
-    setValue("age", undefined)
-    setValue("gender", undefined)
-    setValue("size", undefined)
+    setState(undefined);
+    setCity(undefined);
+    setValue("age", undefined);
+    setValue("gender", undefined);
+    setValue("size", undefined);
   }
 
   useEffect(() => {
@@ -184,9 +184,7 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
                 { value: "Médio", name: "Médio" },
                 { value: "Grande", name: "Grande" },
               ]}
-     
               value={watch("size")}
-              
             />
 
             <SelectInput
@@ -198,9 +196,7 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
                 { value: "Adulto", name: "Adulto" },
                 { value: "Idoso", name: "Idoso" },
               ]}
-     
               value={watch("age")}
-              
             />
 
             <SelectInput
@@ -210,9 +206,7 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
                 { value: "Macho", name: "Macho" },
                 { value: "Fêmea", name: "Fêmea" },
               ]}
-         
               value={watch("gender")}
-             
             />
           </S.ContentSelect>
         </S.ContainerSelect>

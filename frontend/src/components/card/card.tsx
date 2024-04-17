@@ -179,7 +179,7 @@ export function Card({
         {!isFormSent && typeUser === "admin" && (
           <S.Button>
             Adotado?{" "}
-            <button onClick={() => handleAdopt(true, pet?.id as string)}>
+            <span onClick={() => handleAdopt(true, pet?.id as string)}>
               {!isAdopt ? (
                 <>
                   <ThumbsUp color="#008000" strokeWidth={1.5} size={18} />
@@ -192,8 +192,8 @@ export function Card({
                   size={18}
                 />
               )}
-            </button>
-            <button onClick={() => handleAdopt(false, pet?.id as string)}>
+            </span>
+            <span onClick={() => handleAdopt(false, pet?.id as string)}>
               {!isAdopt ? (
                 <ThumbsDown
                   color="#ec2300"
@@ -204,7 +204,7 @@ export function Card({
               ) : (
                 <ThumbsDown color="#ec2300" strokeWidth={1.5} size={18} />
               )}
-            </button>
+            </span>
           </S.Button>
         )}
 
