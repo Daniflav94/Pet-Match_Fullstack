@@ -89,3 +89,18 @@ export const TitleSelect = styled.span`
   font-size: 0.9rem;
   font-weight: 600;
 `;
+
+export const ContainerButtons = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
+export const ClearButton = styled.span`
+  font-size: 0.8rem;
+  text-decoration: underline;
+  color: ${(props) => props.theme.colors.brown};
+  cursor: pointer;
+`;

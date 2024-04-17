@@ -49,8 +49,12 @@ export function Adopt() {
   }, []);
 
   useEffect(() => {
-    const total = filteredPets.length / 8;
-    setTotalList(Math.ceil(Number(total.toFixed(1))));
+    if(filteredPets.length > 0){
+      const total = filteredPets.length / 8;
+      setTotalList(Math.ceil(Number(total.toFixed(1))));
+    } else {
+      getPets(1);
+    }    
   }, [filteredPets]);
 
 

@@ -1,4 +1,5 @@
 import { Select } from "@radix-ui/themes";
+import { useState } from "react";
 
 export interface Props {
   onChange(value: string): void;
@@ -7,11 +8,19 @@ export interface Props {
     value: string;
     name: string;
   }[];
+  value?: string;
 }
 
 export function SelectInput(props: Props) {
+  
   return (
-    <Select.Root onValueChange={(value) => props.onChange(value)} size="2">
+    <Select.Root
+      onValueChange={(value) => {
+        props.onChange(value);
+      }}
+      size="2"
+      value={props.value || ""}
+    >
       <Select.Trigger placeholder={props.placeholder} />
       <Select.Content color="brown">
         <Select.Group>

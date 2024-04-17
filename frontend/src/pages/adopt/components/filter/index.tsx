@@ -42,7 +42,7 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
 
   const { token } = useContext(TokenContext);
 
-  const { handleSubmit, setValue } = useForm<IFilter>();
+  const { handleSubmit, setValue, watch } = useForm<IFilter>();
 
   async function getAllPets() {
     const pets = await listAllPets();
@@ -53,7 +53,7 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
   async function getStates() {
     const pets = await getAllPets();
     const res = await getListStates();
-  
+
     if (res) {
       const states = res.map((state: State) => {
         return { value: state.sigla, name: state.nome };
@@ -63,7 +63,8 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
 
       pets?.forEach((pet: IPet) => {
         const state = states.find(
-          (state: any) => state.value === (pet.organization as IOrganization).state
+          (state: any) =>
+            state.value === (pet.organization as IOrganization).state
         );
 
         if (state) {
@@ -88,7 +89,8 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
 
     pets?.forEach((pet: IPet) => {
       const city = cities.find(
-        (city: SelectLocation) => city.value === (pet.organization as IOrganization).city
+        (city: SelectLocation) =>
+          city.value === (pet.organization as IOrganization).city
       );
       if (city) {
         citiesFiltered.push(city);
@@ -114,14 +116,27 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
 
   async function filter(petFilter: IFilter) {
     setNotFoundMessage("");
-    const arrayPets = await filterPets(petFilter, token)
+    const arrayPets = await filterPets(petFilter, token);
 
     if (arrayPets.data.length > 0) {
       setFilteredPets(arrayPets.data);
     } else {
-      setNotFoundMessage("Nenhum peludinho com essas especificações foi encontrado!");
-      setFilteredPets([])
+      setNotFoundMessage(
+        "Nenhum peludinho com essas especificações foi encontrado!"
+      );
+      setFilteredPets([]);
     }
+  }
+
+  function clearFilter() {
+    setFilteredPets([]);
+    setNotFoundMessage("");
+    setTypePet(undefined);
+    setState(undefined)
+    setCity(undefined)
+    setValue("age", undefined)
+    setValue("gender", undefined)
+    setValue("size", undefined)
   }
 
   useEffect(() => {
@@ -169,6 +184,9 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
                 { value: "Médio", name: "Médio" },
                 { value: "Grande", name: "Grande" },
               ]}
+     
+              value={watch("size")}
+              
             />
 
             <SelectInput
@@ -180,6 +198,9 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
                 { value: "Adulto", name: "Adulto" },
                 { value: "Idoso", name: "Idoso" },
               ]}
+     
+              value={watch("age")}
+              
             />
 
             <SelectInput
@@ -189,6 +210,9 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
                 { value: "Macho", name: "Macho" },
                 { value: "Fêmea", name: "Fêmea" },
               ]}
+         
+              value={watch("gender")}
+             
             />
           </S.ContentSelect>
         </S.ContainerSelect>
@@ -210,13 +234,16 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
           </S.ContentSelect>
         </S.ContainerSelect>
 
-        <CustomButton
-          type="submit"
-          backgroundColor="#B67352"
-          hoverBackgroundColor="#c27a56"
-        >
-          Filtrar
-        </CustomButton>
+        <S.ContainerButtons>
+          <CustomButton
+            type="submit"
+            backgroundColor="#B67352"
+            hoverBackgroundColor="#c27a56"
+          >
+            Filtrar
+          </CustomButton>
+          <S.ClearButton onClick={clearFilter}>Limpar filtro</S.ClearButton>
+        </S.ContainerButtons>
       </S.Form>
     </S.ContainerSearch>
   );
