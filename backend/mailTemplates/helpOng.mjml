@@ -1,0 +1,27 @@
+<mjml>
+  <mj-body background-color="#FEFBF6">
+    <mj-section>
+      <mj-column>
+        <mj-image width="220px" src="cid:logo"></mj-image>
+      </mj-column>
+    </mj-section>
+
+    <mj-section background-color="#8bbbc7" padding="10px" border-radius="8px">
+      <mj-column>
+        <mj-image width="160px" src="cid:dog2" align="center"></mj-image>
+      </mj-column>
+      <mj-column vertical-align="middle">
+        <mj-text font-size="18px" padding="20px 10px" font-family="Open Sans, sans-serif">{{nameUser}} gostaria de apadrinhar {{pet}}. </mj-text>
+
+        <mj-text font-size="18px" padding="10px" font-family="Open Sans, sans-serif">Envie as informações necessárias para que o usuário possa contribuir como a chave pix e como funciona o processo de apadrinhar um pet para o email: {{emailUser}}.</mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section>
+      <mj-column>
+        <mj-text font-size="18px" padding="20px 10px" font-family="Lato, sans-serif">{{nameUser}} gostaria de apadrinhar {{pet}}. Envie as informações necessárias para que o usuário possa contribuir como a chave pix e como funciona o processo de apadrinhar um pet para o email: {{emailUser}}.</mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
+</mjml>

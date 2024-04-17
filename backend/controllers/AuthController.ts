@@ -5,6 +5,7 @@ const prisma = new PrismaClient();
 
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { sendEmailResetPassword } from "./MailController";
 
 const jwtSecret = process.env.JWT_SECRET as string;
 
@@ -129,4 +130,20 @@ export const getCurrentUser = async (req: Req, res: Response) => {
   res.status(200).json({
     data: user,
   });
+};
+
+export const resetPassword = async (req: Req, res: Response) => {
+  const { email } = req.body;
+
+  const findUser = await verifyUserExist(email);
+
+  if(!findUser){
+    res.status(400).json({errors: ["Email não cadastrado."]})
+  }
+
+  const code = Math.floor(Math.random() * 900000) + 100000;
+
+  sendEmailResetPassword(email, code);
+
+  res.status(200).json("Código enviado por email!");
 };
