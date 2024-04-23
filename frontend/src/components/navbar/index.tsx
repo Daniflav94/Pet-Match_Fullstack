@@ -32,11 +32,22 @@ export function Navbar() {
   const [isNotificationsVisible, setIsNotificationsVisible] = useState(false);
   const [newNotification, setNewNotification] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth)
 
   const { notifications, setNotifications } = useContext(NotificationsContext);
   const { setToken } = useContext(TokenContext);
 
-  const width = screen.width;
+  const handleWindowSizeChange = () => {
+    setScreenWidth(window.innerWidth)
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', handleWindowSizeChange)
+    return () => {
+      window.removeEventListener('resize', handleWindowSizeChange)
+    }
+  }, [])
+
 
   useEffect(() => {
     const tokenStorage = localStorage.getItem("token");
@@ -77,7 +88,7 @@ export function Navbar() {
 
   return (
     <S.Nav>
-      {width < 700 ? (
+      {screenWidth < 750 ? (
         <Nav
           onMenuOpenChange={setIsMenuOpen}
           className="bg-[#8CB9BD] h-18 z-[99999]"
@@ -127,23 +138,24 @@ export function Navbar() {
             <NavbarMenuToggle
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
               className="md:hidden text-[#f0e4c4] "
+              data-testid="navbar-menu-button"
             />
 
             <NavbarMenu className="flex items-center text-2xl">
               <NavbarMenuItem isActive={route.pathname === "/sobre"}>
-                <Link to="/sobre" className="w-full ">
+                <Link to="/sobre" className="w-full " data-testid="mobile-about-button">
                   Sobre
                 </Link>
               </NavbarMenuItem>
 
               {userLogged?.type != "admin" ? (
-                <NavbarMenuItem isActive={route.pathname === "/adotar"}>
-                  <Link to="/adotar" className="w-full">
+                <NavbarMenuItem isActive={route.pathname === "/adotar"} >
+                  <Link to="/adotar" className="w-full" >
                     Adotar
                   </Link>
                 </NavbarMenuItem>
               ) : (
-                <NavbarMenuItem isActive={route.pathname === "/adotar"}>
+                <NavbarMenuItem isActive={route.pathname === "/adotar"} >
                   <Link to="/meus-pets" className="w-full">
                     Meus pets
                   </Link>
@@ -180,7 +192,7 @@ export function Navbar() {
             </S.Logo>
           </Link>
           <S.Div>
-            <li>
+            <li data-testid="navbar-home-button">
               <Link to="/">
                 <S.Span
                   style={
@@ -193,7 +205,7 @@ export function Navbar() {
                 </S.Span>
               </Link>
             </li>
-            <li>
+            <li data-testid="navbar-about-button">
               <Link to="/sobre">
                 <S.Span
                   style={
@@ -207,7 +219,7 @@ export function Navbar() {
               </Link>
             </li>
             {userLogged?.type != "admin" ? (
-              <li>
+              <li data-testid="navbar-adopt-button">
                 <Link to="/adotar">
                   <S.Span
                     style={
