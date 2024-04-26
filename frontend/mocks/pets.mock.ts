@@ -11,7 +11,7 @@ export const mockPets = {
         isAdopt: false,
         personality: ["Alegre", "Carinhoso(a)"],
         organizationId: "d4ab8aed-0109-4576-ad44-378d0351c10c",
-        createdAt: "2024-04-12T14:23:27.586Z",
+        createdAt: new Date(),
         deletedAt: null,
       },
     ],
@@ -58,3 +58,74 @@ export const mockPets = {
     },
     ]
   }
+
+  export const mockFavoritesPets = {
+    "data": [
+        {
+            "id": "64e3ec5d-ad87-4b10-afc8-96ce657f2cd7",
+            "petId": "1980b8d3-1a59-4691-9647-f18346248f5e",
+            "userId": "890d0e20-61e2-4257-85f9-eec944759b6b",
+            "pet": {
+                "id": "1980b8d3-1a59-4691-9647-f18346248f5e",
+                "type": "dog",
+                "name": "Lupi",
+                "age": "adulto",
+                "gender": "Macho",
+                "size": "Pequeno",
+                "photo": "1712721872332.jpeg",
+                "isAdopt": false,
+                "personality": [
+                    "Companheiro(a)",
+                    "Sociável"
+                ],
+                "organizationId": "d4ab8aed-0109-4576-ad44-378d0351c10c",
+                "createdAt": new Date(),
+                "deletedAt": null
+            }
+        },
+        {
+            "id": "a2adf726-1f0b-49fb-bfba-d7c947a4c3b8",
+            "petId": "dcf931d9-62ef-44e0-8a83-9e67fc6e0ace",
+            "userId": "890d0e20-61e2-4257-85f9-eec944759b6b",
+            "pet": {
+                "id": "dcf931d9-62ef-44e0-8a83-9e67fc6e0ace",
+                "type": "cat",
+                "name": "Nino",
+                "age": "Filhote",
+                "gender": "Macho",
+                "size": "Médio",
+                "photo": "1712721519065.jpeg",
+                "isAdopt": false,
+                "personality": [
+                    "Brincalhão",
+                    "Carinhoso(a)"
+                ],
+                "organizationId": "d4ab8aed-0109-4576-ad44-378d0351c10c",
+                "createdAt": new Date(),
+                "deletedAt": null
+            }
+        },
+        {
+            "id": "dbe56883-c383-4b05-8f19-b79d1ae91006",
+            "petId": "d06646b4-3cb1-4fb6-8fcb-dc8563964248",
+            "userId": "890d0e20-61e2-4257-85f9-eec944759b6b",
+            "pet": {
+                "id": "d06646b4-3cb1-4fb6-8fcb-dc8563964248",
+                "type": "dog",
+                "name": "John",
+                "age": "Adulto",
+                "gender": "Macho",
+                "size": "Grande",
+                "photo": "1712931807456.jpeg",
+                "isAdopt": false,
+                "personality": [
+                    "Alegre",
+                    "Carinhoso(a)"
+                ],
+                "organizationId": "d4ab8aed-0109-4576-ad44-378d0351c10c",
+                "createdAt": new Date(),
+                "deletedAt": null
+            }
+        }
+    ]
+}

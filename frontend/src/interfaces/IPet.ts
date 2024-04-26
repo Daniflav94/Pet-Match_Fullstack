@@ -2,7 +2,7 @@ import { IOrganization } from "./IOrganization";
 
 export interface IPet {
     id?: string;
-    type: "dog" | "cat";
+    type: string;
     name: string;
     age: string;
     gender: string;

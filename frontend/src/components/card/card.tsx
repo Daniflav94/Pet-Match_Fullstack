@@ -171,7 +171,7 @@ export function Card({
 
         {!isFormSent && typeUser === "user" && (
           <Dialog.Trigger>
-            <S.Button>Adotar</S.Button>
+            <S.Button data-testid="btn-adopt">Adotar</S.Button>
           </Dialog.Trigger>
         )}
 
