@@ -14,6 +14,8 @@ import {
 } from "../../../../mocks/pets.mock";
 import { mockStates } from "../../../../mocks/states.mock";
 import { Card } from "../../../components/card/card";
+import { ModalAdopt } from "../components/modalAdopt/index";
+import * as Dialog from "@radix-ui/react-dialog";
 
 const theme = {
   colors: {
@@ -30,8 +32,6 @@ const theme = {
     gray2: "",
   },
 };
-
-jest.mock("node-fetch");
 
 const token = "123456";
 const setToken = jest.fn();
@@ -65,6 +65,8 @@ jest.mock("../../../services/pet.service", () => ({
   listPetsWithPagination: jest.fn(() => Promise.resolve(mockPets)),
 }));
 
+jest.mock("node-fetch");
+
 describe("Adopt", () => {
   test("should render a list of pets", async () => {
     renderComponent();
@@ -86,5 +88,58 @@ describe("Adopt", () => {
     });
 
     expect(screen.queryAllByText("John")).toBeTruthy();
+  });
+
+  test("should display errors when inputs are invalid on modal adoption", async () => {
+    renderComponent();
+
+    await waitFor(() => {
+      const buttonAdopt = screen.getByTestId("btn-adopt");
+
+      fireEvent.click(buttonAdopt);
+
+      expect(screen.getByText("Formulário de adoção")).toBeInTheDocument();
+    });
+
+    const submitButton = screen.queryByTestId("submit-button");
+
+    if (submitButton) {
+      fireEvent.click(submitButton);
+
+      const spanErrorElements = screen.findAllByRole("alert");
+
+      expect(spanErrorElements).toBeTruthy();
+    } else {
+      throw new Error("Submit button not found");
+    }
+  });
+
+  test("should render success message after send form adoption", async () => {
+    renderComponent();
+
+    await waitFor(() => {
+      const buttonAdopt = screen.getByTestId("btn-adopt");
+
+      fireEvent.click(buttonAdopt);
+
+      expect(screen.getByText("Formulário de adoção")).toBeInTheDocument();
+    });
+
+    const radioButton1 = screen.getByTestId("radio-button-1");
+    const radioButton2 = screen.getByTestId("radio-button-2");
+    const radioButton3 = screen.getByTestId("radio-button-3");
+    const radioButton4 = screen.getByTestId("radio-button-4");
+
+    fireEvent.click(radioButton1, { target: { checked: true }});
+    fireEvent.click(radioButton2, { target: { checked: true }});
+    fireEvent.click(radioButton3, { target: { checked: true }});
+    fireEvent.click(radioButton4, { target: { checked: false }});
+
+    const form = screen.getByTestId("form-adoption");
+
+    fireEvent.submit(form);
+
+    expect(screen.findByText("Pedido de adoção enviado com sucesso!")).toBeTruthy()
+
   });
 });

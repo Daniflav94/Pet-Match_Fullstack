@@ -121,7 +121,7 @@ export function ModalAdopt({ pet, setIsFormSent }: Props) {
               <S.PetImage src={`${uploads}/pets/${pet.photo}`} />
               <S.NamePet>{pet.name}</S.NamePet>
 
-              <S.Form onSubmit={handleSubmit(onSubmit)}>
+              <S.Form onSubmit={handleSubmit(onSubmit)} data-testid="form-adoption">
                 <InputCustom
                   label="Nome completo"
                   color={"primary"}
@@ -187,6 +187,7 @@ export function ModalAdopt({ pet, setIsFormSent }: Props) {
                   style={{ fontSize: "0.9rem" }}
                   onValueChange={(value) => setValue("liveIn", value)}
                   isRequired
+                  data-testid="radio-button-1"
                 >
                   <S.DualInput>
                     <Radio value="Casa">Casa</Radio>
@@ -202,6 +203,7 @@ export function ModalAdopt({ pet, setIsFormSent }: Props) {
                   style={{ fontSize: "0.9rem" }}
                   onValueChange={(value) => setValue("children", value)}
                   isRequired
+                  data-testid="radio-button-2"
                 >
                   <S.DualInput>
                     <Radio value="Sim">Sim</Radio>
@@ -216,6 +218,7 @@ export function ModalAdopt({ pet, setIsFormSent }: Props) {
                   style={{ fontSize: "0.9rem" }}
                   onValueChange={(value) => setValue("isFirstPet", value)}
                   isRequired
+                  data-testid="radio-button-3"
                 >
                   <S.DualInput>
                   <Radio value="Sim">Sim</Radio>
@@ -230,6 +233,7 @@ export function ModalAdopt({ pet, setIsFormSent }: Props) {
                   style={{ fontSize: "0.9rem" }}
                   onValueChange={(value) => setValue("pets", value)}
                   isRequired
+                  data-testid="radio-button-4"
                 >
                   <S.DualInput>
                   <Radio value="Sim">Sim</Radio>
@@ -247,7 +251,7 @@ export function ModalAdopt({ pet, setIsFormSent }: Props) {
                     refs={register("describePets")}
                   />
                 )}
-                {error && <S.ErrorMessage>{error}</S.ErrorMessage>}
+                {error && <S.ErrorMessage role="alert">{error}</S.ErrorMessage>}
                 <S.ContainerButtons>
                   <Dialog.Close>
                     <S.ButtonCancel
@@ -256,7 +260,7 @@ export function ModalAdopt({ pet, setIsFormSent }: Props) {
                       Cancelar
                     </S.ButtonCancel>
                   </Dialog.Close>
-                  <S.ButtonSubmit type="submit">Enviar</S.ButtonSubmit>
+                  <S.ButtonSubmit type="submit" data-testid="submit-button">Enviar</S.ButtonSubmit>
                 </S.ContainerButtons>
               </S.Form>
             </>
