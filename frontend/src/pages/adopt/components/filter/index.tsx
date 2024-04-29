@@ -167,6 +167,7 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
                 ? { border: "1px solid #ECB159" }
                 : { border: "none" }
             }
+            data-testid="button-filter-cat"
           >
             <S.Icon src={catIcon} alt="" />
             <S.IconText>Gato</S.IconText>
@@ -233,6 +234,7 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
             type="submit"
             backgroundColor="#B67352"
             hoverBackgroundColor="#c27a56"
+            dataTestid="button-submit-filter"
           >
             Filtrar
           </CustomButton>

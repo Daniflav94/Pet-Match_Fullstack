@@ -11,6 +11,7 @@ type Props = {
   onClick?: () => void;
   fontSize?: string;
   width?: string;
+  dataTestid?: string;
 };
 
 export function CustomButton({
@@ -23,7 +24,8 @@ export function CustomButton({
   disabled = false,
   fontSize,
   width,
-  onClick
+  onClick,
+  dataTestid
 }: Props) {
   return (
     <S.Button
@@ -36,6 +38,7 @@ export function CustomButton({
       $fontSize={fontSize}
       $width={width}
       onClick={onClick}
+      data-testid={dataTestid}
     >
       {children}
     </S.Button>

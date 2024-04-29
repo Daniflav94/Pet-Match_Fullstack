@@ -3,19 +3,16 @@ import { ThemeProvider } from "styled-components";
 import { Adopt } from "..";
 import { MemoryRouter } from "react-router-dom";
 import { Theme } from "@radix-ui/themes";
-import TokenContext, {
-  TokenContextProvider,
-} from "../../../contexts/tokenContext";
+import TokenContext from "../../../contexts/tokenContext";
 import "@testing-library/jest-dom";
 import {
   mockPets,
   mockAllPets,
-  mockFavoritesPets,
+  mockFilterPets,
 } from "../../../../mocks/pets.mock";
 import { mockStates } from "../../../../mocks/states.mock";
 import { Card } from "../../../components/card/card";
-import { ModalAdopt } from "../components/modalAdopt/index";
-import * as Dialog from "@radix-ui/react-dialog";
+import { FilterAdopt } from "../components/filter";
 
 const theme = {
   colors: {
@@ -49,6 +46,10 @@ const renderComponent = () => {
               pet={mockPets.data[0]}
               typeUser={"user"}
             />
+            <FilterAdopt
+              setFilteredPets={() => {}}
+              setNotFoundMessage={() => {}}
+            />
           </ThemeProvider>
         </Theme>
       </TokenContext.Provider>
@@ -63,6 +64,7 @@ jest.mock("../../../services/apiIBGE", () => ({
 jest.mock("../../../services/pet.service", () => ({
   listAllPets: jest.fn(() => Promise.resolve(mockAllPets)),
   listPetsWithPagination: jest.fn(() => Promise.resolve(mockPets)),
+  filterPets: jest.fn(() => Promise.resolve(mockFilterPets)),
 }));
 
 jest.mock("node-fetch");
@@ -130,16 +132,34 @@ describe("Adopt", () => {
     const radioButton3 = screen.getByTestId("radio-button-3");
     const radioButton4 = screen.getByTestId("radio-button-4");
 
-    fireEvent.click(radioButton1, { target: { checked: true }});
-    fireEvent.click(radioButton2, { target: { checked: true }});
-    fireEvent.click(radioButton3, { target: { checked: true }});
-    fireEvent.click(radioButton4, { target: { checked: false }});
+    fireEvent.click(radioButton1, { target: { checked: true } });
+    fireEvent.click(radioButton2, { target: { checked: true } });
+    fireEvent.click(radioButton3, { target: { checked: true } });
+    fireEvent.click(radioButton4, { target: { checked: false } });
 
     const form = screen.getByTestId("form-adoption");
 
     fireEvent.submit(form);
 
-    expect(screen.findByText("Pedido de adoção enviado com sucesso!")).toBeTruthy()
+    expect(
+      screen.findByText("Pedido de adoção enviado com sucesso!")
+    ).toBeTruthy();
+  });
 
+  test("should filter pets and render cat filtered", async () => {
+    renderComponent();
+
+    const buttonCatFilter = screen.getAllByTestId("button-filter-cat");
+    fireEvent.click(buttonCatFilter[0]);
+
+    await waitFor(() => {
+      const buttonSubmitFilter = screen.getAllByTestId("button-submit-filter");
+      fireEvent.click(buttonSubmitFilter[0]);
+
+      waitFor(() => {
+        expect(screen.getByText("Marie")).toBeTruthy();
+        expect(screen.getByText("John")).not.toBeInTheDocument();
+      });
+    });
   });
 });
