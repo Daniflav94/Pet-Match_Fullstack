@@ -68,8 +68,6 @@ export function ForgetPassword({ setForgetPassword }: Props) {
 
   const {
     handleSubmit,
-    watch,
-    setValue,
     register,
     control,
     formState: { errors },
@@ -120,7 +118,7 @@ export function ForgetPassword({ setForgetPassword }: Props) {
       toast.error(res.errors[0]);
       return;
     }
-    console.log(res.userId);
+
     setUserId(res.userId);
     setStep1(false);
     setStep2(true);
@@ -130,7 +128,10 @@ export function ForgetPassword({ setForgetPassword }: Props) {
     setError("");
 
     if (code === "") {
-      setError("Insira um código para continuar.");
+      setError("Insira o código recebido para continuar.");
+      return;
+    }else if(code.length < 6){
+      setError("O código deve ter 6 dígitos.");
       return;
     }
 
@@ -145,8 +146,6 @@ export function ForgetPassword({ setForgetPassword }: Props) {
       toast.error(res.errors[0]);
       return;
     }
-
-    console.log(res);
 
     setStep2(false);
     setStep3(true);
@@ -181,6 +180,7 @@ export function ForgetPassword({ setForgetPassword }: Props) {
                 ],
               }}
               onChange={(e) => setEmail(e.target.value)}
+              color={error ? "danger" : "primary"}
             />
             {error && <S.Error>{error}</S.Error>}
             <CustomButton
@@ -219,6 +219,7 @@ export function ForgetPassword({ setForgetPassword }: Props) {
                 ],
               }}
               onChange={(e) => setCode(e.target.value)}
+              color={error ? "danger" : "primary"}
             />
             {error && <S.Error>{error}</S.Error>}
             <CustomButton

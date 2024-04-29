@@ -14,6 +14,23 @@ export const mockPets = {
         createdAt: new Date(),
         deletedAt: null,
       },
+      {
+        "id": "e0dc4188-cec0-4480-975e-52383486c09f",
+        "type": "cat",
+        "name": "Marie",
+        "age": "Adulto",
+        "gender": "Fêmea",
+        "size": "Médio",
+        "photo": "1712721466172.jpeg",
+        "isAdopt": false,
+        "personality": [
+            "Carinhoso(a)",
+            "Amigável"
+        ],
+        "organizationId": "d4ab8aed-0109-4576-ad44-378d0351c10c",
+        "createdAt": new Date(),
+        "deletedAt": null
+    },
     ],
     total: 1
   };
