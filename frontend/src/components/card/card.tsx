@@ -27,7 +27,6 @@ interface Props {
 
 interface PetFavorite {
   pet: IPet;
-  idUser: string;
 }
 
 export function Card({
