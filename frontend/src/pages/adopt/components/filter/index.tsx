@@ -35,8 +35,6 @@ type Props = {
 
 export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
   const [typePet, setTypePet] = useState<string>();
-  const [state, setState] = useState<string>();
-  const [city, setCity] = useState<string>();
   const [listStates, setListStates] = useState<SelectLocation[]>([]);
   const [listCities, setListCities] = useState<SelectLocation[]>([]);
 
@@ -77,7 +75,6 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
   }
 
   async function getCities(state: string) {
-    setState(state);
     const res = await getListCities(state);
     const pets = await getAllPets();
 
@@ -107,8 +104,8 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
       size: data.size,
       age: data.age,
       gender: data.gender,
-      state: state,
-      city: city,
+      state: data.state,
+      city: data.city,
     };
 
     filter(JSON.parse(JSON.stringify(newfilter)));
@@ -132,8 +129,8 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
     setFilteredPets([]);
     setNotFoundMessage("");
     setTypePet(undefined);
-    setState(undefined);
-    setCity(undefined);
+    setValue("city", undefined);
+    setValue("state", undefined);
     setValue("age", undefined);
     setValue("gender", undefined);
     setValue("size", undefined);
@@ -216,15 +213,17 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
           <S.TitleSelect>Localização </S.TitleSelect>
           <S.ContentSelect>
             <SelectInput
-              onChange={getCities}
+              onChange={(value) => {getCities(value); setValue("state", value)}}
               placeholder="Estado"
               listItems={listStates}
+              value={watch("state")}
             />
 
             <SelectInput
-              onChange={setCity}
+              onChange={(value) => setValue("city", value)}
               placeholder="Cidade"
               listItems={listCities}
+              value={watch("city")}
             />
           </S.ContentSelect>
         </S.ContainerSelect>
