@@ -3,11 +3,12 @@ import styled from "styled-components";
 export const ContainerSearch = styled.div`
   padding: 1.5rem 1rem;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100vw;
   background-color: ${(props) => props.theme.colors.snow};
-  gap: 0.5rem;
+  gap: 1rem;
 
   @media only screen and (max-width: 700px){
    flex-direction: column;
@@ -33,7 +34,7 @@ export const Form = styled.form`
 export const H3 = styled.h3`
   font-family: "Poppins", sans-serif;
   color: ${(props) => props.theme.colors.brown};
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: 700;
 `;
 

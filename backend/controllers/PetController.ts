@@ -14,6 +14,7 @@ interface IFilter {
   gender?: string;
   state?: string;
   city?: string;
+  ong?: string;
 }
 
 export const registerPet = async (req: Req, res: Response) => {
@@ -133,10 +134,14 @@ export const filterPets = async (req: Request, res: Response) => {
   if (pets) {
     for (let pet of pets) {
       let isFilteredPet: boolean[] = [];
+
       keys.forEach((key) => {
         if (key === "state" || key === "city") {
           isFilteredPet.push(pet.organization[key] === filter[key]);
-        } else {
+        } else if(key === "ong"){
+          isFilteredPet.push(pet.organization['name'] === filter[key]);
+        } 
+        else {
           isFilteredPet.push(pet[key] === filter[key]);
         }
       });

@@ -23,7 +23,7 @@ export interface City {
   nome: string;
 }
 
-type SelectLocation = {
+type Select = {
   name: string;
   value: string;
 };
@@ -35,8 +35,9 @@ type Props = {
 
 export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
   const [typePet, setTypePet] = useState<string>();
-  const [listStates, setListStates] = useState<SelectLocation[]>([]);
-  const [listCities, setListCities] = useState<SelectLocation[]>([]);
+  const [listStates, setListStates] = useState<Select[]>([]);
+  const [listOngs, setListOngs] = useState<Select[]>([]);
+  const [listCities, setListCities] = useState<Select[]>([]);
 
   const { token } = useContext(TokenContext);
 
@@ -48,6 +49,29 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
     return pets.data;
   }
 
+  async function getONGs() {
+    const pets = await getAllPets();
+
+    const ongs: Select[] = pets?.map((pet: IPet) => {
+      return { name: pet.organization?.name, value: pet.organization?.name };
+    });
+
+    let reduced: Select[] = [];
+
+    ongs.forEach((item) => {
+      var duplicated =
+        reduced.findIndex((redItem) => {
+          return item.name == redItem.name;
+        }) > -1;
+
+      if (!duplicated) {
+        reduced.push(item);
+      }
+    });
+
+    setListOngs(reduced);
+  }
+
   async function getStates() {
     const pets = await getAllPets();
     const res = await getListStates();
@@ -57,7 +81,7 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
         return { value: state.sigla, name: state.nome };
       });
 
-      let statesFiltered: SelectLocation[] = [];
+      let statesFiltered: Select[] = [];
 
       pets?.forEach((pet: IPet) => {
         const state = states.find(
@@ -78,15 +102,15 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
     const res = await getListCities(state);
     const pets = await getAllPets();
 
-    const cities: SelectLocation[] = res.map((city: City) => {
+    const cities: Select[] = res.map((city: City) => {
       return { value: city.nome, name: city.nome };
     });
 
-    let citiesFiltered: SelectLocation[] = [];
+    let citiesFiltered: Select[] = [];
 
     pets?.forEach((pet: IPet) => {
       const city = cities.find(
-        (city: SelectLocation) =>
+        (city: Select) =>
           city.value === (pet.organization as IOrganization).city
       );
       if (city) {
@@ -106,6 +130,7 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
       gender: data.gender,
       state: data.state,
       city: data.city,
+      ong: data.ong,
     };
 
     filter(JSON.parse(JSON.stringify(newfilter)));
@@ -138,6 +163,7 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
 
   useEffect(() => {
     getStates();
+    getONGs();
   }, []);
 
   return (
@@ -213,7 +239,10 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
           <S.TitleSelect>Localização </S.TitleSelect>
           <S.ContentSelect>
             <SelectInput
-              onChange={(value) => {getCities(value); setValue("state", value)}}
+              onChange={(value) => {
+                getCities(value);
+                setValue("state", value);
+              }}
               placeholder="Estado"
               listItems={listStates}
               value={watch("state")}
@@ -224,6 +253,18 @@ export function FilterAdopt({ setFilteredPets, setNotFoundMessage }: Props) {
               placeholder="Cidade"
               listItems={listCities}
               value={watch("city")}
+            />
+          </S.ContentSelect>
+        </S.ContainerSelect>
+
+        <S.ContainerSelect>
+          <S.TitleSelect>Buscar por ONG </S.TitleSelect>
+          <S.ContentSelect>
+            <SelectInput
+              onChange={(value) => setValue("ong", value)}
+              placeholder="Organização"
+              listItems={listOngs}
+              value={watch("ong")}
             />
           </S.ContentSelect>
         </S.ContainerSelect>

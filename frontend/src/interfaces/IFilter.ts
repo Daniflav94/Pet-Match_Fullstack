@@ -5,4 +5,5 @@ export interface IFilter {
     gender?: string;
     state?: string;
     city?: string;
+    ong?: string;
 }
