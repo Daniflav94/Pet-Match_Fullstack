@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { ThemeProvider } from "styled-components";
 
 import { MemoryRouter } from "react-router-dom";
@@ -6,19 +6,12 @@ import { Theme } from "@radix-ui/themes";
 import TokenContext from "../../../contexts/tokenContext";
 import "@testing-library/jest-dom";
 import {
-  mockPets,
-  mockAllPets,
-  mockFilterPets,
   mockFavoritesPets,
 } from "../../../../mocks/pets.mock";
-import { mockStates } from "../../../../mocks/states.mock";
+
 import { Card } from "../../../components/card/card";
-import { Adopt } from "../../adopt";
-import { FilterAdopt } from "../../adopt/components/filter";
 import { Favorites } from "..";
 
-import { mockUser } from "../../../../mocks/user.mock";
-import { getListFavorites } from "../../../services/pet.service";
 
 const theme = {
   colors: {

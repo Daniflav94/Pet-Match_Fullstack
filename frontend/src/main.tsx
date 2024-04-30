@@ -11,7 +11,6 @@ import { Theme } from "@radix-ui/themes";
 import { Adopt } from "./pages/adopt/index.tsx";
 import { Login } from "./pages/login/index.tsx";
 import { MyPets } from "./pages/admin/myPets/index.tsx";
-import { Profile } from "./pages/profile/index.tsx";
 import { Favorites } from "./pages/favorites/index.tsx";
 import { NotificationsContextProvider } from "./contexts/notificationContext.tsx";
 import { ErrorPage } from "./components/errorPage/index.tsx";

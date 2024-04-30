@@ -1,7 +1,5 @@
 import * as S from "./styles";
 import arrow from "../../../../assets/icons/botao-voltar.png";
-import { IUser } from "../../../../interfaces/IUser";
-import { IOrganization } from "../../../../interfaces/IOrganization";
 import { useMemo, useState } from "react";
 import { InputCustom } from "../../../../components/input";
 import { SubmitHandler, useForm } from "react-hook-form";
