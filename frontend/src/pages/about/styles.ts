@@ -54,6 +54,16 @@ export const Image = styled.img`
 
 export const Title = styled.h2`
     color: ${props => props.theme.colors.nude};
+   position: absolute;
+   font-size: 2.5rem;
+   top: 17rem;
+   z-index: 999999 !important;
+
+   
+  @media only screen and (max-width: 700px){
+    z-index: 2 !important;
+    top: 12rem;
+  }
 `;
 
 export const Text = styled.span`
