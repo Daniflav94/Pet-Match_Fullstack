@@ -17,6 +17,13 @@ import { NotificationsContextProvider } from "./contexts/notificationContext.tsx
 import { ErrorPage } from "./components/errorPage/index.tsx";
 import { TokenContextProvider } from "./contexts/tokenContext.tsx";
 
+const user = localStorage.getItem("user");
+let userObject;
+
+if(user){
+  userObject = JSON.parse(user);
+}
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -41,15 +48,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/meus-pets",
-        element: <MyPets />,
-      },
-      {
-        path: "/perfil",
-        element: <Profile />,
+        element: user && userObject.type === 'admin' ? <MyPets /> : <Login />,
       },
       {
         path: "/favoritos",
-        element: <Favorites />,
+        element: user && userObject.type === 'user' ? <Favorites /> : <Login />,
       },
     ],
   },

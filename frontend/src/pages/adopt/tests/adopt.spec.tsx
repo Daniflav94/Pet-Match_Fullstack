@@ -67,7 +67,6 @@ jest.mock("../../../services/pet.service", () => ({
   filterPets: jest.fn(() => Promise.resolve(mockFilterPets)),
 }));
 
-jest.mock("node-fetch");
 
 describe("Adopt", () => {
   test("should render a list of pets", async () => {

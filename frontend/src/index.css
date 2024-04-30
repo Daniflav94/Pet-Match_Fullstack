@@ -67,6 +67,11 @@ button:focus, input:focus, input:active  {
   border: none;
 }
 
+input[type=number]::-webkit-inner-spin-button { 
+  -webkit-appearance: none;
+  
+}
+
 
 
 

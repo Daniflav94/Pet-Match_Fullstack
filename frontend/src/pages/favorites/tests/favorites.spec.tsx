@@ -65,7 +65,6 @@ jest.mock("../../../services/pet.service.ts", () => ({
   getListFavorites: jest.fn(() => Promise.resolve(mockFavoritesPets)),
 }));
 
-jest.mock("node-fetch");
 
 test("should render a list of pets", async () => {
   renderWithTokenContext();

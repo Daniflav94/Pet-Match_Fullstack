@@ -46,7 +46,12 @@ export function Login() {
       return;
     } else if (res) {
       if (res.errors) {
-        toast.error(res.errors);
+        if (res.errors[0].msg) {
+          toast.error(res.errors[0].msg);
+        } else {
+          toast.error(res.errors[0]);
+        }
+        
         return;
       }
 

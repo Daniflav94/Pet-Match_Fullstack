@@ -103,7 +103,7 @@ export function ForgetPassword({ setForgetPassword }: Props) {
   const forgetPass = async (email: string) => {
     setError("");
 
-    if (email === "") {
+    if (email === "" || !email.includes('@')) {
       setError("Insira um email válido.");
       return;
     }
@@ -181,6 +181,7 @@ export function ForgetPassword({ setForgetPassword }: Props) {
               }}
               onChange={(e) => setEmail(e.target.value)}
               color={error ? "danger" : "primary"}
+              isInvalid={error ? true : false}
             />
             {error && <S.Error>{error}</S.Error>}
             <CustomButton
@@ -205,7 +206,7 @@ export function ForgetPassword({ setForgetPassword }: Props) {
           </S.Text>
           <S.Form>
             <Input
-              type="text"
+              type="number"
               label="Código"
               isRequired
               variant="bordered"
@@ -220,6 +221,7 @@ export function ForgetPassword({ setForgetPassword }: Props) {
               }}
               onChange={(e) => setCode(e.target.value)}
               color={error ? "danger" : "primary"}
+              isInvalid={error ? true : false}
             />
             {error && <S.Error>{error}</S.Error>}
             <CustomButton
