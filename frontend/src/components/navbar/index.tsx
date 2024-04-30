@@ -258,9 +258,11 @@ export function Navbar() {
                   </Link>
                 </li>
               )}
+
               {userLogged?.type && (
                 <li>
                   <S.Container
+                  data-testid="button-notifications"
                     onClick={() =>
                       setIsNotificationsVisible(!isNotificationsVisible)
                     }

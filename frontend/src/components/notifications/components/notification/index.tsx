@@ -89,6 +89,7 @@ export function Notification({
                 <Dialog.Trigger>
                   <S.Button
                     onClick={() => markAsViewed(notification.id as string)}
+                    data-testid="button-see-more-notification"
                   >
                     Ver mais
                   </S.Button>
