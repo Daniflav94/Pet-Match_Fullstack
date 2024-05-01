@@ -18,6 +18,9 @@ services:
       - "5000:5000"
     volumes:
       - .:/usr/app
-      
+    environment:   
+      - JWT_SECRET=eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTcxMjU5Njc5NCwiaWF0IjoxNzEyNTk2Nzk0fQ.Xi2HW3Cok5B1HcUYs_q7l2TmXmMCC9X_iPlXbr1bt6g
+
+
 volumes:
   postgres:
