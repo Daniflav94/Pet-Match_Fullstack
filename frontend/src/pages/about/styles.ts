@@ -31,7 +31,7 @@ export const Container = styled.section`
 export const Content = styled.div`
   width: 40rem;
   margin-left: 5rem;
-  z-index: 999999 !important;
+  z-index: 99999 !important;
 
   @media only screen and (max-width: 700px){
     width: 100%;

@@ -15,8 +15,8 @@ export function About() {
             mais animais, pois não conseguem negar ajuda a esses seres tão puros
             e amáveis. Porém enfrentam muita dificuldade em conseguir adoção
             para seus animais, pois cães e gatos sem raça infelizmente são
-            desprezados por muitos, e piora quando ficam mais velhinhos. Pensando em
-            auxiliar essas ONG's esse site foi criado a fim de a divulgar seus
+            desprezados por muitos e só piora quando ficam mais velhinhos. Pensando em
+            auxiliar essas ONG's esse site foi criado a fim de divulgar seus
             peludinhos e facilitar o processo de adoção.
           </S.Text>
         </S.Content>
