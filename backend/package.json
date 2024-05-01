@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon ./app.ts",
-    "build": "tsup src"
+    "build": "tsup ./"
   },
   "engines": {
     "node": "20"

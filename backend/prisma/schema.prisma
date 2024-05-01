@@ -23,9 +23,9 @@ model User {
   neighborhood      String
   type              String
   createdAt         DateTime            @default(now())
-  FormAdoption      FormAdoption[]
-  Favorites         Favorites[]
   CodeResetPassword CodeResetPassword[]
+  Favorites         Favorites[]
+  FormAdoption      FormAdoption[]
 }
 
 model Admin {
@@ -50,67 +50,62 @@ model Admin {
 }
 
 model Pet {
-  id             String    @id @default(uuid())
+  id             String         @id @default(uuid())
   type           String
   name           String
   age            String
   gender         String
   size           String
   photo          String
-  isAdopt        Boolean   @default(false)
+  isAdopt        Boolean        @default(false)
   personality    String[]
+  createdAt      DateTime       @default(now())
   organizationId String
-  createdAt      DateTime  @default(now())
   deletedAt      DateTime?
-
-  organization Admin          @relation(fields: [organizationId], references: [id])
-  FormAdoption FormAdoption[]
-  Favorites    Favorites[]
+  Favorites      Favorites[]
+  FormAdoption   FormAdoption[]
+  organization   Admin          @relation(fields: [organizationId], references: [id])
 }
 
 model FormAdoption {
-  id           String   @id @default(uuid())
-  liveIn       String
-  children     Boolean
-  isFirstPet   Boolean
-  pets         Boolean
-  describePets String?
-  createdAt    DateTime @default(now())
-  petId        String
-  userId       String
-
+  id            String          @id @default(uuid())
+  liveIn        String
+  children      Boolean
+  isFirstPet    Boolean
+  pets          Boolean
+  describePets  String?
+  createdAt     DateTime        @default(now())
+  petId         String
+  userId        String
   pet           Pet             @relation(fields: [petId], references: [id])
   user          User            @relation(fields: [userId], references: [id])
   Notifications Notifications[]
 }
 
 model Notifications {
-  id             String   @id @default(uuid())
+  id             String       @id @default(uuid())
   idReceiver     String
   type           String
   formAdoptionId String
-  isViewed       Boolean  @default(false)
+  isViewed       Boolean      @default(false)
   wasApproved    Boolean?
   message        String?
+  createdAt      DateTime     @default(now())
   mailTo         String?
-  createdAt      DateTime @default(now())
-
-  formAdoption FormAdoption @relation(fields: [formAdoptionId], references: [id])
+  formAdoption   FormAdoption @relation(fields: [formAdoptionId], references: [id])
 }
 
 model Favorites {
   id     String @id @default(uuid())
   petId  String
   userId String
-
-  pet  Pet  @relation(fields: [petId], references: [id])
-  user User @relation(fields: [userId], references: [id])
+  pet    Pet    @relation(fields: [petId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
 }
 
 model CodeResetPassword {
   id     String @id @default(uuid())
-  code   String
   userId String
-
-  user User @relation(fields: [userId], references: [id])
+  code   String
+  user   User   @relation(fields: [userId], references: [id])
 }
