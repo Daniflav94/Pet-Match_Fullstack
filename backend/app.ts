@@ -1,9 +1,9 @@
 import express from "express";
 import path from "path";
+import { router } from "./routes/Router"
 
 require("dotenv").config();
 
-const router = require("../backend/routes/Router");
 const cors = require('cors');
 
 const port = process.env.PORT;
