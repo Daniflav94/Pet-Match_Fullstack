@@ -5,12 +5,13 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 COPY package*.json ./
+
+COPY prisma ./prisma/
+
 RUN npm ci
-
-COPY prisma ./
-RUN npx prisma generate
-
 RUN npm install
+
 COPY . /usr/src/app
+
 EXPOSE 5000
-CMD [ "npm", "run", "server" ]
+CMD [ "npm", "run", "start:migrate:prod" ]
