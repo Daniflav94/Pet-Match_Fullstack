@@ -4,6 +4,7 @@
 - React;
 - Typescript;
 - Styled Components;
+- Testes com Jest e Testing Library;
 - Node.js com Typescript;
 - Nodemailer com mjml;
 - Docker.
