@@ -7,6 +7,7 @@
 - -Biblioteca de componentes: NextUI, RadixUI;
 - Testes com Jest e Testing Library;
 - Node.js com Typescript;
+- Express;
 - Nodemailer com mjml;
 - Prisma;
 - Postgres;
