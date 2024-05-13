@@ -7,6 +7,8 @@
 - Testes com Jest e Testing Library;
 - Node.js com Typescript;
 - Nodemailer com mjml;
+- Prisma;
+- Postgres;
 - Docker.
 
 ## Objetivo
