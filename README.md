@@ -10,7 +10,7 @@
 - Docker.
 
 ## Objetivo
-Aplicação para cadastro de pets que estão para adoção, usuários podem ver todos os pets disponíveis, utilizar filtros, favoritar pets e solicitar adoção. A ong cadastrada como admin consegue administrar os seus pets e recebe notificações pela aplicação e também via email quando um usuário solicitar adoção, podendo aceitar ou recusar. O usuário também é notificado por email e pela aplicação.
+Aplicação para cadastro de pets que estão para adoção, usuários podem ver todos os pets disponíveis, utilizar filtros, favoritar pets e solicitar adoção. A ong cadastrada como admin consegue administrar os seus pets e recebe notificações quando um usuário solicitar adoção, podendo aceitar ou recusar, o usuário também é notificado assim que a ong responde a solicitação de adoção.
 A aplicação está responsiva podendo ser utilizada em computadores, tablets ou celulares.
 
 ## Deploy
