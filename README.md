@@ -13,6 +13,9 @@
 Aplicação para cadastro de pets que estão para adoção, usuários podem ver todos os pets disponíveis, utilizar filtros, favoritar pets e solicitar adoção. A ong cadastrada como admin consegue administrar os seus pets e recebe notificações pela aplicação e também via email quando um usuário solicitar adoção, podendo aceitar ou recusar. O usuário também é notificado por email e pela aplicação.
 A aplicação está responsiva podendo ser utilizada em computadores, tablets ou celulares.
 
+## Deploy
+https://pet-match-10c87.web.app/
+
 ## Imagens aplicação
 
 ![petMatch-login](https://github.com/Daniflav94/Pet-Match_Fullstack/assets/99519903/903f6309-e684-43fb-a877-b0264f6f074c)
