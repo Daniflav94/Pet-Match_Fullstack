@@ -4,6 +4,7 @@
 - React;
 - Typescript;
 - Styled Components;
+- -Biblioteca de componentes: NextUI, RadixUI;
 - Testes com Jest e Testing Library;
 - Node.js com Typescript;
 - Nodemailer com mjml;
