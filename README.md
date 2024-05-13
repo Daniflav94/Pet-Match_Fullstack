@@ -32,7 +32,8 @@ A aplicação está responsiva podendo ser utilizada em computadores, tablets ou
 ![petMatch-9](https://github.com/Daniflav94/Pet-Match_Fullstack/assets/99519903/94d45942-ba59-4f90-a090-46978845116e)
 
 ### Notificação via email
-![email-pet-match](https://github.com/Daniflav94/Pet-Match_Fullstack/assets/99519903/efd1232a-e71b-418c-82b4-79c528cd0b76)
+
+![email-pet-match](https://github.com/Daniflav94/Pet-Match_Fullstack/assets/99519903/d1ca66f2-f6e2-4709-b015-90afb18fd2bc)
 
 
 ### Mobile
