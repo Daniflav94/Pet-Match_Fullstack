@@ -16,6 +16,7 @@ export default {
         colors: {
           primary: {DEFAULT: '#8CB9BD'}, 
           warning: {DEFAULT: '#ECB159'},
+          secondary: {DEFAULT: '#f0e4c4', foreground: "#000000",}
         },
         focus: "#8CB9BD"
       },

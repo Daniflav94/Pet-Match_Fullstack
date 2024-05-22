@@ -16,6 +16,7 @@ import { InputCustom } from "../../../components/input";
 import { Spinner } from "@nextui-org/react";
 import { CustomButton } from "../../../components/customButton";
 import { ApiCNPJ } from "../../../services/apiCNPJ";
+import { uploads } from "../../../utils/config";
 
 interface Props {
   user: IOrganization;
@@ -116,6 +117,7 @@ export function AdminProfile({ user, token }: Props) {
       const edit = {
         ...data,
         photo: image,
+        type: "admin"
       };
 
       const formData = new FormData();
@@ -351,7 +353,7 @@ export function AdminProfile({ user, token }: Props) {
             {loadingImage ? (
               <Spinner color="default" size="sm" />
             ) : (
-              <S.DefaultImage src={user.photo} />
+              <S.DefaultImage src={`${uploads}/organizations/${user.photo}`} />
             )}
           </S.ContainerImage>
         )}

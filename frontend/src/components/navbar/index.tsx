@@ -46,7 +46,7 @@ export function Navbar() {
       listNotifications(tokenStorage);
     }
 
-    if (user) {
+    if (user && tokenStorage) {
       const userObject = JSON.parse(user);
 
       setUserLogged(userObject);

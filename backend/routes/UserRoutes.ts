@@ -11,8 +11,8 @@ import { validate } from "../middlewares/handleValidation";
 const router = express.Router();
 
 router.get("/profile", authGuard, getCurrentUser)
-router.patch("/profile/admin/:id", authGuard, adminUpdateValidation(),validate, updateUser);
-router.patch("/profile/user/:id", authGuard, userUpdateValidation(),validate, updateUser);
+router.put("/profile/admin/:id", authGuard, adminUpdateValidation(),validate, updateUser);
+router.put("/profile/user/:id", authGuard, imageUpload.single("photo"), userUpdateValidation(),validate, updateUser);
 
 
 module.exports = router;

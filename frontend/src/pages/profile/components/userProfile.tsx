@@ -12,7 +12,8 @@ import {
 import { Toaster, toast } from "sonner";
 import { getDataCep } from "../../../services/viaCep";
 import { InputCustom } from "../../../components/input";
-import { Select, SelectItem, Spinner, DatePicker } from "@nextui-org/react";
+import { Select, SelectItem, Spinner } from "@nextui-org/react";
+import { DatePicker } from "@nextui-org/date-picker";
 import { CustomButton } from "../../../components/customButton";
 import {
   parseDate,
@@ -25,7 +26,6 @@ import { editUser } from "../../../services/user.service";
 
 interface Props {
   user: IUser;
-  birthdateUser: Date;
   token: string;
 }
 
@@ -36,10 +36,9 @@ type DataCep = {
   uf: string;
 };
 
-type UserEdit = Omit<IUser, "password"> 
+type UserEdit = Omit<IUser, "password">;
 
-
-export function UserProfile({ user, birthdateUser, token }: Props) {
+export function UserProfile({ user, token }: Props) {
   const schema = useMemo(
     () =>
       yup.object().shape({
@@ -82,11 +81,10 @@ export function UserProfile({ user, birthdateUser, token }: Props) {
     formState: { errors },
   } = useForm<UserEdit>({ resolver: yupResolver(schema) });
 
- 
   const [loading, setLoading] = useState(false);
   const [birthdate, setBirthdate] = useState(
     user
-      ? parseDate(new Date(birthdateUser).toISOString().slice(0,10))
+      ? parseDate(new Date(user.birthdate).toISOString().slice(0, 10))
       : undefined
   );
 
@@ -94,12 +92,15 @@ export function UserProfile({ user, birthdateUser, token }: Props) {
   const cepValue = watch("cep") || user.cep;
   const cpfValue = watch("cpf") || user.cpf;
 
- 
-
   const onSubmit: SubmitHandler<UserEdit> = async (data) => {
     setLoading(true);
 
-    const resEditUser = await editUser(token, user.id as string, data);
+    const newUser = {
+        ...data,
+        type: "user"
+    }
+
+    const resEditUser = await editUser(token, user.id as string, newUser);
 
     if (resEditUser.data) {
       toast.success("Perfil editado com sucesso!");
@@ -121,7 +122,7 @@ export function UserProfile({ user, birthdateUser, token }: Props) {
 
   useEffect(() => {
     setValue("name", user.name);
-    setValue("email", user.email)
+    setValue("email", user.email);
     setValue("gender", user.gender);
     setValue("birthdate", user.birthdate);
     setValue("cpf", user.cpf);
@@ -131,7 +132,7 @@ export function UserProfile({ user, birthdateUser, token }: Props) {
     setValue("city", user.city);
     setValue("state", user.state);
     setValue("phone", user.phone);
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (birthdate) {
@@ -250,7 +251,6 @@ export function UserProfile({ user, birthdateUser, token }: Props) {
           color={errors.cep ? "danger" : "primary"}
           errorMessage={errors.cep?.message}
           isInvalid={errors.cep ? true : false}
-
         />
       </S.DualInput>
 
@@ -284,7 +284,6 @@ export function UserProfile({ user, birthdateUser, token }: Props) {
           name={"city"}
           refs={register("city")}
           isRequired
-
         />
       </S.DualInput>
 
@@ -297,7 +296,6 @@ export function UserProfile({ user, birthdateUser, token }: Props) {
           name={"state"}
           refs={register("state")}
           isRequired
-
         />
 
         <InputCustom
@@ -310,7 +308,6 @@ export function UserProfile({ user, birthdateUser, token }: Props) {
           color={errors.phone ? "danger" : "primary"}
           errorMessage={errors.phone?.message}
           isInvalid={errors.phone ? true : false}
-     
         />
       </S.DualInput>
 

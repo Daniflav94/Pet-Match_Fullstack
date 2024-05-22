@@ -1,4 +1,4 @@
-import React, { useState, createContext, useEffect } from "react";
+import React, { useState, createContext } from "react";
 
 type PropsTokenContext = {
   token: string;
@@ -6,7 +6,7 @@ type PropsTokenContext = {
 };
 
 const DEFAULT_VALUE = {
-  token: "",
+  token: localStorage.getItem("token") || "",
   setToken: () => {},
 };
 

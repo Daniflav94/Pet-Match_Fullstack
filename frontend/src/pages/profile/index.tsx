@@ -21,7 +21,7 @@ export function Profile() {
     setIsLoading(true);
     const res = await getCurrentUser(token);
 
-    setUser(res);
+    setUser(res.data);
     setIsLoading(false);
   };
 
@@ -39,7 +39,7 @@ export function Profile() {
           {userLogged && userLogged?.type === "admin" ? (
             <AdminProfile user={user as IOrganization} token={token} />
           ) : (
-            <UserProfile user={user as IUser} token={token} birthdateUser={(userLogged as IUser).birthdate} />
+            <UserProfile user={user as IUser} token={token} />
           )}
         </>
       )}

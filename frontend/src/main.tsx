@@ -17,12 +17,6 @@ import { ErrorPage } from "./components/errorPage/index.tsx";
 import { TokenContextProvider } from "./contexts/tokenContext.tsx";
 import { Profile } from "./pages/profile/index.tsx";
 
-const user = localStorage.getItem("user");
-let userObject;
-
-if(user){
-  userObject = JSON.parse(user);
-}
 
 const router = createBrowserRouter([
   {

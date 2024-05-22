@@ -17,9 +17,9 @@ export const getCurrentUser = async (req: Req, res: Response) => {
 
 export const updateUser = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const { data } = req.body;
+  const data = req.body;
   const photo = req.file?.filename;
-
+    console.log(data)
   if (data.type === "user") {
     const user = await prisma.user.findUnique({ where: { id } });
     if (!user) {

@@ -21,6 +21,7 @@ export const getCurrentUser = async(token: string) => {
 
 export const editUser = async(token: string, id: string, data: Partial<IUser>) => {
     try {
+      console.log(data)
       const res = await fetch(`${api}/user/profile/user/${id}`, {
         method: "PUT",
         headers: {
