@@ -53,23 +53,6 @@ export const logout = () => {
   localStorage.clear();
 };
 
-export const getCurrentUser = async(token: string) => {
-  try {
-    const res = await fetch(`${api}/auth/profile`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token
-      },   
-      
-    });
-
-    return res.json();
-  } catch (error) {
-    console.log(error);
-  }
-}
 
 export const forgetPassword = async(data: {email: string}) => {
   try {

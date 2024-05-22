@@ -15,6 +15,7 @@ import { Favorites } from "./pages/favorites/index.tsx";
 import { NotificationsContextProvider } from "./contexts/notificationContext.tsx";
 import { ErrorPage } from "./components/errorPage/index.tsx";
 import { TokenContextProvider } from "./contexts/tokenContext.tsx";
+import { Profile } from "./pages/profile/index.tsx";
 
 const user = localStorage.getItem("user");
 let userObject;
@@ -47,11 +48,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/meus-pets",
-        element: user && userObject.type === 'admin' ? <MyPets /> : <Login />,
+        element: <MyPets />,
       },
       {
         path: "/favoritos",
-        element: user && userObject.type === 'user' ? <Favorites /> : <Login />,
+        element: <Favorites />,
+      },
+      {
+        path: "/editar-perfil",
+        element: <Profile />,
       },
     ],
   },

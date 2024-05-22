@@ -1,28 +1,17 @@
-import logo from "../../assets/icons/pet-house.png";
-import heart from "../../assets/icons/coracao.png";
-import bell from "../../assets/icons/sino.png";
-import logoutIcon from "../../assets/icons/logout.png";
 import * as S from "./styles";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 
 import { IUser } from "../../interfaces/IUser";
 import { IOrganization } from "../../interfaces/IOrganization";
-import {
-  Navbar as Nav,
-  Tooltip,
-  NavbarContent,
-  NavbarMenuToggle,
-  NavbarMenu,
-  NavbarMenuItem,
-} from "@nextui-org/react";
 import { logout } from "../../services/auth.service";
-import { Badge } from "@nextui-org/react";
 import { Notifications } from "../notifications";
 import NotificationsContext from "../../contexts/notificationContext";
 import { AnimatePresence, motion } from "framer-motion";
 import { getNotifications } from "../../services/notifications.service";
 import TokenContext from "../../contexts/tokenContext";
+import { MobileNavbar } from "./components/mobileNavbar";
+import { DesktopNavbar } from "./components/desktopNavbar";
 
 export function Navbar() {
   const route = useLocation();
@@ -31,7 +20,6 @@ export function Navbar() {
   const [userLogged, setUserLogged] = useState<IUser | IOrganization>();
   const [isNotificationsVisible, setIsNotificationsVisible] = useState(false);
   const [newNotification, setNewNotification] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth)
 
   const { notifications, setNotifications } = useContext(NotificationsContext);
@@ -89,216 +77,23 @@ export function Navbar() {
   return (
     <S.Nav>
       {screenWidth < 750 ? (
-        <Nav
-          onMenuOpenChange={setIsMenuOpen}
-          className="bg-[#8CB9BD] h-18 z-[99999]"
-          maxWidth="full"
-          height="6rem"
-        >
-          <NavbarContent
-            justify="center"
-            className="flex gap-8 justify-between w-full items-center"
-          >
-            <Link to="/">
-              <S.Logo>
-                <S.Img src={logo} alt="logo pet match" />
-                <S.LogoText>pet match</S.LogoText>
-              </S.Logo>
-            </Link>
-
-            <S.Container>
-              {userLogged?.type === "user" && (
-                <li>
-                  <Link to="/favoritos">
-                    <S.Container>
-                      <S.IconHeart src={heart} alt="" />
-                    </S.Container>
-                  </Link>
-                </li>
-              )}
-              {userLogged?.type && (
-                <li>
-                  <S.Container
-                    onClick={() =>
-                      setIsNotificationsVisible(!isNotificationsVisible)
-                    }
-                  >
-                    {newNotification ? (
-                      <Badge content="" color="warning" shape="circle">
-                        <S.IconBell src={bell} alt="" />
-                      </Badge>
-                    ) : (
-                      <S.IconBell src={bell} alt="" />
-                    )}
-                  </S.Container>
-                </li>
-              )}
-            </S.Container>
-
-            <NavbarMenuToggle
-              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-              className="md:hidden text-[#f0e4c4] "
-              data-testid="navbar-menu-button"
-            />
-
-            <NavbarMenu className="flex items-center text-2xl">
-              <NavbarMenuItem isActive={route.pathname === "/sobre"}>
-                <Link to="/sobre" className="w-full " data-testid="mobile-about-button">
-                  Sobre
-                </Link>
-              </NavbarMenuItem>
-
-              {userLogged?.type != "admin" ? (
-                <NavbarMenuItem isActive={route.pathname === "/adotar"} >
-                  <Link to="/adotar" className="w-full" >
-                    Adotar
-                  </Link>
-                </NavbarMenuItem>
-              ) : (
-                <NavbarMenuItem isActive={route.pathname === "/adotar"} >
-                  <Link to="/meus-pets" className="w-full">
-                    Meus pets
-                  </Link>
-                </NavbarMenuItem>
-              )}
-
-              {userLogged ? (
-                <NavbarMenuItem>
-                  <span
-                    onClick={() => {
-                      logoutUser();
-                    }}
-                    className="w-full"
-                  >
-                    Sair
-                  </span>
-                </NavbarMenuItem>
-              ) : (
-                <NavbarMenuItem>
-                  <Link to="/login" className="w-full">
-                    Entrar
-                  </Link>
-                </NavbarMenuItem>
-              )}
-            </NavbarMenu>
-          </NavbarContent>
-        </Nav>
-      ) : (
-        <S.Ul>
-          <Link to="/">
-            <S.Logo>
-              <S.Img src={logo} alt="logo pet match" />
-              <S.LogoText>pet match</S.LogoText>
-            </S.Logo>
-          </Link>
-          <S.Div>
-            <li data-testid="navbar-home-button">
-              <Link to="/">
-                <S.Span
-                  style={
-                    route.pathname === "/"
-                      ? { borderBottom: "2px solid #ECB159" }
-                      : {}
-                  }
-                >
-                  Início
-                </S.Span>
-              </Link>
-            </li>
-            <li data-testid="navbar-about-button">
-              <Link to="/sobre">
-                <S.Span
-                  style={
-                    route.pathname === "/sobre"
-                      ? { borderBottom: "2px solid #ECB159" }
-                      : {}
-                  }
-                >
-                  Sobre
-                </S.Span>
-              </Link>
-            </li>
-            {userLogged?.type != "admin" ? (
-              <li data-testid="navbar-adopt-button">
-                <Link to="/adotar">
-                  <S.Span
-                    style={
-                      route.pathname === "/adotar"
-                        ? { borderBottom: "2px solid #ECB159" }
-                        : {}
-                    }
-                  >
-                    Adotar
-                  </S.Span>
-                </Link>
-              </li>
-            ) : (
-              <li>
-                <Link to="/meus-pets">
-                  <S.Span
-                    style={
-                      route.pathname === "/meus-pets"
-                        ? { borderBottom: "2px solid #ECB159" }
-                        : {}
-                    }
-                  >
-                    Meus Pets
-                  </S.Span>
-                </Link>
-              </li>
-            )}
-
-            <S.Container>
-              {userLogged?.type === "user" && (
-                <li>
-                  <Link to="/favoritos">
-                    <S.Container>
-                      <S.IconHeart src={heart} alt="" />
-                    </S.Container>
-                  </Link>
-                </li>
-              )}
-
-              {userLogged?.type && (
-                <li>
-                  <S.Container
-                  data-testid="button-notifications"
-                    onClick={() =>
-                      setIsNotificationsVisible(!isNotificationsVisible)
-                    }
-                  >
-                    {newNotification ? (
-                      <Badge content="" color="warning" shape="circle">
-                        <S.IconBell src={bell} alt="" />
-                      </Badge>
-                    ) : (
-                      <S.IconBell src={bell} alt="" />
-                    )}
-                  </S.Container>
-                </li>
-              )}
-              <li>
-                {userLogged ? (
-                  <S.ContainerButtonsLogged>
-                    <S.Container>
-                      <S.Login>Olá, {userLogged.name.split(" ")[0]}</S.Login>
-                    </S.Container>
-
-                    <Tooltip content="Sair" placement="bottom-start" size="sm">
-                      <button onClick={logoutUser}>
-                        <S.Icon src={logoutIcon} />
-                      </button>
-                    </Tooltip>
-                  </S.ContainerButtonsLogged>
-                ) : (
-                  <Link to="/login">
-                    <S.Login>Entrar</S.Login>
-                  </Link>
-                )}
-              </li>
-            </S.Container>
-          </S.Div>
-        </S.Ul>
+         <MobileNavbar
+         userLogged={userLogged}
+         newNotification={newNotification}
+         isNotificationsVisible={isNotificationsVisible}
+         setIsNotificationsVisible={setIsNotificationsVisible}
+         route={route}
+         logoutUser={logoutUser}
+       />
+     ) : (
+       <DesktopNavbar
+         userLogged={userLogged}
+         newNotification={newNotification}
+         isNotificationsVisible={isNotificationsVisible}
+         setIsNotificationsVisible={setIsNotificationsVisible}
+         route={route}
+         logoutUser={logoutUser}
+       />
       )}
 
       {isNotificationsVisible && userLogged && (

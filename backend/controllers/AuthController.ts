@@ -124,14 +124,6 @@ export const login = async (req: Request, res: Response) => {
   res.status(201).json({ token: generateToken(user.id), user: user });
 };
 
-export const getCurrentUser = async (req: Req, res: Response) => {
-  const user = req.user;
-
-  res.status(200).json({
-    data: user,
-  });
-};
-
 export const forgetPassword = async (req: Req, res: Response) => {
   const { email } = req.body;
 
