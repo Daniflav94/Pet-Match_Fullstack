@@ -4,13 +4,21 @@
 - React;
 - Typescript;
 - Styled Components;
+- -Biblioteca de componentes: NextUI, RadixUI;
+- Testes com Jest e Testing Library;
 - Node.js com Typescript;
+- Express;
 - Nodemailer com mjml;
+- Prisma;
+- Postgres;
 - Docker.
 
 ## Objetivo
-Aplicação para cadastro de pets que estão para adoção, usuários podem ver todos os pets disponíveis, utilizar filtros, favoritar pets e solicitar adoção. A ong cadastrada como admin consegue administrar os seus pets e recebe notificações pela aplicação e também via email quando um usuário solicitar adoção, podendo aceitar ou recusar. O usuário também é notificado por email e pela aplicação.
+Aplicação para cadastro de pets que estão para adoção, usuários podem ver todos os pets disponíveis, utilizar filtros, favoritar pets e solicitar adoção. A ong cadastrada como admin consegue administrar os seus pets e recebe notificações quando um usuário solicitar adoção, podendo aceitar ou recusar, o usuário também é notificado assim que a ong responde a solicitação de adoção.
 A aplicação está responsiva podendo ser utilizada em computadores, tablets ou celulares.
+
+## Deploy
+https://pet-match-10c87.web.app/
 
 ## Imagens aplicação
 
@@ -31,7 +39,8 @@ A aplicação está responsiva podendo ser utilizada em computadores, tablets ou
 ![petMatch-9](https://github.com/Daniflav94/Pet-Match_Fullstack/assets/99519903/94d45942-ba59-4f90-a090-46978845116e)
 
 ### Notificação via email
-![email-pet-match](https://github.com/Daniflav94/Pet-Match_Fullstack/assets/99519903/efd1232a-e71b-418c-82b4-79c528cd0b76)
+
+![email-pet-match](https://github.com/Daniflav94/Pet-Match_Fullstack/assets/99519903/d1ca66f2-f6e2-4709-b015-90afb18fd2bc)
 
 
 ### Mobile
